@@ -3,6 +3,7 @@ import Button from "@/components/Button";
 import SartBg from "@/assets/stars.png";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import Link from "next/link";
 export const Hero = () => {
   const sectionRef = useRef(null);
   const {scrollYProgress} = useScroll({
@@ -14,7 +15,7 @@ const backgroundPositionY = useTransform(scrollYProgress, [0,1], [-300,300])
   return (
     <motion.section
       ref={sectionRef}
-      className="h-[492px] md:h-[800px] flex items-center relative overflow-hidden [mask-image:radial-gradient(80%_90%_at_50%_45%,black,transparent)]"
+      className="h-[492px] md:h-[800px] flex items-center relative overflow-hidden [mask-image:radial-gradient(100%_65%_at_50%_50%,black,transparent)]"
       style={{
         backgroundImage: `url(${SartBg.src})`,
         backgroundPositionY
@@ -96,11 +97,11 @@ const backgroundPositionY = useTransform(scrollYProgress, [0,1], [-300,300])
           Formio
         </h1>
         <p className="text-lg md:text-xl max-w-xl mx-auto text-white/80 md:leading-7  mt-5 text-center">
-          Elevate your site&apos;s visibility effortlessly with AI, where smart
-          technology meets user-friendly SEO tools.
+          
+        Effortlessly enhance your site&apos;s visibility with AI-powered tools, combining smart technology and user-friendly forms for a seamless experience.
         </p>
         <div className="flex justify-center mt-5">
-          <Button>Start for free</Button>
+          <Link href="/sign-in"><Button>Start for free</Button></Link>
         </div>
       </div>
     </motion.section>

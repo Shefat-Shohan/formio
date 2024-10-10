@@ -1,0 +1,1 @@
+// src/app src/assets src/components src/data src/sections src/sections/CallToAction.tsx src/sections/Features.tsx src/sections/Footer.tsx src/sections/Header.tsx src/sections/Hero.tsx src/sections/LogoTicker.tsx src/sections/Testimonials.tsx src/.env.local

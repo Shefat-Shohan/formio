@@ -51,7 +51,6 @@ export const CallToAction = () => {
           ref={borderRef}
           className="border border-white/15 py-24 rounded-xl overflow-hidden relative group"
           style={{
-            
             backgroundImage: `url(${starImage.src})`,
             backgroundPositionY,
           }}
@@ -71,7 +70,7 @@ export const CallToAction = () => {
             }}
           ></div>
           <motion.div
-            className="absolute inset-0 bg-[rgb(74,32,138)] bg-blend-overlay [] opacity-0 group-hover:opacity-100"
+            className="absolute inset-0 bg-[rgb(74,32,138)] bg-blend-overlay opacity-0 group-hover:opacity-100"
             style={{
               maskImage,
               backgroundImage: `url(${gridLines.src})`,
@@ -79,7 +78,7 @@ export const CallToAction = () => {
           ></motion.div>
           <div className="relative">
             <h2 className="text-5xl tracking-tighter text-center font-medium max-w-sm mx-auto">
-              AI-driven SEO for everyone
+              AI-driven form for everyone
             </h2>
             <p className="text-center text-lg text-white/70 px-4 mt-5 tracking-tight max-w-xs mx-auto">
               Achieve clear, impactful results wihtout the complexity.

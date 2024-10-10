@@ -8,13 +8,15 @@ import { Testimonials } from "@/sections/Testimonials";
 
 export default function Home() {
   return (
-    <div>
+    <div className="min-h-screen flex flex-col justify-between">
       <Header />
-      <Hero />
-      <LogoTicker />
-      <Features />
-      <Testimonials />
-      <CallToAction />
+      <div>
+        <Hero />
+        <LogoTicker />
+        <Features />
+        <Testimonials />
+        <CallToAction />
+      </div>
       <Footer />
     </div>
   );

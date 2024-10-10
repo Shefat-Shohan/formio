@@ -1,10 +1,31 @@
 import LogoImage from "@/assets/logo.svg";
-import { Navbar } from "@/data";
 import Link from "next/link";
 import XSocial from "@/assets/social-x.svg";
 import InstaSocial from "@/assets/social-instagram.svg";
 import YTSocial from "@/assets/social-youtube.svg";
 export const Footer = () => {
+  const Navbar = [
+    {
+      id: 1,
+      title: "Features",
+      link: "#",
+    },
+    {
+      id: 2,
+      title: "Developers",
+      link: "#",
+    },
+    {
+      id: 3,
+      title: "Company",
+      link: "#",
+    },
+    {
+      id: 4,
+      title: "Blog",
+      link: "#",
+    },
+  ];
   return (
     <footer className="py-5 border-t border-white/15">
       <div className="container">

@@ -1,6 +1,4 @@
-import React from "react";
-
-export default function Button(props:React.PropsWithChildren) {
+export default function Button(props: React.PropsWithChildren) {
   return (
     <button className="relative py-2 px-3 rounded-lg font-medium text-sm bg-gradient-to-b from-[#190d2e] to-[#4a208a] ">
       <span className="absolute inset-0">
