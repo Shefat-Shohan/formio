@@ -20,7 +20,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-export default function FieldEdit({ defaultValue, onUpdate,deleteField }) {
+export default function FieldEdit({ defaultValue, onUpdate,deleteField }:any) {
   const [label, setLabel] = useState(defaultValue.label);
   const [placeholder, setPlaceholder] = useState(defaultValue.placeholder);
 
