@@ -20,10 +20,25 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
-export default function FieldEdit({ defaultValue, onUpdate,deleteField }:any) {
+type defaultValueProps = {
+  label: string;
+  placeholder: string;
+  fieldType: string;
+  fieldOptions: [];
+};
+
+export default function FieldEdit({
+  defaultValue,
+  onUpdate,
+  deleteField,
+}: {
+  defaultValue: defaultValueProps;
+  onUpdate:(value: { label: string; placeholder: string })=> void
+  deleteField:()=> void
+}) {
   const [label, setLabel] = useState(defaultValue.label);
   const [placeholder, setPlaceholder] = useState(defaultValue.placeholder);
-
+  console.log("defaultValue", defaultValue);
   return (
     <div className="flex gap-2">
       <div>
@@ -74,7 +89,9 @@ export default function FieldEdit({ defaultValue, onUpdate,deleteField }:any) {
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle className="text-black/80">Are you absolutely sure?</AlertDialogTitle>
+              <AlertDialogTitle className="text-black/80">
+                Are you absolutely sure?
+              </AlertDialogTitle>
               <AlertDialogDescription>
                 This action cannot be undone. This will permanently delete the
                 field and remove your data from our servers.
