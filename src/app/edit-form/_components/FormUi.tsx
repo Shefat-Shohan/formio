@@ -33,8 +33,8 @@ const FormUi = ({
   formId?: string;
   loading: boolean;
   editable?: boolean;
-  onFieldUpdate: (value: string, index: number) => void;
-  deleteField: (index: number) => void;
+  onFieldUpdate?: (value: string, index: number) => void;
+  deleteField?: (index: number) => void;
   selectedTheme?:any
 }) => {
   const {
