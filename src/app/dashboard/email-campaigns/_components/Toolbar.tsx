@@ -77,10 +77,10 @@ export default function Toolbar({ editor, content }: ToolbarProps) {
         <button
           onClick={(e) => {
             e.preventDefault();
-            editor.chain().focus().toggleHeading({ level: 2 }).run();
+            editor.chain().focus().toggleHeading({ level: 1 }).run();
           }}
           className={
-            editor.isActive("Heading", { level: 2 })
+            editor.isActive("Heading", { level: 1 })
               ? "bg-gray-700 text-white p-2 rounded-lg"
               : "p-2"
           }

@@ -33,8 +33,6 @@ export default function FieldEdit({
   deleteField,
 }: {
   defaultValue: defaultValueProps;
-  onUpdate:(value: { label: string; placeholder: string })=> void
-  deleteField:()=> void
 }) {
   const [label, setLabel] = useState(defaultValue.label);
   const [placeholder, setPlaceholder] = useState(defaultValue.placeholder);

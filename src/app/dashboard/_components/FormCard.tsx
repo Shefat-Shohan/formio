@@ -19,32 +19,26 @@ import { and, eq } from "drizzle-orm";
 import { toast } from "sonner";
 import { RWebShare } from "react-web-share";
 import { Input } from "@/components/ui/input";
-import { FormListType, jsonFormType } from "@/data/type";
+import { formListType } from "./FormList";
+import { jsonFormProps } from "@/data/type";
 
-export default function FormCard({
+const FormCard: React.FC<jsonFormProps> = ({
   jsonForm,
   formRecord,
   refreshData,
-}: {
-  jsonForm: jsonFormType;
-  formRecord: FormListType;
-  refreshData: () => void;
-}) {
+}) => {
   const { user } = useUser();
-  console.log("formRecord", typeof formRecord);
   // delete form
   const handledelete = async (formId: Number) => {
     try {
-      const result = await db
-        .delete(JsonForm)
-        .where(
-          and(
-            // @ts-ignore
-            eq(JsonForm.id, formId),
-            // @ts-ignore
-            eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress)
-          )
-        );
+      const result = await db.delete(JsonForm).where(
+        and(
+          // @ts-ignore
+          eq(JsonForm.id, formId),
+          // @ts-ignore
+          eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress)
+        )
+      );
       if (result) {
         toast("Form deleted successfully.");
         refreshData();
@@ -69,13 +63,12 @@ export default function FormCard({
   };
 
   return (
-    <div>
-      <div className="border flex flex-col flex-grow rounded-lg p-4 border-white/15 h-full min-w-sm">
+    <div className="flex flex-wrap">
+      <div className="border flex flex-col flex-grow rounded-lg p-4 border-white/15 h-full min-w-[250px]">
         <div className="flex items-center justify-between">
           <h2 className="text-md md:text-lg lg:text-xl font-semibold max-w-sm">
             {jsonForm?.name}
           </h2>
-
           <AlertDialog>
             <AlertDialogTrigger>
               <Trash className="size-4 text-red-400" />
@@ -106,7 +99,7 @@ export default function FormCard({
           {jsonForm?.description}
         </p>
         <hr className="py-2 border-white/15" />
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mt-auto">
           <AlertDialog>
             <AlertDialogTrigger>
               <Button
@@ -128,7 +121,6 @@ export default function FormCard({
                   <div className="pt-4 w-">
                     <Input
                       disabled
-                      className=""
                       // @ts-ignore
                       defaultValue={`http://localhost:3000/aiform/${formRecord.id}`}
                       type="text"
@@ -161,4 +153,6 @@ export default function FormCard({
       </div>
     </div>
   );
-}
+};
+
+export default FormCard;

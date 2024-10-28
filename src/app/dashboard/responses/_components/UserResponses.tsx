@@ -11,24 +11,27 @@ import { db } from "../../../../../configs";
 import { userResponses } from "../../../../../configs/schema";
 import { eq } from "drizzle-orm";
 import { DataTable } from "./data-table";
-import { FormListType, ResultType } from "@/data/type";
 import { Button } from "@/components/ui/button";
 import * as XLSX from "xlsx";
+import { formListType } from "../../_components/FormList";
+import { responseType } from "@/data/type";
+
+
 
 export default function UserResponses({
   formList,
 }: {
-  formList: FormListType;
+  formList: formListType;
 }) {
-  const [response, setResponse] = useState<any[]>([]);
-  const [getCurrentFormId, setGetCurrentFormId] = useState<any>();
+  const [response, setResponse] = useState<responseType>([]);
+  const [getCurrentFormId, setGetCurrentFormId] = useState<Number>();
   const formdata = formList.map((form) => {
     return { id: form.id, jsonForm: JSON.parse(form?.jsonForm) };
   });
 
   // get the selected form
   const handleResponse = async (formId = formdata?.[0]?.jsonForm.name) => {
-    const result: ResultType = await db
+    const result = await db
       .select()
       .from(userResponses)
       .where(eq(userResponses.formRef, formId));
@@ -41,7 +44,7 @@ export default function UserResponses({
   );
 
   const data = parsedFeedbackArray.map((feedbackObj) => {
-    const result:any = {};
+    const result: any = {};
 
     Object.entries(feedbackObj).forEach(([key, value]) => {
       result[key] = value;
@@ -84,7 +87,7 @@ export default function UserResponses({
               <SelectValue placeholder="Select form" />
             </SelectTrigger>
             <SelectContent className="text-white bg-slate-800 border-white/15">
-              {formdata.map((item,index) => (
+              {formdata.map((item, index) => (
                 <SelectItem
                   // onClick={() => handleResponse(item.id)}
                   key={index}

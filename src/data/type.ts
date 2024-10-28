@@ -1,37 +1,36 @@
-import { Interface } from "readline";
-
-export type FormListType = {
+export type responseType = {
   createAt: string;
-  createdBy: string;
-  id: Number;
-  background: string | null;
-  jsonForm: string;
-}[];
-
-export type ResultType = {
-  jsonResponse: string;
-  id: number;
   createBy: string | null;
-  createAt: string;
-  formRef: number | null;
+  formRef: Number | null;
+  id: Number;
+  jsonResponse: string;
 }[];
 
-export interface jsonFormType {
-  description: string;
+export type jsonFormCardType = {
   name: string;
-  questions: Questions[];
-}
-export interface Questions {
-  label: string;
-  placeholder: string;
-  fieldType: string;
-  inputType: string;
-  fieldOptions: FieldOptionType;
-}
-[];
+  description: string;
+  id: number;
+};
+export type formRecordType = {
+  background: string | null;
+  createAt: Date;
+  createBy: string;
+  id: Number;
+  jsonForm: string;
+  style: string | null;
+}[];
 
-export interface FieldOptionType {
-  text: string;
-  value: string;
+export interface jsonFormProps {
+  jsonForm: jsonFormCardType;
+  formRecord: formRecordType;
+  refreshData: () => void;
 }
-[];
+
+export type formListType = {
+  background: string | null;
+  createAt: Date;
+  createBy: string;
+  id: Number;
+  jsonForm: string;
+  style: string | null;
+}[];

@@ -6,23 +6,34 @@ import { and, eq } from "drizzle-orm";
 import { GenerateAIForm } from "@/components/config/AiModel";
 import { useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
-import InsightTextarea from "@/app/dashboard/ai-insights/_components/InsightTextarea";
 import SelectForm from "@/app/dashboard/ai-insights/_components/SelecForm";
 import { aiInsight, aiNewsletter } from "../../../../../configs/schema";
 import { db } from "../../../../../configs";
 import RichTextEditor from "./RichTextEditor";
 
+type aiInsightResponseType = {
+createBy: string;
+formRef:Number | null;
+id:Number;
+inSightResponse:string;
+}[];
+
+type newsletterType = {
+createBy: string;
+formRef:Number | null;
+id:Number;
+newsletterResponse:string;
+}[];
 
 export default function SelectFormOption() {
-  const [aiInsightResponse, setAiInsightResponse] = useState<
-    any
-  >([]);
+  const [aiInsightResponse, setAiInsightResponse] = useState<aiInsightResponseType>([]);
   const [content, setContent] = useState<string>("");
-  const [newsletter, setNewsletter] = useState<any>([]);
+  const [newsletter, setNewsletter] = useState<newsletterType>([]);
   const [selectedFormId, setSelectedFormId] = useState<number | undefined>();
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
 
+  console.log("newsletter",newsletter);
   // connect db and get the ai insight
   const handleSelectOption = async (formId: number) => {
     const result = await db

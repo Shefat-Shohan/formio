@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { Span } from "next/dist/trace";
 
-export default function ThemeController({ selectedBackground }:any) {
+export default function ThemeController({ selectedBackground }: any) {
   const [showmore, setShowMOre] = useState(6);
   return (
     <div>
@@ -56,7 +56,6 @@ export default function ThemeController({ selectedBackground }:any) {
       >
         Show more
       </Button>
-      <h2 className="my-10 font-semibold">Add new form field</h2>
     </div>
   );
 }

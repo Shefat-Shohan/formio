@@ -10,21 +10,24 @@ import InsightTextarea from "@/app/dashboard/ai-insights/_components/InsightText
 import SelectForm from "@/app/dashboard/ai-insights/_components/SelecForm";
 import { aiInsight, userResponses } from "../../../configs/schema";
 import { db } from "../../../configs";
+import { responseType } from "@/data/type";
 
-type insightResponse = {
-  createdBy: string;
-  formRef: number;
+type feedbackInsightType = {
+  createBy: string;
+  formRef: number | null;
   id: number;
   inSightResponse: string;
-};
+}[];
 
 export default function GetSelectFormInfo() {
-  const [response, setResponse] = useState([]);
-  const [feedbackInsight, setFeedbackInsight] = useState([]);
+  const [response, setResponse] = useState<responseType>([]);
+  const [feedbackInsight, setFeedbackInsight] = useState<feedbackInsightType>(
+    []
+  );
   const [selectedFormId, setSelectedFormId] = useState<number | undefined>();
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
-
+  console.log("feedbackInsight", feedbackInsight);
   const handleSelectOption = async (formId: number) => {
     const result = await db
       .select()
@@ -57,6 +60,7 @@ export default function GetSelectFormInfo() {
         const existingInsight = await db
           .select()
           .from(aiInsight)
+          //@ts-ignore
           .where(eq(aiInsight.formRef, selectedFormId))
           .limit(1);
 
@@ -95,7 +99,7 @@ export default function GetSelectFormInfo() {
   };
 
   const inSightResponse = feedbackInsight.map(
-    (item: insightResponse) => item.inSightResponse
+    (item) => item.inSightResponse
   );
 
   return (

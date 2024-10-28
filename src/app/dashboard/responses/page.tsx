@@ -5,12 +5,11 @@ import { db } from "../../../../configs";
 import { JsonForm } from "../../../../configs/schema";
 import { eq } from "drizzle-orm";
 import UserResponses from "./_components/UserResponses";
-import { FormListType } from "@/data/type";
+import { formListType } from "../_components/FormList";
 
 export default function Responses() {
-  const [formList, setFormList] = useState<any>([]);
+  const [formList, setFormList] = useState<formListType>([]);
   const { user } = useUser();
-
   useEffect(() => {
     user && getActiveUserResponsesList();
   }, [user]);

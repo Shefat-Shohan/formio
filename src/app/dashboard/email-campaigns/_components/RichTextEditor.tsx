@@ -25,7 +25,7 @@ export default function RichTextEditor({
       Underline,
       BulletList,
       OrderedList,
-      Heading.configure({ levels: [2] }),
+      Heading.configure({ levels: [1,2,3] }),
     ],
     content: initialContent || " <p>Please select a form.</p> ",
 

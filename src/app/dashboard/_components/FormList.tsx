@@ -4,9 +4,10 @@ import { JsonForm } from "../../../../configs/schema";
 import { desc, eq } from "drizzle-orm";
 import { useEffect, useState } from "react";
 import FormCard from "./FormCard";
+import { formListType } from "@/data/type";
 
 export default function FormList() {
-  const [formList, setFormList] = useState<any>([]);
+  const [formList, setFormList] = useState<formListType>([]);
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
 
@@ -25,17 +26,18 @@ export default function FormList() {
     setFormList(result);
     setLoading(false);
   };
-
   return (
     <div className="overflow-x-scroll md:overflow-hidden">
       <hr className="border-white/15 mb-10" />
-      {loading ? "" : (
+      {loading ? (
+        ""
+      ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {formList.map((form:any, index:number) => (
+          {formList.map((form, index) => (
             <div key={index}>
               <FormCard
                 jsonForm={JSON.parse(form.jsonForm)}
-                formRecord={form}
+                formRecord={[form]}
                 refreshData={getActiveUserFormList}
               />
             </div>

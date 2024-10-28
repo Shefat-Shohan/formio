@@ -31,6 +31,7 @@ import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { FormListType, jsonFormType } from "@/data/type";
 import ThemeController from "../_components/ThemeController";
+import FormBuilder from "../_components/FormBuilder";
 export default function EditForm({
   params: { formId },
 }: {
@@ -87,7 +88,7 @@ export default function EditForm({
   }, [upadeTrigger]);
 
   // update formField
-  const onFieldUpdate = (value:any, index:number) => {
+  const onFieldUpdate = (value: any, index: number) => {
     // @ts-ignore
     jsonForm.questions[index].label = value.label;
     // @ts-ignore
@@ -100,7 +101,7 @@ export default function EditForm({
       const result = await db
         .update(JsonForm)
         .set({
-           // @ts-ignore
+          // @ts-ignore
           jsonForm: jsonForm,
         })
         .where(
@@ -121,11 +122,11 @@ export default function EditForm({
   };
 
   const deleteField = (removeIndex: number) => {
-     // @ts-ignore
+    // @ts-ignore
     const result = jsonForm?.questions.filter(
-      (item:any, index:number) => index != removeIndex
+      (item: any, index: number) => index != removeIndex
     );
-     // @ts-ignore
+    // @ts-ignore
     jsonForm.questions = result;
     setUpdateTrigger(Date.now());
   };
@@ -165,9 +166,9 @@ export default function EditForm({
   };
 
   return (
-    <section className="py-20">
-      <div className="md:px-20 px-6">
-        <div className="flex md:flex-row flex-col md:items-center justify-between">
+    <section className="py-10">
+      <div>
+        <div className="md:px-20 px-6 flex md:flex-row flex-col md:items-center justify-between">
           <h2
             onClick={() => router.push("/dashboard")}
             className="inline-flex items-center gap-2 my-5 cursor-pointer text-white/70 hover:text-white transition-colors"
@@ -228,7 +229,7 @@ export default function EditForm({
           )}
         </div>
         <div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-8 gap-0">
+          <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-8 gap-0 bg-[url(/paper.svg)] md:px-20 px-0">
             <div className="col-span-1">
               <div className="border p-6 border-white/15 rounded-md mt-20">
                 <ThemeController
@@ -240,7 +241,7 @@ export default function EditForm({
               </div>
             </div>
             <div
-              className="col-span-2 mt-20 rounded-lg border border-white/15 px-6"
+              className="col-span-2 mt-20 p-20 rounded-lg"
               style={{ backgroundImage: selectedBackground }}
             >
               <FormUi
@@ -250,6 +251,10 @@ export default function EditForm({
                 deleteField={(index: number) => deleteField(index)}
               />
             </div>
+            {/* form builder */}
+            {/* <div className="col-span-1 mt-20 ">
+              <FormBuilder />
+            </div> */}
           </div>
         </div>
       </div>
