@@ -58,7 +58,7 @@ const FormUi = ({
         formRef: formId,
       });
       if (result) {
-        router.push(`http://localhost:3000/aiform/${formId}/success`);
+        router.push(`/aiform/${formId}/success`);
         reset();
       } else {
         toast("No response recorded, something went wrong");
