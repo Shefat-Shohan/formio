@@ -180,7 +180,7 @@ export default function FormDialog() {
               <div className="flex gap-2 justify-end pt-4">
                 <Button disabled={loading} onClick={generateForm}>
                   {loading ? (
-                    <span className="animate-pulse">Genegating...</span>
+                    <span className="animate-pulse">Generating...</span>
                   ) : (
                     "Generate form"
                   )}
@@ -196,5 +196,3 @@ export default function FormDialog() {
     </div>
   );
 }
-
-// generate youtube newsletter form
