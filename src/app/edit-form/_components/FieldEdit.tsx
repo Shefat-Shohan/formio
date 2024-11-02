@@ -33,10 +33,12 @@ export default function FieldEdit({
   deleteField,
 }: {
   defaultValue: defaultValueProps;
+  onUpdate: (value:{label:string, placeholder:string}) => void;
+  deleteField: ()=> void
 }) {
   const [label, setLabel] = useState(defaultValue.label);
   const [placeholder, setPlaceholder] = useState(defaultValue.placeholder);
-  console.log("defaultValue", defaultValue);
+  console.log("deleteField", deleteField);
   return (
     <div className="flex gap-2">
       <div>

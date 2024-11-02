@@ -23,6 +23,7 @@ export default function FormList() {
       // @ts-ignore
       .where(eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress))
       .orderBy(desc(JsonForm.id));
+      // @ts-ignore
     setFormList(result);
     setLoading(false);
   };

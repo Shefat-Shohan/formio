@@ -6,17 +6,22 @@ import { eq } from "drizzle-orm";
 import FormUi from "@/app/edit-form/_components/FormUi";
 import { Settings } from "lucide-react";
 import Link from "next/link";
-import { jsonFormType } from "@/data/type";
 
 export default function LiveAiForm({
   params: { formid },
 }: {
   params: { formid: number };
 }) {
-  const [jsonRecord, setJsonRecord] = useState<any>([]);
-  const [jsonForm, setJsonForm] = useState<any[]>([]);
+  const [jsonRecord, setJsonRecord] = useState<any>({
+    background: undefined,
+    createAt: new Date(),
+    createBy: "",
+    id: 0,
+    jsonForm: "",
+    style: "",
+  });
+  const [jsonForm, setJsonForm] = useState([]);
   const [loading, setLoading] = useState(true);
-
   // evoke the function
   useEffect(() => {
     formid && GetFormData();
@@ -39,9 +44,12 @@ export default function LiveAiForm({
     }
   };
   return (
-    <section className="py-20" style={{
-      backgroundImage:jsonRecord.background
-    }}>
+    <section
+      className="py-20 min-h-[100vh]"
+      style={{
+        backgroundImage: jsonRecord.background 
+      }}
+    >
       <div className="container">
         <FormUi
           jsonForm={jsonForm}

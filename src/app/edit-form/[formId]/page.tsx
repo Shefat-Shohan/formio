@@ -24,12 +24,12 @@ import {
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import FormUi from "../_components/FormUi";
-import { number } from "zod";
+import { number, string } from "zod";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
-import { FormListType, jsonFormType } from "@/data/type";
+import { jsonRecordType, QuestionType } from "@/data/type";
 import ThemeController from "../_components/ThemeController";
 import FormBuilder from "../_components/FormBuilder";
 export default function EditForm({
@@ -38,14 +38,21 @@ export default function EditForm({
   params: { formId: number };
 }) {
   const { user } = useUser();
-  const [jsonForm, setJsonForm] = useState<any[]>([]);
+  const [jsonForm, setJsonForm] = useState([]);
   const [upadeTrigger, setUpdateTrigger] = useState(Number);
   const [loading, setLoading] = useState(true);
-  const [record, setRecord] = useState<any>([]);
+  const [record, setRecord] = useState<any>({
+    background: undefined,
+    createAt: new Date(),
+    createBy: "",
+    id: 0,
+    jsonForm: "",
+    style: "",
+  });
   const [selectedBackground, setSelectedBackground] = useState<any>();
   const router = useRouter();
 
-  // fetch json from from db
+  // fetch json form
   useEffect(() => {
     if (user) {
       const fetchFormData = async () => {
@@ -88,7 +95,7 @@ export default function EditForm({
   }, [upadeTrigger]);
 
   // update formField
-  const onFieldUpdate = (value: any, index: number) => {
+  const onFieldUpdate = (value: {label:string, placeholder:string}, index:number) => {
     // @ts-ignore
     jsonForm.questions[index].label = value.label;
     // @ts-ignore
@@ -106,7 +113,7 @@ export default function EditForm({
         })
         .where(
           and(
-            // @ts-ignore
+           
             eq(JsonForm.id, record.id),
             // @ts-ignore
             eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress)
@@ -124,7 +131,7 @@ export default function EditForm({
   const deleteField = (removeIndex: number) => {
     // @ts-ignore
     const result = jsonForm?.questions.filter(
-      (item: any, index: number) => index != removeIndex
+      (item:QuestionType, index:number) => index != removeIndex
     );
     // @ts-ignore
     jsonForm.questions = result;
@@ -233,7 +240,7 @@ export default function EditForm({
             <div className="col-span-1">
               <div className="border p-6 border-white/15 rounded-md mt-20">
                 <ThemeController
-                  selectedBackground={(value:any) => {
+                  selectedBackground={(value: any) => {
                     updateThemeController(value, "background");
                     setSelectedBackground(value);
                   }}
@@ -241,8 +248,10 @@ export default function EditForm({
               </div>
             </div>
             <div
-              className="col-span-2 mt-20 p-20 rounded-lg"
-              style={{ backgroundImage: selectedBackground }}
+              className="col-span-2 mt-20 p-20 border border-white/15 rounded-lg"
+              style={{
+                backgroundImage: selectedBackground,
+              }}
             >
               <FormUi
                 jsonForm={jsonForm}

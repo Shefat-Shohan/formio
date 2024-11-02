@@ -8,19 +8,18 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import FieldEdit from "./FieldEdit";
-import { SubmitHandler, useForm, Controller } from "react-hook-form";
+import {  useForm, Controller } from "react-hook-form";
 import { db } from "../../../../configs";
 import { userResponses } from "../../../../configs/schema";
 import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
-import { jsonFormType, Questions } from "@/data/type";
 import { DndContext, useDroppable } from "@dnd-kit/core";
 import DragOverlayWrapper from "./DragOverlayWrapper";
+import { JsonFormType } from "@/data/type";
 const FormUi = ({
   jsonForm,
   loading,
@@ -28,14 +27,13 @@ const FormUi = ({
   deleteField,
   editable = true,
   formId,
-  selectedTheme,
 }: {
-  jsonForm: jsonFormType[];
-  formId?: string;
+  jsonForm: JsonFormType[];
+  formId?: Number;
   loading: boolean;
   editable?: boolean;
-  onFieldUpdate: (value: string, index: number) => void;
-  deleteField: (index: number) => void;
+  onFieldUpdate?: any;
+  deleteField?: any;
 }) => {
   const {
     handleSubmit,
@@ -51,7 +49,7 @@ const FormUi = ({
   let moment = require("moment");
 
   // submit the  form to database
-  const formSubmit = async (data) => {
+  const formSubmit = async (data:any) => {
     try {
       // @ts-ignore
       const result = await db.insert(userResponses).values({
@@ -71,166 +69,165 @@ const FormUi = ({
     }
   };
 
-  const droppable = useDroppable({
-    id: "designer-drop-area",
-    data: {
-      isDesignerDropArea: true,
-    },
-  });
-
   return (
-    <DndContext>
-      <div className="p-10 border border-white/15 rounded-lg bg-black ">
-        <form
-          onSubmit={handleSubmit(formSubmit)}
-          className="w-full"
-          data-theme={selectedTheme}
-        >
-          <div>
-            <h1 className="font-bold md:text-3xl text-2xl text-white mb-1">
-              {jsonForm.name}
-            </h1>
-            <p className="text-sm text-gray-400">{jsonForm.description}</p>
-          </div>
-          {loading ? (
-            <div className="mt-10">Loading...</div>
-          ) : (
-            <div className="mt-10">
-              {jsonForm?.questions?.map((field, index) => (
-                <div key={index} className="my-6">
-                  <div className="flex flex-row justify-between md:items-center mb-2">
-                    <Label className="text-white/70">{field.label}</Label>
-                    {editable && (
-                      <FieldEdit
-                        defaultValue={field}
-                        onUpdate={(value) => onFieldUpdate(value, index)}
-                        deleteField={() => deleteField(index)}
-                      />
-                    )}
-                  </div>
-                  {field.fieldType === "Select" ? (
-                    <Controller
-                      // @ts-ignore
-                      name={field.label}
-                      control={control}
-                      render={({ field: { onChange, value } }) => (
-                        <Select onValueChange={onChange} value={value} required>
-                          <SelectTrigger className="placeholder:text-white/70 text-white/70 bg-gray-800 border-slate-700 mt-2">
-                            <SelectValue placeholder={field.placeholder} />
-                          </SelectTrigger>
-                          <SelectContent className="placeholder:text-white/70 text-white/70 bg-gray-800 border-slate-700">
-                            {field?.fieldOptions.map((option, index) => (
-                              <SelectItem key={index} value={option.value}>
-                                {option.text}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      )}
-                    />
-                  ) : field.fieldType === "RadioGroup" ? (
-                    <Controller
-                      // @ts-ignore
-                      name={field.label}
-                      control={control}
-                      render={({ field: { onChange, value } }) => (
-                        <div className=" flex flex-col gap-3 md:flex-row md:gap-6">
-                          {field?.fieldOptions.map((option, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center space-x-2 mt-2"
-                            >
-                              <Input
-                                required
-                                type="radio"
-                                id={option.value}
-                                value={option.value}
-                                checked={value === option.value}
-                                onChange={() => onChange(option.value)}
-                                className="size-4"
-                              />
-                              <Label
-                                htmlFor={option.value}
-                                className="text-white/70"
-                              >
-                                {option.value}
-                              </Label>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    />
-                  ) : field.fieldType === "Textarea" ? (
-                    <Controller
-                      // @ts-ignore
-                      name={field.label}
-                      control={control}
-                      render={({ field: { onChange, value } }) => (
-                        <Textarea
-                          required
-                          placeholder={field.placeholder}
-                          className="placeholder:text-white/70 text-white/70 bg-gray-800 border-slate-700 max-h-40 mt-2"
-                          onChange={onChange}
-                          value={value}
-                        />
-                      )}
-                    />
-                  ) : field.fieldType === "Switch" ? (
-                    <Controller
-                      // @ts-ignore
-                      name={field.label}
-                      control={control}
-                      render={({ field: { onChange, value } }) => (
-                        <div className="flex items-center gap-2">
-                          <Checkbox
-                            required
-                            id={field.label}
-                            checked={value}
-                            onCheckedChange={onChange}
-                            className="border border-slate-600"
-                          />
-                          <label
-                            htmlFor={field.label}
-                            className="text-white/70"
-                          >
-                            {field.label}
-                          </label>
-                        </div>
-                      )}
-                    />
-                  ) : (
-                    <Controller
-                      // @ts-ignore
-                      name={field.label}
-                      control={control}
-                      render={({ field: { onChange, value } }) => (
-                        <Input
-                          required
-                          onChange={onChange}
-                          value={value}
-                          className="placeholder:text-white/70 text-white/70 bg-gray-800 border-slate-700 mt-2"
-                          type={field.inputType}
-                          placeholder={field.placeholder}
-                        />
-                      )}
+    <div className="p-10  rounded-lg bg-black ">
+      <form
+        onSubmit={handleSubmit(formSubmit)}
+        className="w-full"
+      >
+        <div>
+          <h1 className="font-bold md:text-3xl text-2xl text-white mb-1">
+            {/*@ts-ignore */}
+            {jsonForm.name}
+          </h1>
+          {/*@ts-ignore */}
+          <p className="text-sm text-gray-400">{jsonForm.description}</p>
+        </div>
+        {loading ? (
+          <div className="mt-10">Loading...</div>
+        ) : (
+          <div className="mt-10">
+            {
+            // @ts-ignore
+            jsonForm?.questions?.map((field, index) => (
+              <div key={index} className="my-6">
+                <div className="flex flex-row justify-between md:items-center mb-2">
+                  <Label className="text-white/70">{field.label}</Label>
+                  {editable && (
+                    <FieldEdit
+                      defaultValue={field}
+                      onUpdate={(value) => onFieldUpdate(value, index)}
+                      deleteField={() => deleteField(index)}
                     />
                   )}
                 </div>
-              ))}
-              <Button
-                disabled={isSubmitting || isEditForm}
-                className="bg-slate-700 hover:bg-slate-800 px-8 py-2"
-                type="submit"
-              >
-                Submit
-              </Button>
-            </div>
-          )}
-        </form>
-      </div>
-      <DragOverlayWrapper />
-    </DndContext>
+                {field.fieldType === "Select" ? (
+                  <Controller
+                    // @ts-ignore
+                    name={field.label}
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <Select onValueChange={onChange} value={value} required>
+                        <SelectTrigger className="placeholder:text-white/70 text-white/70 bg-gray-800 border-slate-700 mt-2">
+                          <SelectValue placeholder={field.placeholder} />
+                        </SelectTrigger>
+                        <SelectContent className="placeholder:text-white/70 text-white/70 bg-gray-800 border-slate-700">
+                          {field?.fieldOptions.map((option:any, index:number) => (
+                            <SelectItem key={index} value={option.value}>
+                              {option.text}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                ) : field.fieldType === "RadioGroup" ? (
+                  <Controller
+                    // @ts-ignore
+                    name={field.label}
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <div className=" flex flex-col gap-3 md:flex-row md:gap-6">
+                        {field?.fieldOptions.map((option:any, index:number) => (
+                          <div
+                            key={index}
+                            className="flex items-center space-x-2 mt-2"
+                          >
+                            <Input
+                              required
+                              type="radio"
+                              id={option.value}
+                              value={option.value}
+                              checked={value === option.value}
+                              onChange={() => onChange(option.value)}
+                              className="size-4"
+                            />
+                            <Label
+                              htmlFor={option.value}
+                              className="text-white/70"
+                            >
+                              {option.value}
+                            </Label>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  />
+                ) : field.fieldType === "Textarea" ? (
+                  <Controller
+                    // @ts-ignore
+                    name={field.label}
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <Textarea
+                        required
+                        placeholder={field.placeholder}
+                        className="placeholder:text-white/70 text-white/70 bg-gray-800 border-slate-700 max-h-40 mt-2"
+                        onChange={onChange}
+                        value={value}
+                      />
+                    )}
+                  />
+                ) : field.fieldType === "Switch" ? (
+                  <Controller
+                    // @ts-ignore
+                    name={field.label}
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <div className="flex items-center gap-2">
+                        <Checkbox
+                          required
+                          id={field.label}
+                          checked={value}
+                          onCheckedChange={onChange}
+                          className="border border-slate-600"
+                        />
+                        <label htmlFor={field.label} className="text-white/70">
+                          {field.label}
+                        </label>
+                      </div>
+                    )}
+                  />
+                ) : (
+                  <Controller
+                    // @ts-ignore
+                    name={field.label}
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <Input
+                        required
+                        onChange={onChange}
+                        value={value}
+                        className="placeholder:text-white/70 text-white/70 bg-gray-800 border-slate-700 mt-2"
+                        type={field.inputType}
+                        placeholder={field.placeholder}
+                      />
+                    )}
+                  />
+                )}
+              </div>
+            ))}
+            <Button
+              disabled={isSubmitting || isEditForm}
+              className="bg-slate-700 hover:bg-slate-800 px-8 py-2"
+              type="submit"
+            >
+              Submit
+            </Button>
+          </div>
+        )}
+      </form>
+    </div>
   );
 };
 
 export default FormUi;
+
+
+
+// home
+// about us page
+// district church
+// Have a event page
+// streaming page [can have provide zoom]
+// store page

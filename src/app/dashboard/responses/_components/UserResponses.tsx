@@ -13,10 +13,7 @@ import { eq } from "drizzle-orm";
 import { DataTable } from "./data-table";
 import { Button } from "@/components/ui/button";
 import * as XLSX from "xlsx";
-import { formListType } from "../../_components/FormList";
-import { responseType } from "@/data/type";
-
-
+import { formListType, responseType } from "@/data/type";
 
 export default function UserResponses({
   formList,
@@ -25,9 +22,11 @@ export default function UserResponses({
 }) {
   const [response, setResponse] = useState<responseType>([]);
   const [getCurrentFormId, setGetCurrentFormId] = useState<Number>();
-  const formdata = formList.map((form) => {
+  const formdata = formList.map((form: any) => {
     return { id: form.id, jsonForm: JSON.parse(form?.jsonForm) };
   });
+
+  console.log("formList", formList);
 
   // get the selected form
   const handleResponse = async (formId = formdata?.[0]?.jsonForm.name) => {
@@ -87,7 +86,7 @@ export default function UserResponses({
               <SelectValue placeholder="Select form" />
             </SelectTrigger>
             <SelectContent className="text-white bg-slate-800 border-white/15">
-              {formdata.map((item, index) => (
+              {formdata.map((item, index: number) => (
                 <SelectItem
                   // onClick={() => handleResponse(item.id)}
                   key={index}

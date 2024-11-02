@@ -5,7 +5,7 @@ import { db } from "../../../../configs";
 import { JsonForm } from "../../../../configs/schema";
 import { eq } from "drizzle-orm";
 import UserResponses from "./_components/UserResponses";
-import { formListType } from "../_components/FormList";
+import { formListType } from "@/data/type";
 
 export default function Responses() {
   const [formList, setFormList] = useState<formListType>([]);
@@ -20,6 +20,7 @@ export default function Responses() {
       .from(JsonForm)
       // @ts-ignore
       .where(eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress));
+      // @ts-ignore
     setFormList(result);
   };
   return (

@@ -21,6 +21,7 @@ import { RWebShare } from "react-web-share";
 import { Input } from "@/components/ui/input";
 import { formListType } from "./FormList";
 import { jsonFormProps } from "@/data/type";
+import { useState } from "react";
 
 const FormCard: React.FC<jsonFormProps> = ({
   jsonForm,
@@ -62,6 +63,9 @@ const FormCard: React.FC<jsonFormProps> = ({
       });
   };
 
+
+
+
   return (
     <div className="flex flex-wrap">
       <div className="border flex flex-col flex-grow rounded-lg p-4 border-white/15 h-full min-w-[250px]">
@@ -88,7 +92,7 @@ const FormCard: React.FC<jsonFormProps> = ({
                   Cancel
                 </AlertDialogCancel>
                 {/* @ts-ignore */}
-                <AlertDialogAction onClick={() => handledelete(formRecord.id)}>
+                <AlertDialogAction onClick={() => handledelete(formRecord[0].id)}>
                   Continue
                 </AlertDialogAction>
               </AlertDialogFooter>
@@ -122,7 +126,7 @@ const FormCard: React.FC<jsonFormProps> = ({
                     <Input
                       disabled
                       // @ts-ignore
-                      defaultValue={`http://localhost:3000/aiform/${formRecord.id}`}
+                      defaultValue={`http://localhost:3000/aiform/${formRecord[0].id}`}
                       type="text"
                     />
                   </div>
@@ -133,14 +137,14 @@ const FormCard: React.FC<jsonFormProps> = ({
                   Cancel
                 </AlertDialogCancel>
                 {/* @ts-ignore */}
-                <AlertDialogAction onClick={() => copyUrl(formRecord.id)}>
+                <AlertDialogAction onClick={() => copyUrl(formRecord[0].id)}>
                   Copy
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
           {/* @ts-ignore */}
-          <Link href={`/edit-form/${formRecord.id}`}>
+          <Link href={`/edit-form/${formRecord[0].id}`}>
             <Button
               type="button"
               variant="secondary"
