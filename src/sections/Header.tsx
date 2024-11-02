@@ -83,7 +83,7 @@ export const Header = () => {
             <div className="flex items-center gap-4">
               {!user ? (
                 <Link href="/sign-in">
-                  <Button>Getstarted</Button>
+                  <Button>Get started</Button>
                 </Link>
               ) : (
                 <UserButton />
