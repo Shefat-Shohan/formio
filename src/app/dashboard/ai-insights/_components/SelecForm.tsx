@@ -6,7 +6,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FormListType } from "@/data/type";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { db } from "../../../../../configs";
