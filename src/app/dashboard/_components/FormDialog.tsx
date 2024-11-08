@@ -16,7 +16,7 @@ import { JsonForm } from "../../../../configs/schema";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-
+import { toast } from "sonner";
 
 export default function FormDialog() {
   const [open, setOpen] = useState(false);
@@ -129,12 +129,13 @@ export default function FormDialog() {
       const postData = "Description:" + userInput + prompt;
       const data = await GenerateAIForm(postData);
       //connect to db
-      if (data["candidates"][0]["content"]["parts"][0]["text"]) {
+      const jsonData = data["candidates"][0]["content"]["parts"][0]["text"];
+      if (isJSON(jsonData)) {
         const response = await db
           .insert(JsonForm)
           // @ts-ignore
           .values({
-            jsonForm: data["candidates"][0]["content"]["parts"][0]["text"],
+            jsonForm: jsonData,
             createBy: user?.primaryEmailAddress?.emailAddress,
             createdAt: moment().format("DD/MM/YYYY"),
           })
@@ -142,11 +143,23 @@ export default function FormDialog() {
 
         if (response[0].id) router.push(`/edit-form/${response[0].id}`);
         setLoading(false);
+      } else {
+        toast("Couldn't generate the form.");
+        router.push("/dashboard");
       }
       setOpen(false);
       setLoading(false);
     }
   };
+
+  function isJSON(data: string) {
+    try {
+      JSON.parse(data);
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 
   return (
     <div>

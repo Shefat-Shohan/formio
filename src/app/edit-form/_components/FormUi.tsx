@@ -222,12 +222,3 @@ const FormUi = ({
 };
 
 export default FormUi;
-
-
-
-// home
-// about us page
-// district church
-// Have a event page
-// streaming page [can have provide zoom]
-// store page
