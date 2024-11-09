@@ -96,7 +96,7 @@ const backgroundPositionY = useTransform(scrollYProgress, [0,1], [-300,300])
         <h1 className="text-8xl font-semibold bg-white tracking-tighter bg-[radial-gradient(100%_100%_at_top_left,white,white,rgb(74,32,138,50%))] text-transparent bg-clip-text text-center md:text-[168px]">
           Formio
         </h1>
-        <p className="text-lg md:text-xl max-w-xl mx-auto text-white/80 md:leading-7  mt-5 text-center">
+        <p className="text-md md:text-md max-w-xl mx-auto text-white md:leading-6 mt-5 text-center">
           
         Effortlessly enhance your site&apos;s visibility with AI-powered tools, combining smart technology and user-friendly forms for a seamless experience.
         </p>

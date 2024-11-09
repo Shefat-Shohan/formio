@@ -26,8 +26,6 @@ export default function UserResponses({
     return { id: form.id, jsonForm: JSON.parse(form?.jsonForm) };
   });
 
-  console.log("formList", formList);
-
   // get the selected form
   const handleResponse = async (formId = formdata?.[0]?.jsonForm.name) => {
     const result = await db
@@ -67,11 +65,11 @@ export default function UserResponses({
     XLSX.utils.book_append_sheet(workbook, workSheet, "Sheet1");
     XLSX.writeFile(workbook, "DataSheet.xlsx");
   };
-
+  
   return (
     <section>
       <div>
-        <div className="flex justify-between flex-col gap-4 md:flex-row md:gap-0">
+        <div className="flex justify-start flex-col gap-4 md:flex-row md:gap-4">
           <Select
             onValueChange={(value) => {
               // get selected id
@@ -85,7 +83,7 @@ export default function UserResponses({
             <SelectTrigger className="max-w-[280px] bg-transparent border-white/15 w-full">
               <SelectValue placeholder="Select form" />
             </SelectTrigger>
-            <SelectContent className="text-white bg-slate-800 border-white/15">
+            <SelectContent className="text-white bg-black border border-white/15 pb-1.5">
               {formdata.map((item, index: number) => (
                 <SelectItem
                   // onClick={() => handleResponse(item.id)}

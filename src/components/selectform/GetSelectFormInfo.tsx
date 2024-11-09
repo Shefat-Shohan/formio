@@ -27,7 +27,7 @@ export default function GetSelectFormInfo() {
   const [selectedFormId, setSelectedFormId] = useState<number | undefined>();
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
-  console.log("feedbackInsight", feedbackInsight);
+
   const handleSelectOption = async (formId: number) => {
     const result = await db
       .select()
@@ -104,7 +104,7 @@ export default function GetSelectFormInfo() {
 
   return (
     <div>
-      <div className="flex md:justify-between flex-col md:flex-row gap-4 md:gap-0 items-start">
+      <div className="flex md:justify-start flex-col md:flex-row gap-4 md:gap-4 items-start">
         <SelectForm
           setSelectedFormId={setSelectedFormId}
           handleSelectOption={handleSelectOption}

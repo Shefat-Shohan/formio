@@ -188,32 +188,33 @@ export default function EditForm({
             <div className="flex gap-4">
               {/* @ts-ignore */}
               <Link href={`/aiform/${record?.id}`} target="_blank">
-                <Button className="bg-slate-700 hover:bg-slate-800 flex items-center gap-2.5">
+                <Button className="border border-white/15 bg-transparent hover:bg-white hover:text-black transition-all duration-300 ease-in flex items-center gap-2.5">
                   <SquareArrowOutUpRight className="size-4" />
                   Live Preview
                 </Button>
               </Link>
+
+              {/* share form url */}
               <AlertDialog>
                 <AlertDialogTrigger>
                   <Button
                     type="button"
-                    className="bg-slate-700 hover:bg-slate-800 flex items-center gap-2.5"
+                    className="bg-[#8A43FC] hover:bg-[#5A28AB] flex items-center gap-2.5 transition-colors duration-300 ease-out"
                   >
                     <Share className="size-4" /> <span>Share</span>
                   </Button>
                 </AlertDialogTrigger>
-                <AlertDialogContent>
+                <AlertDialogContent className="bg-black border-white/15">
                   <AlertDialogHeader>
-                    <AlertDialogTitle className="text-black/80">
+                    <AlertDialogTitle className="text-white">
                       Share your form
                     </AlertDialogTitle>
-                    <AlertDialogDescription>
-                      Share your form to your customer or your client to get
-                      feedback.
+                    <AlertDialogDescription className="text-white/70">
+                      Share your form to your customer or your client to get feedback.
                       <div className="pt-4 w-">
                         <Input
                           disabled
-                          className=""
+                          className="text-white bg-transparent border-white/25"
                           // @ts-ignore
                           defaultValue={`http://localhost:3000/aiform/${record?.id}`}
                           type="text"
@@ -222,11 +223,11 @@ export default function EditForm({
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel className="text-black">
+                    <AlertDialogCancel className="text-white/70 text-sm font-normal bg-transparent border border-white/15 hover:bg-transparent hover:text-white/70">
                       Cancel
                     </AlertDialogCancel>
                     {/* @ts-ignore */}
-                    <AlertDialogAction onClick={() => copyUrl(record?.id)}>
+                    <AlertDialogAction className="px-6 py-2 bg-[#8A43FC] hover:bg-[#8A43FC]" onClick={() => copyUrl(record?.id)}>
                       Copy
                     </AlertDialogAction>
                   </AlertDialogFooter>

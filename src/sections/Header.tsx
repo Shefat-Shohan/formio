@@ -63,7 +63,7 @@ export const Header = () => {
             <div
               className={`${
                 isOpen ? "block" : "hidden"
-              } absolute top-[58px] backdrop-blur-lg w-full p-6 md:block md:static md:p-0 md:w-auto md:backdrop-blur-none`}
+              } absolute top-[58px] border border-white/15 md:border-0 w-full rounded-md backdrop-blur-lg p-6 md:block md:static md:p-0 md:w-auto md:backdrop-blur-none`}
             >
               <nav className="md:flex md:flex-row md:gap-8 flex flex-col gap-4">
                 {Navbar?.length > 0 &&

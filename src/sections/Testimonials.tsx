@@ -8,10 +8,10 @@ export const Testimonials = () => {
   return (
     <section className="py-20 md:py-24">
       <div className="container">
-        <h2 className="text-5xl md:text-6xl text-center tracking-tighter font-medium">
+        <h2 className="text-4xl md:text-6xl text-center tracking-tighter font-medium">
           Beyond Exoectations
         </h2>
-        <p className="text-white/70 text-lg md:text-xl text-center mt-5 tracking-tight max-w-sm mx-auto">
+        <p className="text-white/70 text-md md:text-xl text-center mt-5 tracking-tight max-w-sm mx-auto">
           Our revolutionary form builder tools have transformed our client&apos;s
           strategies.
         </p>
@@ -46,7 +46,7 @@ export const Testimonials = () => {
                       </div>
                       <div>
                         <h2>{testimonial.name}</h2>
-                        <span className="text-white/50 tsext-sm">
+                        <span className="text-white/50 text-sm">
                           {testimonial.title}
                         </span>
                       </div>

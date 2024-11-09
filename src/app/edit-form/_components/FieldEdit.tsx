@@ -33,12 +33,11 @@ export default function FieldEdit({
   deleteField,
 }: {
   defaultValue: defaultValueProps;
-  onUpdate: (value:{label:string, placeholder:string}) => void;
-  deleteField: ()=> void
+  onUpdate: (value: { label: string; placeholder: string }) => void;
+  deleteField: () => void;
 }) {
   const [label, setLabel] = useState(defaultValue.label);
   const [placeholder, setPlaceholder] = useState(defaultValue.placeholder);
-  console.log("deleteField", deleteField);
   return (
     <div className="flex gap-2">
       <div>
@@ -87,21 +86,24 @@ export default function FieldEdit({
           <AlertDialogTrigger>
             <Trash className="size-4 text-red-500" />
           </AlertDialogTrigger>
-          <AlertDialogContent>
+          <AlertDialogContent className="bg-black border-white/15">
             <AlertDialogHeader>
-              <AlertDialogTitle className="text-black/80">
+              <AlertDialogTitle className="text-white">
                 Are you absolutely sure?
               </AlertDialogTitle>
-              <AlertDialogDescription>
+              <AlertDialogDescription className="text-white/70">
                 This action cannot be undone. This will permanently delete the
                 field and remove your data from our servers.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel className="text-black">
+              <AlertDialogCancel className="text-white/70 px-6 py-2 font-normal bg-transparent border border-white/15 hover:bg-transparent hover:text-white/70">
                 Cancel
               </AlertDialogCancel>
-              <AlertDialogAction onClick={() => deleteField()}>
+              <AlertDialogAction
+                className="px-6 py-2 bg-red-500 hover:bg-red-600"
+                onClick={() => deleteField()}
+              >
                 Continue
               </AlertDialogAction>
             </AlertDialogFooter>

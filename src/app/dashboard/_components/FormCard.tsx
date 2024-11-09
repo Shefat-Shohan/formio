@@ -1,5 +1,12 @@
 import { Button } from "@/components/ui/button";
-import { Edit, Share, Trash } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  Edit,
+  EllipsisVertical,
+  Share,
+  Trash,
+} from "lucide-react";
 import Link from "next/link";
 import {
   AlertDialog,
@@ -14,11 +21,21 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useUser } from "@clerk/nextjs";
 import { db } from "../../../../configs";
-import { JsonForm } from "../../../../configs/schema";
+import {
+  aiInsight,
+  aiNewsletter,
+  JsonForm,
+  userResponses,
+} from "../../../../configs/schema";
 import { and, eq } from "drizzle-orm";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
 import { jsonFormProps } from "@/data/type";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 const FormCard: React.FC<jsonFormProps> = ({
   jsonForm,
@@ -27,7 +44,7 @@ const FormCard: React.FC<jsonFormProps> = ({
 }) => {
   const { user } = useUser();
   // delete form
-  const handledelete = async (formId: Number) => {
+  const handleDelete = async (formId: Number) => {
     try {
       const result = await db.delete(JsonForm).where(
         and(
@@ -62,92 +79,105 @@ const FormCard: React.FC<jsonFormProps> = ({
 
   return (
     <div className="flex flex-wrap">
-      <div className="border flex flex-col flex-grow rounded-lg p-4 border-white/15 h-full min-w-[250px]">
-        <div className="flex items-center justify-between">
-          <h2 className="text-md md:text-lg lg:text-xl font-semibold max-w-sm">
-            {jsonForm?.name}
-          </h2>
-          <AlertDialog>
-            <AlertDialogTrigger>
-              <Trash className="size-4 text-red-400" />
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle className="text-black/80">
-                  Are you absolutely sure?
-                </AlertDialogTitle>
-                <AlertDialogDescription>
-                  This action cannot be undone. This will permanently delete
-                  your form and remove your data from our servers.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel className="text-black">
-                  Cancel
-                </AlertDialogCancel>
-                {/* @ts-ignore */}
-                <AlertDialogAction
-                  onClick={() => handledelete(formRecord[0].id)}
-                >
-                  Continue
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+      <div className="border flex flex-col flex-grow rounded-lg p-4 border-white/15 h-full min-w-[250px] group">
+        <div className="flex items-start justify-between mb-4">
+          <div className="max-w-sm">
+            <h2 className="text-md md:text-lg font-semibold text-white/90">
+              {jsonForm?.name}
+            </h2>
+            <p className="mt-1.5 text-sm text-gray-400 ">
+              {jsonForm?.description}
+            </p>
+          </div>
+          <div>
+            <Popover>
+              <PopoverTrigger className="opacity-0 group-hover:opacity-100 group-hover:trnsition-durtion-400">
+                <EllipsisVertical className="size-4 text-white " />
+              </PopoverTrigger>
+              <PopoverContent className="bg-black border border-white/15">
+                <div>
+                  {/* delete action icons */}
+                  <AlertDialog>
+                    <AlertDialogTrigger className="flex justify-strt gap-4 hover:bg-gray-600 w-full p-2 rounded">
+                      <span className="text-white/70 text-sm">Delete</span>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent className="bg-black border-white/15">
+                      <AlertDialogHeader>
+                        <AlertDialogTitle className="text-white">
+                          Are you absolutely sure?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription className="text-white/70">
+                          This action cannot be undone. This will permanently
+                          delete your form and remove your data from our
+                          servers.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel className="text-white/70 text-sm font-normal bg-transparent border border-white/15 hover:bg-transparent hover:text-white/70 px-6 py-2">
+                          Cancel
+                        </AlertDialogCancel>
+                        {/* @ts-ignore */}
+                        <AlertDialogAction
+                          className="px-6 py-2 bg-red-500 hover:bg-red-600"
+                          // @ts-ignore
+                          onClick={() => handleDelete(formRecord[0].id)}
+                        >
+                          Continue
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                  {/* share action icons */}
+                  <AlertDialog>
+                    <AlertDialogTrigger className="flex justify-strt gap-4 hover:bg-gray-600 w-full p-2 rounded">
+                      <span className="text-white/70 text-sm">Share</span>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent className="bg-black border-white/15">
+                      <AlertDialogHeader>
+                        <AlertDialogTitle className="text-white">
+                          Share your form
+                        </AlertDialogTitle>
+                        <AlertDialogDescription className="text-gray-400">
+                          Share your form to your customer or your client to get
+                          feedback.
+                          <div className="pt-6">
+                            <Input
+                              disabled
+                              // @ts-ignore
+                              className="text-white bg-transparent border-white/25"
+                              defaultValue={`http://localhost:3000/aiform/${formRecord[0].id}`}
+                              type="text"
+                            />
+                          </div>
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel className="text-white/70 text-sm font-normal bg-transparent border border-white/15 hover:bg-transparent hover:text-white/70">
+                          Cancel
+                        </AlertDialogCancel>
+                        {/* @ts-ignore */}
+                        <AlertDialogAction
+                          className="px-6 py-2 bg-[#8A43FC] hover:bg-[#8A43FC]"
+                          onClick={() => copyUrl(formRecord[0].id)}
+                        >
+                          Copy
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
+                </div>
+              </PopoverContent>
+            </Popover>
+          </div>
         </div>
-        <p className="mt-2 text-sm text-gray-400 mb-4">
-          {jsonForm?.description}
-        </p>
-        <hr className="py-2 border-white/15" />
-        <div className="flex justify-between items-center mt-auto">
-          <AlertDialog>
-            <AlertDialogTrigger>
-              <Button
-                type="button"
-                variant="secondary"
-                className="inline-flex gap-2 items-center"
-              >
-                <Share className="size-4" /> <span>Share</span>
-              </Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle className="text-black/80">
-                  Share your form
-                </AlertDialogTitle>
-                <AlertDialogDescription>
-                  Share your form to your customer or your client to get
-                  feedback.
-                  <div className="pt-4 w-">
-                    <Input
-                      disabled
-                      // @ts-ignore
-                      defaultValue={`http://localhost:3000/aiform/${formRecord[0].id}`}
-                      type="text"
-                    />
-                  </div>
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel className="text-black">
-                  Cancel
-                </AlertDialogCancel>
-                {/* @ts-ignore */}
-                <AlertDialogAction onClick={() => copyUrl(formRecord[0].id)}>
-                  Copy
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
+        <div className="bg-white/10 hover:bg-[#8A43FC] p-3 rounded mt-4 group-icon relative overflow-hidden text-white font-semibold">
           {/* @ts-ignore */}
-          <Link href={`/edit-form/${formRecord[0].id}`}>
-            <Button
-              type="button"
-              variant="secondary"
-              className="inline-flex gap-2 items-center"
-            >
-              <Edit className="size-4" /> <span>Edit</span>
-            </Button>
+          <Link
+            className="flex items-center justify-center gap-2 w-full relative z-10"
+            href={`/edit-form/${formRecord[0].id}`}
+          >
+            <span className="text-md font-normal">Edit</span>
+            <Edit className="size-4 transition-colors " />
           </Link>
         </div>
       </div>
@@ -156,3 +186,5 @@ const FormCard: React.FC<jsonFormProps> = ({
 };
 
 export default FormCard;
+
+// bg-gradient-to-r from-[#8A43FC]  to-[#260B54]

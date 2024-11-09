@@ -31,7 +31,7 @@ export default function FormList() {
     <div className="overflow-x-scroll md:overflow-hidden">
       <hr className="border-white/15 mb-10" />
       {loading ? (
-        ""
+        "loading..."
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {formList.map((form, index) => (

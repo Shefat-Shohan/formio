@@ -81,7 +81,7 @@ const FeaturedTab = (
       <div className="flex items-center justify-center gap-2">
         <h2 className="font-medium">{props.title}</h2>
         {props.isNew === true && (
-          <div className="text-xs rounded-full px-2 py-0.5 bg-[#8c44ff] text-black font-semibold">
+          <div className="text-xs rounded-full px-2 py-0.5 bg-[#8c44ff] text-white font-semibold">
             New
           </div>
         )}
@@ -120,10 +120,10 @@ export const Features = () => {
   return (
     <section className="py-20 md:py-24">
       <div className="container">
-        <h2 className="text-5xl md:text-6xl font-medium text-center tracking-tighter">
+        <h2 className="text-4xl md:text-6xl font-medium text-center tracking-tighter">
         AI-powered form generation tools
         </h2>
-        <p className="text-white/70 text-lg md:text-xl max-w-2xl mx-auto tracking-tight text-center mt-5">
+        <p className="text-white/70 text-md md:text-xl max-w-2xl mx-auto tracking-tight text-center mt-5">
           From small startups to large enterprise, our AI-driven tool has
           revolutioized the way business approach customer.
         </p>
@@ -146,7 +146,7 @@ export const Features = () => {
               backgroundImage: `url(${productIamge.src})`,
             }}
           ></motion.div>
-          {/* <Image src={productIamge} alt="Product Iamge" /> */}
+          
         </div>
       </div>
     </section>

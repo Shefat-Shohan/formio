@@ -114,7 +114,6 @@ export default function FormDialog() {
       console.error("Prompt contain repetitive characters.");
       return false;
     }
-
     return true;
   };
 
@@ -170,9 +169,9 @@ export default function FormDialog() {
         + Generate form
       </Button>
       <Dialog open={open}>
-        <DialogContent>
+        <DialogContent className="bg-black border border-white/15">
           <DialogHeader>
-            <DialogTitle className="text-black pb-2">
+            <DialogTitle className="text-white pb-4">
               Create a new form
             </DialogTitle>
             <DialogDescription>
@@ -183,7 +182,7 @@ export default function FormDialog() {
                   animate="visible"
                   exit="exit"
                   transition={{ duration: 0.5 }}
-                  className="h-24 resize-none w-full border border-black/15 rounded-lg p-2"
+                  className="h-24 resize-none w-full border bg-transparent border-white/15 rounded-lg p-2 placeholder:text-white/70 text-sm text-white/70"
                   onChange={(event) => setUserInput(event.target.value)}
                   required
                   minLength={20}
@@ -191,14 +190,22 @@ export default function FormDialog() {
                 />
               </AnimatePresence>
               <div className="flex gap-2 justify-end pt-4">
-                <Button disabled={loading} onClick={generateForm}>
+                <Button
+                  className="px-6 py-2 bg-[#8A43FC] hover:bg-[#8A43FC]"
+                  disabled={loading}
+                  onClick={generateForm}
+                >
                   {loading ? (
                     <span className="animate-pulse">Generating...</span>
                   ) : (
                     "Generate form"
                   )}
                 </Button>
-                <Button onClick={() => setOpen(false)} variant="outline">
+                <Button
+                  className="text-white/70 text-sm font-normal bg-transparent border border-white/15 hover:bg-transparent hover:text-white/70 px-6 py-2"
+                  onClick={() => setOpen(false)}
+                  variant="outline"
+                >
                   Cancle
                 </Button>
               </div>

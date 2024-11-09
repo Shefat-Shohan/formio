@@ -52,7 +52,7 @@ export default function SelectForm({
       <SelectTrigger className="bg-transparent border-white/15 max-w-[280px]">
         <SelectValue placeholder="Select form" />
       </SelectTrigger>
-      <SelectContent className="text-white bg-slate-800 border-white/15">
+      <SelectContent className="text-white bg-black border-white/15">
         {formdata.map((item:any,index:number) => (
           <SelectItem key={index} value={item.jsonForm.name}>
             {item.jsonForm.name}

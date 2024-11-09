@@ -52,7 +52,7 @@ export default function ThemeController({ selectedBackground }: any) {
       <Button
         onClick={() => setShowMOre(showmore > 6 ? 6 : GradientBG.length)}
         variant="ghost"
-        className="w-full mt-6"
+        className="w-full mt-6 bg-white text-black hover:text-white hover:bg-[#8A43FC]" 
       >
         Show more
       </Button>
