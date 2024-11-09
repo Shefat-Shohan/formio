@@ -9,7 +9,7 @@ export const Testimonials = () => {
     <section className="py-20 md:py-24">
       <div className="container">
         <h2 className="text-4xl md:text-6xl text-center tracking-tighter font-medium">
-          Beyond Exoectations
+          Beyond Expectations
         </h2>
         <p className="text-white/70 text-md md:text-xl text-center mt-5 tracking-tight max-w-sm mx-auto">
           Our revolutionary form builder tools have transformed our client&apos;s
@@ -22,7 +22,7 @@ export const Testimonials = () => {
             transition={{
               ease: "linear",
               repeat: Infinity,
-              duration: 30,
+              duration: 10,
             }}
             className="flex gap-5 pr-5 flex-none"
           >

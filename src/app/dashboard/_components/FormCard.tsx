@@ -145,7 +145,7 @@ const FormCard: React.FC<jsonFormProps> = ({
                               disabled
                               // @ts-ignore
                               className="text-white bg-transparent border-white/25"
-                              defaultValue={`http://localhost:3000/aiform/${formRecord[0].id}`}
+                              defaultValue={`/aiform/${formRecord[0].id}`}
                               type="text"
                             />
                           </div>

@@ -171,7 +171,7 @@ export default function FormDialog() {
       <Dialog open={open}>
         <DialogContent className="bg-black border border-white/15">
           <DialogHeader>
-            <DialogTitle className="text-white pb-4">
+            <DialogTitle className="text-white pb-4 text-xl">
               Create a new form
             </DialogTitle>
             <DialogDescription>

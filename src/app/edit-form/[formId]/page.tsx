@@ -216,7 +216,7 @@ export default function EditForm({
                           disabled
                           className="text-white bg-transparent border-white/25"
                           // @ts-ignore
-                          defaultValue={`http://localhost:3000/aiform/${record?.id}`}
+                          defaultValue={`/aiform/${record?.id}`}
                           type="text"
                         />
                       </div>
