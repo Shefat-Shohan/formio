@@ -45,28 +45,29 @@ export default function FieldEdit({
           <PopoverTrigger>
             <Edit className="size-4 text-gray-300" />
           </PopoverTrigger>
-          <PopoverContent>
-            <h2 className="font-semibold my-2">Edit fields</h2>
+          <PopoverContent className="bg-[#2F2F2F] border border-white/15">
+            <h2 className="font-semibold my-2 text-white">Edit fields</h2>
             <div className="flex flex-col gap-4">
               <div>
-                <Label className="text-xs">Label Name</Label>
+                <Label className="text-xs text-white">Label Name</Label>
                 <Input
-                  className="mt-2"
+                  className="mt-2 bg-transparent border-gray-500 text-white"
                   type="text"
                   defaultValue={defaultValue.label}
                   onChange={(e) => setLabel(e.target.value)}
                 />
               </div>
               <div>
-                <Label className="text-xs">Placeholder name</Label>
+                <Label className="text-xs text-white">Placeholder name</Label>
                 <Input
                   type="text"
-                  className="mt-2"
+                  className="mt-2 bg-transparent border-gray-500 text-white"
                   defaultValue={defaultValue.placeholder}
                   onChange={(e) => setPlaceholder(e.target.value)}
                 />
               </div>
               <Button
+                className="bg-[#171717] hover:bg-[#5E5E5E] py-3"
                 size="sm"
                 onClick={() =>
                   onUpdate({
@@ -86,7 +87,7 @@ export default function FieldEdit({
           <AlertDialogTrigger>
             <Trash className="size-4 text-red-500" />
           </AlertDialogTrigger>
-          <AlertDialogContent className="bg-black border-white/15">
+          <AlertDialogContent className="bg-[#2F2F2F]  border-white/15">
             <AlertDialogHeader>
               <AlertDialogTitle className="text-white">
                 Are you absolutely sure?
@@ -97,14 +98,14 @@ export default function FieldEdit({
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel className="text-white/70 px-6 py-2 font-normal bg-transparent border border-white/15 hover:bg-transparent hover:text-white/70">
+              <AlertDialogCancel className="text-white/70 text-sm font-normal bg-transparent border border-white/15 hover:bg-[#424242] hover:text-white/70 px-6 py-2 rounded-full">
                 Cancel
               </AlertDialogCancel>
               <AlertDialogAction
-                className="px-6 py-2 bg-red-500 hover:bg-red-600"
+                className="px-6 py-2 rounded-full bg-red-500 hover:bg-red-600"
                 onClick={() => deleteField()}
               >
-                Continue
+                Delete
               </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>

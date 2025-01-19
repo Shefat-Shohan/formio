@@ -70,7 +70,7 @@ const FormUi = ({
   };
 
   return (
-    <div className="p-10 rounded-lg bg-black border border-white/15">
+    <div className="p-10 rounded-lg bg-[#171717] border border-white/15">
       <form onSubmit={handleSubmit(formSubmit)} className="w-full">
         <div>
           <h1 className="font-bold md:text-3xl text-2xl text-white mb-1">

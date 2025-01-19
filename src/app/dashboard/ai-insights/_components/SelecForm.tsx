@@ -35,7 +35,7 @@ export default function SelectForm({
     setFormList(result);
   };
 
-  const formdata = formList.map((form:any) => {
+  const formdata = formList.map((form: any) => {
     return { id: form.id, jsonForm: JSON.parse(form?.jsonForm) };
   });
 
@@ -43,17 +43,19 @@ export default function SelectForm({
     <Select
       onValueChange={(value) => {
         const selectedValue = formdata.find(
-          (item:any) => item.jsonForm.name === value
+          (item: any) => item.jsonForm.name === value
         );
         setSelectedFormId(selectedValue?.id);
         handleSelectOption(selectedValue?.id);
       }}
     >
       <SelectTrigger className="bg-transparent border-white/15 max-w-[280px]">
-        <SelectValue placeholder="Select form" />
+        <SelectValue
+          placeholder={formdata[0]?.jsonForm.name || "Select form"}
+        />
       </SelectTrigger>
-      <SelectContent className="text-white bg-black border-white/15">
-        {formdata.map((item:any,index:number) => (
+      <SelectContent className="text-white bg-[#2F2F2F] border-white/15">
+        {formdata.map((item: any, index: number) => (
           <SelectItem key={index} value={item.jsonForm.name}>
             {item.jsonForm.name}
           </SelectItem>

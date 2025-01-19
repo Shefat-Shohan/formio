@@ -32,6 +32,7 @@ import { Input } from "@/components/ui/input";
 import { jsonRecordType, QuestionType } from "@/data/type";
 import ThemeController from "../_components/ThemeController";
 import FormBuilder from "../_components/FormBuilder";
+import { animate, easeIn, easeInOut, easeOut, motion } from "framer-motion";
 export default function EditForm({
   params: { formId },
 }: {
@@ -95,7 +96,10 @@ export default function EditForm({
   }, [upadeTrigger]);
 
   // update formField
-  const onFieldUpdate = (value: {label:string, placeholder:string}, index:number) => {
+  const onFieldUpdate = (
+    value: { label: string; placeholder: string },
+    index: number
+  ) => {
     // @ts-ignore
     jsonForm.questions[index].label = value.label;
     // @ts-ignore
@@ -113,7 +117,6 @@ export default function EditForm({
         })
         .where(
           and(
-           
             eq(JsonForm.id, record.id),
             // @ts-ignore
             eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress)
@@ -131,7 +134,7 @@ export default function EditForm({
   const deleteField = (removeIndex: number) => {
     // @ts-ignore
     const result = jsonForm?.questions.filter(
-      (item:QuestionType, index:number) => index != removeIndex
+      (item: QuestionType, index: number) => index != removeIndex
     );
     // @ts-ignore
     jsonForm.questions = result;
@@ -171,9 +174,21 @@ export default function EditForm({
       console.error(error);
     }
   };
-
+  // page transition
+  const pageTransition = {
+    initial: { opacity: 0, scale: 0.8 },
+    animate: { opacity: 1, scale: 1 },
+    exit: { opacity: 0, scale: 0.8 },
+    transition: { duration: 0.8, ease: easeInOut },
+  };
   return (
-    <section className="py-10">
+    <motion.section
+      initial={{ opacity: 0, scale: 0.8 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.8 }}
+      transition={{ duration: 0.3, ease: easeOut }}
+      className="py-10"
+    >
       <div>
         <div className="md:px-20 px-6 flex md:flex-row flex-col md:items-center justify-between">
           <h2
@@ -188,7 +203,7 @@ export default function EditForm({
             <div className="flex gap-4">
               {/* @ts-ignore */}
               <Link href={`/aiform/${record?.id}`} target="_blank">
-                <Button className="border border-white/15 bg-transparent hover:bg-white hover:text-black transition-all duration-300 ease-in flex items-center gap-2.5">
+                <Button className="border border-white/20 bg-transparent hover:bg-white hover:text-black transition-all duration-100 ease-in flex items-center gap-2.5">
                   <SquareArrowOutUpRight className="size-4" />
                   Live Preview
                 </Button>
@@ -204,13 +219,14 @@ export default function EditForm({
                     <Share className="size-4" /> <span>Share</span>
                   </Button>
                 </AlertDialogTrigger>
-                <AlertDialogContent className="bg-black border-white/15">
+                <AlertDialogContent className="bg-[#2F2F2F] border-white/15">
                   <AlertDialogHeader>
                     <AlertDialogTitle className="text-white">
                       Share your form
                     </AlertDialogTitle>
                     <AlertDialogDescription className="text-white/70">
-                      Share your form to your customer or your client to get feedback.
+                      Share your form to your customer or your client to get
+                      feedback.
                       <div className="pt-4 w-">
                         <Input
                           disabled
@@ -223,11 +239,14 @@ export default function EditForm({
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel className="text-white/70 text-sm font-normal bg-transparent border border-white/15 hover:bg-transparent hover:text-white/70">
+                    <AlertDialogCancel className="text-white/70 text-sm font-normal bg-transparent border border-white/15 hover:hover:bg-[#424242] hover:text-white/70 rounded-full">
                       Cancel
                     </AlertDialogCancel>
                     {/* @ts-ignore */}
-                    <AlertDialogAction className="px-6 py-2 bg-[#8A43FC] hover:bg-[#8A43FC]" onClick={() => copyUrl(record?.id)}>
+                    <AlertDialogAction
+                      className="px-6 py-2 rounded-full bg-[#8A43FC] hover:bg-[#8A43FC]"
+                      onClick={() => copyUrl(record?.id)}
+                    >
                       Copy
                     </AlertDialogAction>
                   </AlertDialogFooter>
@@ -237,7 +256,7 @@ export default function EditForm({
           )}
         </div>
         <div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-8 gap-0 bg-[url(/paper.svg)] md:px-20 px-0">
+          <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-8 gap-0 md:px-20 px-0">
             <div className="col-span-1">
               <div className="border p-6 border-white/15 rounded-md mt-20">
                 <ThemeController
@@ -268,6 +287,6 @@ export default function EditForm({
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

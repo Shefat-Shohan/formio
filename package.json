@@ -47,6 +47,7 @@
     "openai": "^4.62.1",
     "react": "^18",
     "react-dom": "^18",
+    "react-error-boundary": "^5.0.0",
     "react-hook-form": "^7.53.0",
     "react-web-share": "^2.0.2",
     "sonner": "^1.5.0",

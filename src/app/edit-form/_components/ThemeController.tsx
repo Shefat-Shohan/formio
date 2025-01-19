@@ -17,7 +17,7 @@ export default function ThemeController({ selectedBackground }: any) {
       <div className="flex md:flex-row flex-col gap-4 items-start md:items-center">
         <h2 className="mb-4 md:mb-0 whitespace-nowrap">Select theme</h2>
 
-        <Select>
+        <Select disabled>
           <SelectTrigger className="w-full bg-transparent border-white/15">
             <SelectValue placeholder="Theme" />
           </SelectTrigger>
@@ -52,9 +52,9 @@ export default function ThemeController({ selectedBackground }: any) {
       <Button
         onClick={() => setShowMOre(showmore > 6 ? 6 : GradientBG.length)}
         variant="ghost"
-        className="w-full mt-6 bg-white text-black hover:text-white hover:bg-[#8A43FC]" 
+        className="w-full mt-6 bg-[#424242] hover:bg-[#2F2F2F] hover:text-white"
       >
-        Show more
+        {showmore == 6 ? "Show more" : "Show less"}
       </Button>
     </div>
   );

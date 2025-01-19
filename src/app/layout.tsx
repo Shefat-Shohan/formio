@@ -24,7 +24,7 @@ export default function RootLayout({
           <link rel="icon" href="" />
         </head>
         <body
-          className={cn(inter.className, "bg-black text-white antialiased")}
+          className={cn(inter.className, "bg-black text-[#ececec] antialiased")}
         >
           {children}
           <Toaster />

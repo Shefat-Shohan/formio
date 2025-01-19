@@ -163,13 +163,13 @@ export default function FormDialog() {
   return (
     <div>
       <Button
-        className="bg-gradient-to-r from-[#8C44FF] to-[#390f81] hover:brightness-110"
+        className="bg-[#8A43FC] hover:bg-[#8842F9] hover:scale-105 px-6 py-2 rounded-full transition-all"
         onClick={() => setOpen(true)}
       >
         + Generate form
       </Button>
       <Dialog open={open}>
-        <DialogContent className="bg-black border border-white/15">
+        <DialogContent className="bg-[#212121] border border-white/15">
           <DialogHeader>
             <DialogTitle className="text-white pb-4 text-xl">
               Create a new form
@@ -191,7 +191,7 @@ export default function FormDialog() {
               </AnimatePresence>
               <div className="flex gap-2 justify-end pt-4">
                 <Button
-                  className="px-6 py-2 bg-[#8A43FC] hover:bg-[#8A43FC]"
+                  className="px-6 py-2 bg-white text-black rounded-full hover:bg-[#C1C1C1]"
                   disabled={loading}
                   onClick={generateForm}
                 >
@@ -202,7 +202,7 @@ export default function FormDialog() {
                   )}
                 </Button>
                 <Button
-                  className="text-white/70 text-sm font-normal bg-transparent border border-white/15 hover:bg-transparent hover:text-white/70 px-6 py-2"
+                  className="text-white/70 text-sm font-normal bg-transparent border border-white/15  hover:text-white/70 px-6 py-2 rounded-full hover:bg-[#424242]"
                   onClick={() => setOpen(false)}
                   variant="outline"
                 >

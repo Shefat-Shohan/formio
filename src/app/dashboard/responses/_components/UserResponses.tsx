@@ -65,7 +65,7 @@ export default function UserResponses({
     XLSX.utils.book_append_sheet(workbook, workSheet, "Sheet1");
     XLSX.writeFile(workbook, "DataSheet.xlsx");
   };
-  
+  // console.log("formdata", formdata[0]?.jsonForm.name);
   return (
     <section>
       <div>
@@ -81,11 +81,14 @@ export default function UserResponses({
             }}
           >
             <SelectTrigger className="max-w-[280px] bg-transparent border-white/15 w-full">
-              <SelectValue placeholder="Select form" />
+              <SelectValue
+                placeholder={formdata[0]?.jsonForm.name || "Select form"}
+              />
             </SelectTrigger>
-            <SelectContent className="text-white bg-black border border-white/15 pb-1.5">
+            <SelectContent className="text-white bg-[#2F2F2F] border border-white/15 pb-1.5">
               {formdata.map((item, index: number) => (
                 <SelectItem
+                  className=""
                   // onClick={() => handleResponse(item.id)}
                   key={index}
                   value={item.jsonForm.name}

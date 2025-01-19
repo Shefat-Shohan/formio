@@ -12,21 +12,22 @@ import { db } from "../../../../../configs";
 import RichTextEditor from "./RichTextEditor";
 
 type aiInsightResponseType = {
-createBy: string;
-formRef:Number | null;
-id:Number;
-inSightResponse:string;
+  createBy: string;
+  formRef: Number | null;
+  id: Number;
+  inSightResponse: string;
 }[];
 
 type newsletterType = {
-createBy: string;
-formRef:Number | null;
-id:Number;
-newsletterResponse:string;
+  createBy: string;
+  formRef: Number | null;
+  id: Number;
+  newsletterResponse: string;
 }[];
 
 export default function SelectFormOption() {
-  const [aiInsightResponse, setAiInsightResponse] = useState<aiInsightResponseType>([]);
+  const [aiInsightResponse, setAiInsightResponse] =
+    useState<aiInsightResponseType>([]);
   const [content, setContent] = useState<string>("");
   const [newsletter, setNewsletter] = useState<newsletterType>([]);
   const [selectedFormId, setSelectedFormId] = useState<number | undefined>();
@@ -107,7 +108,7 @@ export default function SelectFormOption() {
   };
 
   const getNewsletterResponse = newsletter?.map(
-    (item:any) => item.newsletterResponse
+    (item: any) => item.newsletterResponse
   )[0];
   // handle content change
   const handleContentChange = async (newsletterEdit: string) => {

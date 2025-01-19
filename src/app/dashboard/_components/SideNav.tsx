@@ -34,7 +34,7 @@ export default function SideNav() {
   }, []);
 
   return (
-    <aside className="h-screen w-full">
+    <aside className="h-screen w-full bg-[#171717]">
       <nav className="h-full border-r border-white/15">
         <motion.div
           className={`h-full p-4 flex flex-col justify-between ${
