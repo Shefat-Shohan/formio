@@ -108,7 +108,7 @@ const FormUi = ({
                           <SelectTrigger className="placeholder:text-white/50  placeholder:text-sm text-white/70 bg-transparent border-white/15 mt-2">
                             <SelectValue placeholder={field.placeholder} />
                           </SelectTrigger>
-                          <SelectContent className="placeholder:text-white/50 placeholder:text-sm text-white/70 bg-black border-white/15">
+                          <SelectContent className="placeholder:text-white/50 placeholder:text-sm text-white/70 bg-[#212121] border-white/15">
                             {field?.fieldOptions.map(
                               (option: any, index: number) => (
                                 <SelectItem key={index} value={option.value}>

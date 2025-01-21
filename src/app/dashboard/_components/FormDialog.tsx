@@ -145,6 +145,7 @@ export default function FormDialog() {
           .returning({ id: JsonForm.id });
 
         if (response[0].id) router.push(`/edit-form/${response[0].id}`);
+        toast("Form generated successfully.");
         setLoading(false);
       } else {
         toast("Couldn't generate the form.");
@@ -154,9 +155,7 @@ export default function FormDialog() {
       setLoading(false);
     }
   };
-  // check valid json function
 
-  // create a badminton tournament form
   return (
     <div>
       <Button

@@ -26,7 +26,22 @@ export default function Page() {
               Build your own custom ai generated form just in a minute.
             </p>
 
-            <SignIn />
+            <div>
+              <h2 className="text-md mb-2 font-semibold text-white md:text-lg">
+                Demo Account Details
+              </h2>
+              <p className="leading-relaxed text-gray-400">
+                Email: <b>demo@gmail.com</b>
+              </p>
+              <p className="leading-relaxed text-gray-400">
+                Pass: <b>12345</b>
+              </p>
+              <p className="mb-8 leading-relaxed text-gray-400">
+                Note: Use these credentials to explore the application.
+              </p>
+            </div>
+
+            <SignIn fallbackRedirectUrl={"/dashboard"} />
           </div>
         </main>
       </div>

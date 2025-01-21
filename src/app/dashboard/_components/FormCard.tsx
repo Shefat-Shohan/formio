@@ -78,7 +78,7 @@ const FormCard: React.FC<jsonFormProps> = ({
         console.error("Failed to copy: ", err);
       });
   };
-  const paragraph = jsonForm?.description.slice(0,100);
+  const paragraph = jsonForm?.description.slice(0, 100);
 
   return (
     <div className="flex flex-wrap">
