@@ -3,11 +3,10 @@ import { db } from "../../../../configs";
 import { JsonForm } from "../../../../configs/schema";
 import { desc, eq } from "drizzle-orm";
 import { Suspense, useEffect, useState } from "react";
-import FormCard from "./FormCard";
 import { formListType } from "@/data/type";
 import dynamic from "next/dynamic";
 import { ErrorBoundary } from "react-error-boundary";
-import { Heading1 } from "lucide-react";
+import CartLoadingSkelaton from "./CartLoadingSkelaton";
 
 export default function FormList() {
   const [formList, setFormList] = useState<formListType>([]);
@@ -35,7 +34,7 @@ export default function FormList() {
     <div className="overflow-x-scroll md:overflow-hidden">
       <hr className="border-white/15 mb-10" />
       {loading ? (
-        "loading..."
+        <CartLoadingSkelaton />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {formList.map((form, index) => (
@@ -43,7 +42,7 @@ export default function FormList() {
               <ErrorBoundary
                 fallback={<h1>Something went wrong. Please retry.</h1>}
               >
-                <Suspense fallback={<h1>Loadin...</h1>}>
+                <Suspense fallback={<CartLoadingSkelaton />}>
                   <FormCard
                     jsonForm={JSON.parse(form.jsonForm)}
                     formRecord={[form]}

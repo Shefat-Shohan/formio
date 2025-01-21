@@ -65,8 +65,6 @@ export const tabs = [
   },
 ];
 
-
-
 export const testimonials = [
   {
     text: "“This product has completely transformed how I manage my projects and deadlines”",
@@ -127,7 +125,7 @@ export const sidebarMenu = [
 ];
 
 export const prompt =
-  "Based on the description, generate a survey object with fields: name (string) for the form max character of 25-30, description (string) of the form max character of 100-120, and a questions array where every element has maximum fields of 6: label, placeholder, and the fieldType. The fieldType can be one of these options: RadioGroup, Select, Input, Textarea, or Switch. For Input fields, also include an inputType (e.g., text, email, number). For RadioGroup and Select types, return a fieldOptions array with text and value fields. For example, for RadioGroup and Select types, the field options array should look like [{text: 'Yes', value: 'yes'}, {text: 'No', value: 'no'}]. For Input, Textarea, and Switch types, the fieldOptions array should be empty (e.g., []). Ensure that the response is returned in JSON format and don't return any date picker and should always have an email field. The survey must include at least one email input field. Return only the valid JSON object like this {}. remove all the unnecessery things before and after like ```json{}```.";
+  "Generate a valid json object based on the description, with fields: name (string) for the form max character of 25-30, description (string) of the form max character of 100-120, and a questions array where every element has maximum fields of 6: label, placeholder, and the fieldType. The fieldType can be one of these options: RadioGroup, Select, Input, Textarea, or Switch. For Input fields, also include an inputType (e.g., text, email, number). For RadioGroup and Select types, return a fieldOptions array with text and value fields. For example, for RadioGroup and Select types, the field options array should look like [{text: 'Yes', value: 'yes'}, {text: 'No', value: 'no'}]. For Input, Textarea, and Switch types, the fieldOptions array should be empty (e.g., []). Ensure that the response is returned in valid JSON format and don't return any date picker and should always have an email field. Return a single JSON object that strictly adheres to the specified structure and constraints. Remove any backtick and json lable at the beginning or end.";
 
 export const feedbackPrompt =
   "Please analyze all feedback and provide: A sentiment score, Key themes or issues. Suggestions to address concerns........";

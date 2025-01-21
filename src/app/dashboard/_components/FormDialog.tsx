@@ -127,9 +127,13 @@ export default function FormDialog() {
       setLoading(true);
       const postData = "Description:" + userInput + prompt;
       const data = await GenerateAIForm(postData);
+      // check if the received data is valid json
+      const result = data["candidates"][0]["content"]["parts"][0]["text"];
+      let cleanedResponse = result.replace(/```json\s|```/g, ""),
+        validJsonString = cleanedResponse.replace(/(\w+):/g, '"$1":'),
+        jsonData = JSON.parse(validJsonString);
       //connect to db
-      const jsonData = data["candidates"][0]["content"]["parts"][0]["text"];
-      if (isJSON(jsonData)) {
+      if (jsonData) {
         const response = await db
           .insert(JsonForm)
           // @ts-ignore
@@ -150,20 +154,13 @@ export default function FormDialog() {
       setLoading(false);
     }
   };
+  // check valid json function
 
-  function isJSON(data: string) {
-    try {
-      JSON.parse(data);
-      return true;
-    } catch (error) {
-      return false;
-    }
-  }
-
+  // create a badminton tournament form
   return (
     <div>
       <Button
-        className="bg-[#8A43FC] hover:bg-[#8842F9] hover:scale-105 px-6 py-2 rounded-full transition-all"
+        className="bg-[#8A43FC] hover:bg-[#7c34f0] px-6 py-2 rounded-full transition-all"
         onClick={() => setOpen(true)}
       >
         + Generate form

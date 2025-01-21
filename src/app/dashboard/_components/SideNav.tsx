@@ -79,7 +79,7 @@ export default function SideNav() {
                 href={menu.path}
                 key={index}
                 className={`relative flex gap-2.5 items-center py-2 px-3 rounded my-1 font-medium text-white/70 hover:text-white cursor-pointer transition-colors ${
-                  path == menu.path && "bg-gradient-to-r from-[#8C44FF] to-[#120032] text-white"
+                  path == menu.path && "bg-[#8A43FC] text-white"
                 }`}
               >
                 <menu.icon className="size-4" />

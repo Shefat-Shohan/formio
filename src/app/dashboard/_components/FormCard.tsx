@@ -78,18 +78,19 @@ const FormCard: React.FC<jsonFormProps> = ({
         console.error("Failed to copy: ", err);
       });
   };
+  const paragraph = jsonForm?.description.slice(0,100);
 
   return (
     <div className="flex flex-wrap">
       <div className="border flex flex-col flex-grow rounded-lg px-6 py-6 border-white/15 h-full min-w-[250px] group bg-[#212121]">
-        <div className="flex items-start justify-between">
+        <div className="flex items-start lg:gap-4 justify-between">
           {/* form title */}
           <div className="max-w-sm">
             <h2 className="text-md md:text-lg font-semibold text-white/90">
               {jsonForm?.name}
             </h2>
             <p className="mt-2 text-sm font-normal text-white/80 ">
-              {jsonForm?.description}
+              {paragraph}...
             </p>
           </div>
           {/* form button module */}
