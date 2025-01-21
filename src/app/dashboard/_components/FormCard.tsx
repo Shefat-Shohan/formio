@@ -83,10 +83,10 @@ const FormCard: React.FC<jsonFormProps> = ({
   return (
     <div className="flex flex-wrap">
       <div className="border flex flex-col flex-grow rounded-lg px-6 py-6 border-white/15 h-full min-w-[250px] group bg-[#212121]">
-        <div className="flex items-start lg:gap-4 justify-between">
+        <div className="flex items-start gap-3 lg:gap-4 justify-between">
           {/* form title */}
           <div className="max-w-sm">
-            <h2 className="text-md md:text-lg font-semibold text-white/90">
+            <h2 className="text-sm md:text-lg font-semibold text-white/90">
               {jsonForm?.name}
             </h2>
             <p className="mt-2 text-sm font-normal text-white/80 ">
@@ -94,7 +94,7 @@ const FormCard: React.FC<jsonFormProps> = ({
             </p>
           </div>
           {/* form button module */}
-          <div className="flex flex-col gap-10 place-items-end">
+          <div className="flex flex-col md:gap-10 gap-20">
             <Popover>
               <PopoverTrigger className="opacity-0 group-hover:opacity-100 group-hover:trnsition-durtion-400">
                 <EllipsisVertical className="size-4 text-white " />

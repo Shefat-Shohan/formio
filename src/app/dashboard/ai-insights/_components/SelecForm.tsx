@@ -51,7 +51,7 @@ export default function SelectForm({
     >
       <SelectTrigger className="bg-transparent border-white/15 max-w-[280px]">
         <SelectValue
-          placeholder={formdata[0]?.jsonForm.name || "Select form"}
+          placeholder={formdata[0]?.jsonForm.name || "No form found"}
         />
       </SelectTrigger>
       <SelectContent className="text-white bg-[#2F2F2F] border-white/15">

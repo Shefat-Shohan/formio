@@ -7,7 +7,6 @@ import { formListType } from "@/data/type";
 import dynamic from "next/dynamic";
 import { ErrorBoundary } from "react-error-boundary";
 import CartLoadingSkelaton from "./CartLoadingSkelaton";
-import FormDialog from "./FormDialog";
 
 export default function FormList() {
   const [formList, setFormList] = useState<formListType>([]);
@@ -40,14 +39,15 @@ export default function FormList() {
       setLoading(false);
     }
   };
+
   const FormCard = dynamic(() => import("./FormCard"));
   return (
-    <div className="overflow-x-scroll md:overflow-hidden">
+    <div className="">
       <hr className="border-white/15 mb-10" />
       {loading ? (
         <CartLoadingSkelaton />
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 md:gap-4">
           {formList.map((form, index) => (
             <div key={index}>
               <ErrorBoundary

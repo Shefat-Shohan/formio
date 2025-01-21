@@ -63,9 +63,9 @@ export default function UserResponses({
     const workSheet = XLSX.utils.json_to_sheet(data);
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, workSheet, "Sheet1");
-    XLSX.writeFile(workbook, "DataSheet.xlsx");
+    XLSX.writeFile(workbook, "Reaponses.xlsx");
   };
-  // console.log("formdata", formdata[0]?.jsonForm.name);
+
   return (
     <section>
       <div>
@@ -82,7 +82,7 @@ export default function UserResponses({
           >
             <SelectTrigger className="max-w-[280px] bg-transparent border-white/15 w-full">
               <SelectValue
-                placeholder={formdata[0]?.jsonForm.name || "Select form"}
+                placeholder={formdata[0]?.jsonForm.name || "No form found"}
               />
             </SelectTrigger>
             <SelectContent className="text-white bg-[#2F2F2F] border border-white/15 pb-1.5">

@@ -22,7 +22,7 @@ export default function SideNav() {
   // resize the sidebar
   useEffect(() => {
     const handleResize = () => {
-      if (window.matchMedia("(max-width:768px)").matches) {
+      if (window.matchMedia("(max-width:820px)").matches) {
         setExpanded(false);
       } else {
         setExpanded(true);
@@ -76,6 +76,11 @@ export default function SideNav() {
           <div className="flex flex-col gap-2">
             {sidebarMenu.map((menu, index) => (
               <Link
+                onClick={() => {
+                  if (window.innerWidth <= 1024) {
+                    setExpanded(false);
+                  }
+                }}
                 href={menu.path}
                 key={index}
                 className={`relative flex gap-2.5 items-center py-2 px-3 rounded my-1 font-medium text-white/70 hover:text-white cursor-pointer transition-colors ${
@@ -84,7 +89,9 @@ export default function SideNav() {
               >
                 <menu.icon className="size-4" />
                 <motion.span
-                  className={`text-sm whitespace-nowrap ${expanded ? "w-full" : "hidden"}`}
+                  className={`text-sm whitespace-nowrap ${
+                    expanded ? "w-full" : "hidden"
+                  }`}
                   initial={{ opacity: expanded ? 1 : 0 }}
                   animate={{ opacity: expanded ? 1 : 0 }}
                   transition={{ duration: 0.3 }}

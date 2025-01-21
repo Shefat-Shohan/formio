@@ -14,7 +14,7 @@ export default function DashBoardlayout({
         <div>
           <SideNav />
         </div>
-        <div className="w-full overflow-x-scroll md:overflow-hidden h-screen bg-[#212121]">
+        <div className="w-full overflow-x-scroll md:overflow-y-scroll lg:overflow-hidden h-screen bg-[#212121]">
           {children}
         </div>
       </div>
