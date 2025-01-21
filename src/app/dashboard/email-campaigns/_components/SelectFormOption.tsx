@@ -134,7 +134,7 @@ export default function SelectFormOption() {
         />
         <Button
           onClick={generateAiNewsletter}
-          className="bg-gradient-to-r from-[#8C44FF] to-[#390f81] hover:brightness-110"
+          className="bg-[#8A43FC] hover:bg-[#7c34f0] px-3 py-2  transition-all sm:text-xs md:text-sm md:px-6 md:py-2"
         >
           {loading ? "Generating Newsletter..." : "Generate Ai Newsletter"}
         </Button>

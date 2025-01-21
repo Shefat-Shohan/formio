@@ -40,7 +40,6 @@ export default function Page() {
                 Note: Use these credentials to explore the application.
               </p>
             </div>
-
             <SignIn fallbackRedirectUrl={"/dashboard"} />
           </div>
         </main>

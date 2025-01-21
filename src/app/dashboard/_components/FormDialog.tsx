@@ -159,7 +159,7 @@ export default function FormDialog() {
   return (
     <div>
       <Button
-        className="bg-[#8A43FC] hover:bg-[#7c34f0] px-6 py-2 rounded-full transition-all"
+        className="bg-[#8A43FC] hover:bg-[#7c34f0] px-3 py-2 rounded-full transition-all sm:text-xs md:text-sm md:px-6 md:py-2"
         onClick={() => setOpen(true)}
       >
         + Generate form

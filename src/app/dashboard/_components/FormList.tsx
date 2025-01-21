@@ -7,6 +7,7 @@ import { formListType } from "@/data/type";
 import dynamic from "next/dynamic";
 import { ErrorBoundary } from "react-error-boundary";
 import CartLoadingSkelaton from "./CartLoadingSkelaton";
+import FormDialog from "./FormDialog";
 
 export default function FormList() {
   const [formList, setFormList] = useState<formListType>([]);
@@ -18,16 +19,26 @@ export default function FormList() {
   }, [user]);
 
   const getActiveUserFormList = async () => {
-    setLoading(true);
-    const result = await db
-      .select()
-      .from(JsonForm)
+    try {
+      setLoading(true);
+      const result = await db
+        .select()
+        .from(JsonForm)
+        // @ts-ignore
+        .where(eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress))
+        .orderBy(desc(JsonForm.id));
+
+      // Ensure the result is always an array and handle cases where it's undefined or null
+      const formList = Array.isArray(result) ? result : [];
       // @ts-ignore
-      .where(eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress))
-      .orderBy(desc(JsonForm.id));
-    // @ts-ignore
-    setFormList(result);
-    setLoading(false);
+      setFormList(formList);
+    } catch (error) {
+      console.error("Error fetching active user forms:", error);
+      // @ts-ignore
+      setFormList([]);
+    } finally {
+      setLoading(false);
+    }
   };
   const FormCard = dynamic(() => import("./FormCard"));
   return (
