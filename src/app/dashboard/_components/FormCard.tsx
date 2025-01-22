@@ -68,7 +68,7 @@ const FormCard: React.FC<jsonFormProps> = ({
 
   // copy form url
   const copyUrl = (formId: Number) => {
-    const formLink = `/aiform/${formId}`;
+    const formLink = `https://formio-ten.vercel.app/aiform/${formId}`;
     navigator.clipboard
       .writeText(formLink)
       .then(() => {

@@ -58,7 +58,7 @@ const FormUi = ({
         formRef: formId,
       });
       if (result) {
-        router.push(`/aiform/${formId}/success`);
+        router.push(`https://formio-ten.vercel.app/aiform/${formId}/success`);
         reset();
       } else {
         toast("No response recorded, something went wrong");
