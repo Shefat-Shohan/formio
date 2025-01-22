@@ -150,7 +150,7 @@ const FormCard: React.FC<jsonFormProps> = ({
                               disabled
                               // @ts-ignore
                               className="text-white bg-transparent border-white/25"
-                              defaultValue={`/aiform/${formRecord[0].id}`}
+                              defaultValue={`https://formio-ten.vercel.app/aiform/${formRecord[0].id}`}
                               type="text"
                             />
                           </div>

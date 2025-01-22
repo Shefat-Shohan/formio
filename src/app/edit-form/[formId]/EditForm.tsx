@@ -220,7 +220,7 @@ export default function EditForm({ formId }: { formId: number }) {
                           disabled
                           className="text-white bg-transparent border-white/25"
                           // @ts-ignore
-                          defaultValue={`/aiform/${record?.id}`}
+                          defaultValue={`https://formio-ten.vercel.app/aiform/${record?.id}`}
                           type="text"
                         />
                       </div>
