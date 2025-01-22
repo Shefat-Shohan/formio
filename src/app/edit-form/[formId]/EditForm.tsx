@@ -130,7 +130,7 @@ export default function EditForm({ formId }: { formId: number }) {
   };
   // share form
   const copyUrl = (formId: Number) => {
-    const formLink = `http://localhost:3000/aiform/${formId}`;
+    const formLink = `https://formio-ten.vercel.app/aiform/${formId}`;
     navigator.clipboard
       .writeText(formLink)
       .then(() => {
