@@ -32,13 +32,7 @@ export default function GetSelectFormInfo() {
     const result = await db
       .select()
       .from(userResponses)
-      .where(
-        and(
-          eq(userResponses.formRef, formId),
-          // @ts-ignore
-          eq(JsonForm.isDeleted, false)
-        )
-      );
+      .where(eq(userResponses.formRef, formId));
     getAiInsight(formId);
     setResponse(result);
   };
@@ -55,39 +49,47 @@ export default function GetSelectFormInfo() {
   // generate ai insight and update to db.
   const generateAiInsight = async () => {
     setLoading(true);
+
     try {
-      const postData = prepareAiData();
-      const feedbackInsightdata = await GenerateAIForm(postData);
-      const insightText =
-        feedbackInsightdata["candidates"][0]["content"]["parts"][0]["text"];
-
-      // check if the ai insigh is already exist in the database based on the action update or insert the data
-      if (insightText) {
-        const existingInsight = await db
-          .select()
-          .from(aiInsight)
-          //@ts-ignore
-          .where(eq(aiInsight.formRef, selectedFormId))
-          .limit(1);
-
-        if (existingInsight.length > 0 && existingInsight[0].inSightResponse) {
-          await db.update(aiInsight).set({
-            inSightResponse: insightText,
-          });
-        } else {
-          // @ts-ignore
-          await db.insert(aiInsight).values({
-            inSightResponse: insightText,
-            createBy: user?.primaryEmailAddress?.emailAddress,
-            formRef: selectedFormId,
-          });
-        }
-        toast.success("Ai insight generated successfully");
-        getAiInsight(selectedFormId);
-      } else {
-        toast.error("Couldn't get the insight");
+      if (!selectedFormId) {
+        toast.error("No form selected");
+        return;
       }
+
+      const postData = prepareAiData();
+      const feedbackInsightData = await GenerateAIForm(postData);
+
+      const insightText =
+        feedbackInsightData?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+      if (!insightText) {
+        toast.error("Couldn't get the insight");
+        return;
+      }
+
+      // Check if the AI insight exists in the database
+      const [existingInsight] = await db
+        .select()
+        .from(aiInsight)
+        .where(eq(aiInsight.formRef, selectedFormId))
+        .limit(1);
+
+      const operation = existingInsight?.inSightResponse
+        ? db.update(aiInsight).set({ inSightResponse: insightText })
+        : db
+            .insert(aiInsight)
+            // @ts-ignore
+            .values({
+              inSightResponse: insightText,
+              createBy: user?.primaryEmailAddress?.emailAddress,
+              formRef: selectedFormId,
+            });
+
+      await operation;
+      toast.success("AI insight generated successfully");
+      getAiInsight(selectedFormId);
     } catch (error) {
+      console.error("Error generating AI insight:", error);
       toast.error("Error generating AI insight");
     } finally {
       setLoading(false);

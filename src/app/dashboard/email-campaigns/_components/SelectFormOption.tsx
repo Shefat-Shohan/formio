@@ -59,33 +59,38 @@ export default function SelectFormOption() {
     setLoading(true);
 
     try {
+      if (!selectedFormId) {
+        toast.error("No form selected");
+        return;
+      }
+
       const postData = prepareAiData();
       const response = await GenerateAIForm(postData);
+
       const campaignsData =
         response?.candidates?.[0]?.content?.parts?.[0]?.text;
-
       if (!campaignsData) {
         toast.error("Couldn't get the newsletter");
         return;
       }
+
       // Check if the AI insight exists in the database
-      const existingNewsletter = await db
+      const [existingNewsletter] = await db
         .select()
         .from(aiNewsletter)
-        // @ts-ignore
         .where(eq(aiNewsletter.formRef, selectedFormId))
         .limit(1);
 
-      const isUpdate = existingNewsletter?.[0]?.newsletterResponse;
-
-      const operation = isUpdate
+      const operation = existingNewsletter?.newsletterResponse
         ? db.update(aiNewsletter).set({ newsletterResponse: campaignsData })
-        : // @ts-ignore
-          db.insert(aiNewsletter).values({
-            newsletterResponse: campaignsData,
-            createBy: user?.primaryEmailAddress?.emailAddress,
-            formRef: selectedFormId,
-          });
+        : db
+            .insert(aiNewsletter)
+            // @ts-ignore
+            .values({
+              newsletterResponse: campaignsData,
+              createBy: user?.primaryEmailAddress?.emailAddress,
+              formRef: selectedFormId,
+            });
 
       await operation;
       toast.success("Newsletter generated successfully");
@@ -97,7 +102,7 @@ export default function SelectFormOption() {
     }
   };
 
-  // get the selected form newsletter
+  // get the selected form ai Insight
   const getNewsletter = async (formId: number | undefined) => {
     const result = await db
       .select()
@@ -110,6 +115,7 @@ export default function SelectFormOption() {
   const getNewsletterResponse = newsletter?.map(
     (item: any) => item.newsletterResponse
   )[0];
+
   // handle content change
   const handleContentChange = async (newsletterEdit: string) => {
     try {
