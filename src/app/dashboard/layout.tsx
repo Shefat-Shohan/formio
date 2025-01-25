@@ -2,6 +2,7 @@
 import { SignedIn } from "@clerk/nextjs";
 import React from "react";
 import SideNav from "./_components/SideNav";
+import { Metadata } from "next";
 
 export default function DashBoardlayout({
   children,

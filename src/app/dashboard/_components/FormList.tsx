@@ -1,12 +1,13 @@
 import { useUser } from "@clerk/nextjs";
 import { db } from "../../../../configs";
 import { JsonForm } from "../../../../configs/schema";
-import { desc, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { Suspense, useEffect, useState } from "react";
 import { formListType } from "@/data/type";
 import dynamic from "next/dynamic";
 import { ErrorBoundary } from "react-error-boundary";
-import CartLoadingSkelaton from "./CartLoadingSkelaton";
+import CartLoadingSkelaton from "./CardtLoadingSkelaton";
+import CardLoadingSkelaton from "./CardtLoadingSkelaton";
 
 export default function FormList() {
   const [formList, setFormList] = useState<formListType>([]);
@@ -23,8 +24,13 @@ export default function FormList() {
       const result = await db
         .select()
         .from(JsonForm)
-        // @ts-ignore
-        .where(eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress))
+        .where(
+          and(
+            // @ts-ignore
+            eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress),
+            eq(JsonForm.isDeleted, false)
+          )
+        )
         .orderBy(desc(JsonForm.id));
 
       // Ensure the result is always an array and handle cases where it's undefined or null
@@ -45,7 +51,7 @@ export default function FormList() {
     <div className="">
       <hr className="border-white/15 mb-10" />
       {loading ? (
-        <CartLoadingSkelaton />
+        <CardLoadingSkelaton />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 md:gap-4">
           {formList.map((form, index) => (
@@ -53,7 +59,7 @@ export default function FormList() {
               <ErrorBoundary
                 fallback={<h1>Something went wrong. Please retry.</h1>}
               >
-                <Suspense fallback={<CartLoadingSkelaton />}>
+                <Suspense fallback={<CardLoadingSkelaton />}>
                   <FormCard
                     jsonForm={JSON.parse(form.jsonForm)}
                     formRecord={[form]}

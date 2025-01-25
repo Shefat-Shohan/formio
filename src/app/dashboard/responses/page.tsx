@@ -3,7 +3,7 @@ import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { db } from "../../../../configs";
 import { JsonForm } from "../../../../configs/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import UserResponses from "./_components/UserResponses";
 import { formListType } from "@/data/type";
 
@@ -19,8 +19,14 @@ export default function Responses() {
       .select()
       .from(JsonForm)
       // @ts-ignore
-      .where(eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress));
-      // @ts-ignore
+      .where(
+        and(
+          // @ts-ignore
+          eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress),
+          eq(JsonForm.isDeleted, false)
+        )
+      );
+    // @ts-ignore
     setFormList(result);
   };
   return (

@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { db } from "../../../../../configs";
 import { userResponses } from "../../../../../configs/schema";
 import { eq } from "drizzle-orm";
@@ -25,9 +25,8 @@ export default function UserResponses({
   const formdata = formList.map((form: any) => {
     return { id: form.id, jsonForm: JSON.parse(form?.jsonForm) };
   });
-
   // get the selected form
-  const handleResponse = async (formId = formdata?.[0]?.jsonForm.name) => {
+  const handleResponse = async (formId: number) => {
     const result = await db
       .select()
       .from(userResponses)
@@ -57,7 +56,6 @@ export default function UserResponses({
           header: key,
         }))
       : [];
-
   // export feedback data
   const exportData = () => {
     const workSheet = XLSX.utils.json_to_sheet(data);
@@ -65,7 +63,6 @@ export default function UserResponses({
     XLSX.utils.book_append_sheet(workbook, workSheet, "Sheet1");
     XLSX.writeFile(workbook, "Reaponses.xlsx");
   };
-
   return (
     <section>
       <div>
@@ -76,20 +73,17 @@ export default function UserResponses({
               const selectedValue = formdata.find(
                 (item) => item.jsonForm.name === value
               );
-              setGetCurrentFormId(selectedValue?.id);
+              // setGetCurrentFormId(selectedValue?.id);
               handleResponse(selectedValue?.id);
             }}
           >
             <SelectTrigger className="max-w-[280px] bg-transparent border-white/15 w-full">
-              <SelectValue
-                placeholder={formdata[0]?.jsonForm.name || "No form found"}
-              />
+              <SelectValue placeholder="Select form" />
             </SelectTrigger>
             <SelectContent className="text-white bg-[#2F2F2F] border border-white/15 pb-1.5">
               {formdata.map((item, index: number) => (
                 <SelectItem
-                  className=""
-                  // onClick={() => handleResponse(item.id)}
+                  onClick={() => handleResponse(item.id)}
                   key={index}
                   value={item.jsonForm.name}
                 >

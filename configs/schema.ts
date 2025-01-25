@@ -1,4 +1,5 @@
 import {
+  boolean,
   integer,
   pgTable,
   serial,
@@ -14,6 +15,7 @@ export const JsonForm = pgTable("jsonForms", {
   style: varchar("style"),
   createBy: varchar("createdBy").notNull(),
   createAt: timestamp("createdAt").defaultNow().notNull(),
+  isDeleted: boolean("isDeleted").notNull().default(false),
 });
 
 export const userResponses = pgTable("userResponses", {

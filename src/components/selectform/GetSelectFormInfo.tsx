@@ -32,7 +32,13 @@ export default function GetSelectFormInfo() {
     const result = await db
       .select()
       .from(userResponses)
-      .where(eq(userResponses.formRef, formId));
+      .where(
+        and(
+          eq(userResponses.formRef, formId),
+          // @ts-ignore
+          eq(JsonForm.isDeleted, false)
+        )
+      );
     getAiInsight(formId);
     setResponse(result);
   };

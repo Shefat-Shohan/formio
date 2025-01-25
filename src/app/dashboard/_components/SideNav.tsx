@@ -22,7 +22,7 @@ export default function SideNav() {
   // resize the sidebar
   useEffect(() => {
     const handleResize = () => {
-      if (window.matchMedia("(max-width:820px)").matches) {
+      if (window.matchMedia("(max-width:375px)").matches) {
         setExpanded(false);
       } else {
         setExpanded(true);
@@ -77,7 +77,7 @@ export default function SideNav() {
             {sidebarMenu.map((menu, index) => (
               <Link
                 onClick={() => {
-                  if (window.innerWidth <= 1024) {
+                  if (window.innerWidth <= 360) {
                     setExpanded(false);
                   }
                 }}

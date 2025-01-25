@@ -9,7 +9,7 @@ import {
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { db } from "../../../../../configs";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { JsonForm } from "../../../../../configs/schema";
 
 export default function SelectForm({
@@ -31,7 +31,13 @@ export default function SelectForm({
       .select()
       .from(JsonForm)
       // @ts-ignore
-      .where(eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress));
+      .where(
+        and(
+          // @ts-ignore
+          eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress),
+          eq(JsonForm.isDeleted, false)
+        )
+      );
     setFormList(result);
   };
 
@@ -50,9 +56,7 @@ export default function SelectForm({
       }}
     >
       <SelectTrigger className="bg-transparent border-white/15 max-w-[280px]">
-        <SelectValue
-          placeholder={formdata[0]?.jsonForm.name || "No form found"}
-        />
+        <SelectValue placeholder="Select form" />
       </SelectTrigger>
       <SelectContent className="text-white bg-[#2F2F2F] border-white/15">
         {formdata.map((item: any, index: number) => (

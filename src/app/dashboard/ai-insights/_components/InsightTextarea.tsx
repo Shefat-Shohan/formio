@@ -5,7 +5,7 @@ export default function InsightTextarea({ inSightResponse }: { inSightResponse: 
   return (
     <Textarea
       placeholder="Generate suggestions"
-      className="bg-transparent border-white/30 min-h-72"
+      className="bg-transparent border-white/30 min-h-72 max-h-[500px]"
       defaultValue={inSightResponse}
     />
   );

@@ -46,20 +46,19 @@ const FormCard: React.FC<jsonFormProps> = ({
   // delete form
   const handleDelete = async (formId: number) => {
     try {
-      await db.transaction(async (tx) => {
-        await tx.delete(JsonForm).where(
+      await db
+        .update(JsonForm)
+        .set({ isDeleted: true })
+        .where(
           and(
-            eq(JsonForm.id, formId),
-            //@ts-ignore
-            eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress)
+            // @ts-ignore
+            eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress),
+            // @ts-ignore
+            eq(JsonForm.id, formId)
           )
         );
-        await tx.delete(userResponses).where(eq(userResponses.formRef, formId));
-        await tx.delete(aiNewsletter).where(eq(aiNewsletter.formRef, formId));
-        await tx.delete(aiInsight).where(eq(aiInsight.formRef, formId));
-        toast("Form and all related data deleted successfully.");
-        refreshData();
-      });
+      refreshData();
+      toast("Form deleted successfully.");
     } catch (error) {
       toast("Couldn't delete the form and related data.");
       console.error("Couldn't delete the form and related data", error);

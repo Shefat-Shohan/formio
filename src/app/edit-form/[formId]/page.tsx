@@ -1,4 +1,4 @@
-import CartLoadingSkelaton from "@/app/dashboard/_components/CartLoadingSkelaton";
+import CartLoadingSkelaton from "@/app/dashboard/_components/CardtLoadingSkelaton";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
