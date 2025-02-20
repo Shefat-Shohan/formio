@@ -11,11 +11,32 @@ import avatar4 from "@/assets/avatar-4.png";
 import {
   AudioLines,
   BrainCircuit,
+  Columns2,
+  Columns3,
+  Columns4,
   LayoutDashboard,
   LineChart,
   MessageSquare,
+  RectangleHorizontal,
   Shield,
 } from "lucide-react";
+import { Column } from "drizzle-orm";
+import {
+  Facebook,
+  Frame,
+  Framer,
+  Image,
+  Link2,
+  PanelTop,
+  Projector,
+  RectangleEllipsis,
+  SquareSplitVertical,
+  Text,
+  TextSelectionIcon,
+  Twitter,
+} from "lucide-react";
+import { ElementLayoutProps } from "./type";
+import placeholderImage from "../assets/imagePlaceholder.png";
 
 export const Clients = [
   {
@@ -139,4 +160,194 @@ export const promtSuggestion = [
   "Create a form to gather employee feedback on their work environment and team collaboration.",
   "I need a feedback form to collect opinions on our website's navigation, ease of use, and overall user experience.",
   "Generate a feedback form to assess customer experience with our support team, including response time and problem resolution.",
+];
+
+export const elementColumnMoudle: ElementLayoutProps[] = [
+  {
+    label: "1 Column",
+    type: "column",
+    numberOfCol: 1,
+    icon: RectangleHorizontal,
+  },
+  {
+    label: "2 Column",
+    type: "column",
+    numberOfCol: 2,
+    icon: Columns2,
+  },
+  {
+    label: "3 Column",
+    type: "column",
+    numberOfCol: 3,
+    icon: Columns3,
+  },
+  {
+    label: "4 Column",
+    type: "column",
+    numberOfCol: 4,
+    icon: Columns4,
+  },
+];
+
+export const elementsList = [
+  {
+    icon: RectangleEllipsis,
+    label: "Button",
+    type: "Button",
+    content: "Sample Button",
+    url: "#",
+    style: {
+      textAlign: "center",
+      backgroundColor: "#007bff",
+      color: "#ffffff",
+      padding: "10px",
+      width: "auto",
+      fontSize: "16px",
+      borderRadius: "6px",
+      fontWeight: "normal",
+      objectFit: "contain",
+    },
+    outerStyle: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "100%",
+    },
+  },
+  {
+    icon: TextSelectionIcon,
+    type: "Text",
+    label: "Text",
+    content: "Sample Text",
+    style: {
+      backgroundColor: "",
+      color: "#fff",
+      padding: "8px",
+      textAlign: "center",
+      fontSize: "18px",
+      fontWeight: "normal",
+      textTransform: "uppercase", // lowercase , capitilized
+    },
+    outerStyle: {
+      backgroundColor: "#fff",
+      width: "100%",
+    },
+  },
+  {
+    icon: Image,
+    type: "Image",
+    label: "Image",
+    imageUrl: placeholderImage,
+    alt: "Image",
+    url: "#",
+    style: {
+      backgroundColor: "",
+      padding: "10px",
+      height: "50%",
+      width: "70%",
+      margin: "0px",
+      borderRadius: "0px",
+    },
+    outerStyle: {
+      display: "flex",
+      width: "100%",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "",
+    },
+  },
+  {
+    icon: Frame,
+    type: "Logo",
+    label: "Logo",
+    imageUrl: placeholderImage,
+    alt: "logo",
+    url: "#",
+    style: {
+      backgroundColor: "#ffffff",
+      padding: "10px",
+      height: "30%",
+      width: "30%",
+    },
+    outerStyle: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "#fff",
+      width: "100%",
+    },
+  },
+  {
+    icon: PanelTop,
+    type: "LogoHeader",
+    label: "Logo Header",
+    imageUrl: "/logo.svg",
+    alt: "logo",
+    url: "#",
+    style: {
+      backgroundColor: "#ffffff",
+      padding: "10px",
+      height: "40%",
+      width: "40%",
+    },
+    outerStyle: {
+      display: "flex",
+      justifyContent: "left",
+      alignItems: "center",
+      backgroundColor: "#fff",
+      width: "100%",
+    },
+  },
+  {
+    icon: SquareSplitVertical,
+    type: "Divider",
+    label: "Divider",
+    content: "",
+    style: {
+      color: "#000000",
+      padding: "10px",
+      width: "100%",
+    },
+  },
+  {
+    type: "SocialIcons",
+    icon: Twitter,
+    label: "Social Icons",
+    socialIcons: [
+      {
+        icon: "https://cdn-icons-png.flaticon.com/128/2111/2111463.png",
+        url: "",
+      },
+      {
+        icon: "https://cdn-icons-png.flaticon.com/128/5968/5968852.png",
+        url: "",
+      },
+      {
+        icon: "https://cdn-icons-png.flaticon.com/128/5968/5968756.png",
+        url: "",
+      },
+    ],
+    options: [
+      {
+        icon: "https://cdn-icons-png.flaticon.com/128/2111/2111463.png",
+        url: "",
+      },
+      {
+        icon: "https://cdn-icons-png.flaticon.com/128/5968/5968852.png",
+        url: "",
+      },
+      {
+        icon: "https://cdn-icons-png.flaticon.com/128/5968/5968756.png",
+        url: "",
+      },
+    ],
+    style: {
+      width: 40,
+      height: 40,
+    },
+    outerStyle: {
+      display: "flex",
+      gap: 15,
+    },
+  },
 ];

@@ -4,7 +4,7 @@ import MenuIcon from "@/assets/icon-menu.svg";
 import MenuCloseIcon from "@/assets/icon-menu-close.svg";
 import Link from "next/link";
 import Button from "@/components/Button";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 
@@ -13,23 +13,23 @@ export const Header = () => {
   const Navbar = [
     {
       id: 1,
-      title: "Features",
-      link: "#",
+      title: "Home",
+      link: "/",
     },
     {
       id: 2,
-      title: "Developers",
-      link: "#",
+      title: "Features",
+      link: "#features",
     },
     {
       id: 3,
       title: "Company",
-      link: "#",
+      link: "#company",
     },
     {
       id: 4,
       title: "Blog",
-      link: "#",
+      link: "#blog",
     },
   ];
 

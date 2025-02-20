@@ -62,3 +62,54 @@ export type JsonFormType = {
   description: string;
   questions: QuestionType[];
 }[];
+
+// email template types
+export type ElementLayoutProps = {
+  id?: number;
+  label: string;
+  type: string;
+  numberOfCol: number;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+};
+
+export interface ElementStyle {
+  textAlign?: string;
+  backgroundColor?: string;
+  color?: string;
+  padding?: string;
+  width?: string | number;
+  height?: string | number;
+  imageUrl?: string;
+  margin?: string;
+  fontSize?: string;
+  borderRadius?: string;
+  fontWeight?: string;
+  objectFit?: string;
+  textTransform?: string;
+}
+
+export interface ElementOuterStyle {
+  display?: string;
+  backgroundColor?: string;
+  justifyContent?: string;
+  alignItems?: string;
+  width?: string;
+  gap?: number;
+}
+
+export interface ElementsListProps {
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  label: string;
+  type:
+    | "Button"
+    | "Text"
+    | "Image"
+    | "Logo"
+    | "LogoHeader"
+    | "Divider"
+    | "SocialIcons";
+  content: string;
+  url: string;
+  style: ElementStyle;
+  outerStyle: ElementOuterStyle;
+}

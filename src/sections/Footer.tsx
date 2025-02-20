@@ -7,23 +7,23 @@ export const Footer = () => {
   const Navbar = [
     {
       id: 1,
-      title: "Features",
-      link: "#",
+      title: "Home",
+      link: "/",
     },
     {
       id: 2,
-      title: "Developers",
-      link: "#",
+      title: "Features",
+      link: "#features",
     },
     {
       id: 3,
       title: "Company",
-      link: "#",
+      link: "#company",
     },
     {
       id: 4,
-      title: "Blog",
-      link: "#",
+      title: "Dashboard",
+      link: "/sign-in",
     },
   ];
   return (

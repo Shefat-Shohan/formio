@@ -106,22 +106,25 @@ export const Features = () => {
     };
     animate(
       backgroundSizeX,
-      [backgroundPositionX.get(), 100, tabs[index].backgroundSizeX], animateOption
+      [backgroundPositionX.get(), 100, tabs[index].backgroundSizeX],
+      animateOption
     );
     animate(
       backgroundPositionX,
-      [backgroundPositionX.get(), 100, tabs[index].backgroundPositionX], animateOption
+      [backgroundPositionX.get(), 100, tabs[index].backgroundPositionX],
+      animateOption
     );
     animate(
       backgroundPositionY,
-      [backgroundPositionY.get(), 100, tabs[index].backgroundPositionY], animateOption
+      [backgroundPositionY.get(), 100, tabs[index].backgroundPositionY],
+      animateOption
     );
   };
   return (
-    <section className="py-20 md:py-24">
+    <section id="features" className="py-20 md:py-24">
       <div className="container">
         <h2 className="text-4xl md:text-6xl font-medium text-center tracking-tighter">
-        AI-powered form generation tools
+          AI-powered form generation tools
         </h2>
         <p className="text-white/70 text-md md:text-xl max-w-2xl mx-auto tracking-tight text-center mt-5">
           From small startups to large enterprise, our AI-driven tool has
@@ -146,7 +149,6 @@ export const Features = () => {
               backgroundImage: `url(${productIamge.src})`,
             }}
           ></motion.div>
-          
         </div>
       </div>
     </section>
