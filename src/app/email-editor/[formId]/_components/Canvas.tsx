@@ -4,6 +4,7 @@ import { useScreenSize } from "@/app/context/screenSizeContext";
 import { ElementLayoutProps } from "@/data/type";
 import { useEffect, useState } from "react";
 import ColumnLayout from "./DraggableLayoutElements/ColumnLayout";
+import { ScrollArea } from "@/components/ui/scroll-area";
 const Canvas = () => {
   const { screenSize } = useScreenSize();
   const { dragElementLayout } = useDragAndDropLayoutContext();
@@ -33,26 +34,28 @@ const Canvas = () => {
     }
   };
   return (
-    <div className="mt-20 flex justify-center ">
-      <div
-        onDragOver={onDragOver}
-        onDrop={onDraopOverHandler}
-        className={`bg-[#212121] p-6 w-full max-w-2xl ${
-          screenSize == "desktop" ? "max-w-2xl" : "max-w-lg"
-        }
+    <ScrollArea className="h-[80vh]">
+      <div className="mt-20 flex justify-center">
+        <div
+          onDragOver={onDragOver}
+          onDrop={onDraopOverHandler}
+          className={`bg-[#212121] p-6 w-full max-w-2xl ${
+            screenSize == "desktop" ? "max-w-2xl" : "max-w-lg"
+          }
           ${dragOver ? "bg-[#8A43FC]" : ""}`}
-      >
-        {emailTemplate.length > 0 ? (
-          emailTemplate.map((layout, index) => (
-            <div key={index}>{getLayoutComponent(layout)}</div>
-          ))
-        ) : (
-          <h2 className="p-4 text-center border bg-[#2F2F2F] border-dashed border-white/15">
-            Add layout
-          </h2>
-        )}
+        >
+          {emailTemplate.length > 0 ? (
+            emailTemplate.map((layout, index) => (
+              <div key={index}>{getLayoutComponent(layout)}</div>
+            ))
+          ) : (
+            <h2 className="p-4 text-center border bg-[#2F2F2F] border-dashed border-white/15">
+              Add layout
+            </h2>
+          )}
+        </div>
       </div>
-    </div>
+      </ScrollArea>
   );
 };
 

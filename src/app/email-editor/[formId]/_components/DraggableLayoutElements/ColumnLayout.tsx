@@ -41,7 +41,6 @@ const ColumnLayout = ({ layout }: { layout: ElementLayoutProps }) => {
           : col
       )
     );
-    console.log("emailTemplate", emailTemplate);
     setDragOver(null);
   };
   // get element component.
@@ -67,14 +66,14 @@ const ColumnLayout = ({ layout }: { layout: ElementLayoutProps }) => {
             onDrop={onDropHandler}
             key={index}
             className={`p-2 flex items-center justify-center cursor-pointer ${
-              (selectedElement?.layout?.id === layout?.id &&
-                selectedElement?.index === index) &&
-              "border-blue-500"
-            } ${
-              !layout?.[index]?.type &&
-              "bg-[#2F2F2F] border border-dashed border-white/15"
-            } ${
-              index == dragOver?.index && dragOver?.columnId && "bg-gray-800"
+              selectedElement?.layout?.id == layout?.id &&
+              selectedElement?.index == index
+                ? "border border-blue-400"
+                : " "
+            } ${!layout?.[index]?.type ? "bg-[#2F2F2F] border" : ""} ${
+              index == dragOver?.index && dragOver?.columnId
+                ? "bg-gray-800"
+                : ""
             }`}
             onClick={() => setSelectedElement({ layout: layout, index: index })}
           >

@@ -20,7 +20,7 @@ const EditorHeader = (props: Props) => {
         </Link>
         {/* <span>Formio</span> */}
       </div>
-      <div className="flex gap-3">
+      <div className=" gap-3 md:flex hidden">
         <Button
           onClick={() => setScreenSize("desktop")}
           variant="outline"
