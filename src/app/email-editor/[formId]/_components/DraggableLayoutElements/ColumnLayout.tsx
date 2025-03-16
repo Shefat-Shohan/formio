@@ -180,7 +180,6 @@ const ColumnLayout = ({ layout }: { layout: ElementLayoutProps }) => {
     document.addEventListener("mouseup", handleMouseUp);
   };
 
-
   return (
     <div className="relative" data-layout-id={layout.id}>
       <div
@@ -204,9 +203,9 @@ const ColumnLayout = ({ layout }: { layout: ElementLayoutProps }) => {
                 ? "border border-dashed border-blue-400"
                 : " "
             } ${
-                // @ts-ignore
+              // @ts-ignore
               !layout?.[index]?.type ? "bg-[#2F2F2F] border border-dashed" : ""
-            } `}// @ts-ignore
+            } `} // @ts-ignore
             onClick={() => setSelectedElement({ layout: layout, index: index })}
           >
             {/* @ts-ignore */}
@@ -215,7 +214,7 @@ const ColumnLayout = ({ layout }: { layout: ElementLayoutProps }) => {
             )}
           </div>
         ))}
-         {/* @ts-ignore */}
+        {/* @ts-ignore */}
         {selectedElement?.layout?.id == layout?.id && (
           <div className="absolute -right-6 bg-[#7C34F0] rounded-full flex flex-col gap-3 ">
             <div className="flex flex-col items-center gap-3">
@@ -226,7 +225,7 @@ const ColumnLayout = ({ layout }: { layout: ElementLayoutProps }) => {
               <div className="flex flex-col">
                 <div
                   className="cursor-move p-1 rounded-xl hover:bg-[#7C34F0] hover:scale-105 hover:text-[#7C34F0] transition-all"
-                  {/* @ts-ignore */}
+                  // @ts-ignore
                   onMouseDown={(e) => handleSortStart(e, layout.id)}
                   title="Drag to reorder"
                 >
