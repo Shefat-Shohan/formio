@@ -26,6 +26,7 @@ export const EmailTemplateContextProvider = ({
   children: React.ReactNode;
 }) => {
   const [emailTemplate, setEmailTemplate] = useState<ElementLayoutProps[]>([]);
+  
   return (
     <EmailTemplateContext.Provider value={{ emailTemplate, setEmailTemplate }}>
       {children}

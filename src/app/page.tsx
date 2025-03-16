@@ -5,20 +5,23 @@ import { Header } from "@/sections/Header";
 import { Hero } from "@/sections/Hero";
 import { LogoTicker } from "@/sections/LogoTicker";
 import { Testimonials } from "@/sections/Testimonials";
+
 export default function Home() {
+
   return (
     <>
-      <div className="min-h-screen flex flex-col justify-between">
-        <Header />
-        <div>
-          <Hero />
-          <LogoTicker />
-          <Features />
-          <Testimonials />
-          <CallToAction />
+      
+        <div className="min-h-screen flex flex-col justify-between">
+          <Header />
+          <div>
+            <Hero />
+            <LogoTicker />
+            <Features />
+            <Testimonials />
+            <CallToAction />
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
     </>
   );
 }

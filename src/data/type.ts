@@ -73,19 +73,27 @@ export type ElementLayoutProps = {
 };
 
 export interface ElementStyle {
-  textAlign?: string;
-  backgroundColor?: string;
-  color?: string;
-  padding?: string;
-  width?: string | number;
-  height?: string | number;
-  imageUrl?: string;
-  margin?: string;
-  fontSize?: string;
-  borderRadius?: string;
-  fontWeight?: string;
-  objectFit?: string;
-  textTransform?: string;
+  style: {
+    backgroundColor?: string;
+    padding?: string;
+    width?: string | number;
+    height?: string | number;
+    margin?: string;
+    borderRadius?: string;
+    textAlign?: string;
+    fontSize?: string;
+    fontWeight?: string;
+    textTransform?: string;
+    color?: string;
+    objectFit?: string;
+  };
+  outerStyle: {
+    display: string;
+    width?: string | number;
+    justifyContent: string;
+    alignItems: string;
+    backgroundColor: string;
+  };
 }
 
 export interface ElementOuterStyle {
@@ -98,18 +106,82 @@ export interface ElementOuterStyle {
 }
 
 export interface ElementsListProps {
+  index?: number;
   icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   label: string;
   type:
     | "Button"
     | "Text"
+    | "Paragraph"
     | "Image"
     | "Logo"
     | "LogoHeader"
     | "Divider"
     | "SocialIcons";
   content: string;
+  textarea: string;
   url: string;
   style: ElementStyle;
   outerStyle: ElementOuterStyle;
 }
+
+export type ElementType = {
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  id: number;
+  label: string;
+  type: string;
+  content: string;
+  textarea: string;
+  imageUrl: string;
+  url: string;
+  style: {
+    backgroundColor?: string;
+    padding?: string;
+    width?: string;
+    height?: string;
+    borderRadius?: string;
+    textAlign?: string;
+    fontSize?: string;
+    fontWeight?: string;
+    textTransform?: string;
+    color?: string;
+    objectFit?: string;
+  };
+  outerStyle: {
+    display: string;
+    width?: string;
+    justifyContent: string;
+    alignItems: string;
+    backgroundColor: string;
+  };
+};
+
+export type Option = {
+  value: string;
+  icon: React.ElementType;
+};
+
+export type SentimentType = {
+  formRef: number;
+  id: number;
+  isProcessing: boolean;
+  sentimentResponse: string;
+};
+
+export type parsedBackSentimentType = {
+  emails: [];
+  formRef: number;
+  overview: string;
+  recommendations: string;
+  sentiment: string;
+};
+
+export type EmailCampaignType = {
+  id: number;
+  assignedCustomer: [] | null;
+  createdAt: string;
+  createdBy: string;
+  emailTemplate: string | null;
+  formRef: number;
+  title: string;
+};

@@ -9,8 +9,13 @@ import avatar2 from "@/assets/avatar-2.png";
 import avatar3 from "@/assets/avatar-3.png";
 import avatar4 from "@/assets/avatar-4.png";
 import {
+  AlignCenter,
+  AlignLeft,
+  AlignRight,
   AudioLines,
   BrainCircuit,
+  CaseLower,
+  CaseUpper,
   Columns2,
   Columns3,
   Columns4,
@@ -19,6 +24,7 @@ import {
   MessageSquare,
   RectangleHorizontal,
   Shield,
+  TextSearchIcon,
 } from "lucide-react";
 import { Column } from "drizzle-orm";
 import {
@@ -35,8 +41,7 @@ import {
   TextSelectionIcon,
   Twitter,
 } from "lucide-react";
-import { ElementLayoutProps } from "./type";
-import placeholderImage from "../assets/imagePlaceholder.png";
+import { ElementLayoutProps, Option } from "./type";
 
 export const Clients = [
   {
@@ -146,7 +151,7 @@ export const sidebarMenu = [
 ];
 
 export const prompt =
-  "Generate a valid json object based on the description, with fields: name (string) for the form max character of 25-30, description (string) of the form max character of 100-120, and a questions array where every element has maximum fields of 6: label, placeholder, and the fieldType. The fieldType can be one of these options: RadioGroup, Select, Input, Textarea, or Switch. For Input fields, also include an inputType (e.g., text, email, number). For RadioGroup and Select types, return a fieldOptions array with text and value fields. For example, for RadioGroup and Select types, the field options array should look like [{text: 'Yes', value: 'yes'}, {text: 'No', value: 'no'}]. For Input, Textarea, and Switch types, the fieldOptions array should be empty (e.g., []). Ensure that the response is returned in valid JSON format and don't return any date picker and should always have an email field. Return a single JSON object that strictly adheres to the specified structure and constraints. Remove any backtick and json lable at the beginning or end.";
+  "Generate a valid json object based on the description, with fields: name (string) for the form max character of 25-30, description (string) of the form max character of 100-120, and a questions array where every element has maximum fields of 6: label, placeholder, and the fieldType. The fieldType can be one of these options: RadioGroup, Select, Input, Textarea, or Switch. For Input fields, also include an inputType (e.g., text, email, number). For RadioGroup and Select types, return a fieldOptions array with text and value fields. For example, for RadioGroup and Select types, the field options array should look like [{text: 'Yes', value: 'yes'}, {text: 'No', value: 'no'}]. For Input, Textarea, and Switch types, the fieldOptions array should be empty (e.g., []). Ensure that the response is returned in valid JSON format and don't return any date picker and should always have an email field. Return a single JSON object that strictly adheres to the specified structure and constraints. Make sure to add a email field no matter the form type is. Remove any backtick and json lable at the beginning or end.";
 
 export const feedbackPrompt =
   "Please analyze all feedback and provide: A sentiment score, Key themes or issues. Suggestions to address concerns........";
@@ -226,7 +231,26 @@ export const elementsList = [
       textAlign: "center",
       fontSize: "18px",
       fontWeight: "normal",
-      textTransform: "uppercase", // lowercase , capitilized
+      textTransform: "", // lowercase , capitilized
+    },
+    outerStyle: {
+      backgroundColor: "#fff",
+      width: "100%",
+    },
+  },
+  {
+    icon: TextSelectionIcon,
+    type: "Paragraph",
+    label: "Paragraph",
+    textarea: "Add a paragraph",
+    style: {
+      backgroundColor: "",
+      color: "#fff",
+      padding: "8px",
+      textAlign: "center",
+      fontSize: "16px",
+      fontWeight: "normal",
+      textTransform: "", // uppercase, capitilized, lowercase
     },
     outerStyle: {
       backgroundColor: "#fff",
@@ -237,7 +261,7 @@ export const elementsList = [
     icon: Image,
     type: "Image",
     label: "Image",
-    imageUrl: placeholderImage,
+    imageUrl: "/imagePlaceholder.png",
     alt: "Image",
     url: "#",
     style: {
@@ -256,57 +280,58 @@ export const elementsList = [
       backgroundColor: "",
     },
   },
-  {
-    icon: Frame,
-    type: "Logo",
-    label: "Logo",
-    imageUrl: placeholderImage,
-    alt: "logo",
-    url: "#",
-    style: {
-      backgroundColor: "#ffffff",
-      padding: "10px",
-      height: "30%",
-      width: "30%",
-    },
-    outerStyle: {
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      backgroundColor: "#fff",
-      width: "100%",
-    },
-  },
-  {
-    icon: PanelTop,
-    type: "LogoHeader",
-    label: "Logo Header",
-    imageUrl: "/logo.svg",
-    alt: "logo",
-    url: "#",
-    style: {
-      backgroundColor: "#ffffff",
-      padding: "10px",
-      height: "40%",
-      width: "40%",
-    },
-    outerStyle: {
-      display: "flex",
-      justifyContent: "left",
-      alignItems: "center",
-      backgroundColor: "#fff",
-      width: "100%",
-    },
-  },
+  // {
+  //   icon: Frame,
+  //   type: "Logo",
+  //   label: "Logo",
+  //   imageUrl: "/imagePlaceholder.png",
+  //   alt: "logo",
+  //   url: "#",
+  //   style: {
+  //     backgroundColor: "",
+  //     padding: "10px",
+  //     height: "30%",
+  //     width: "30%",
+  //   },
+  //   outerStyle: {
+  //     display: "flex",
+  //     justifyContent: "center",
+  //     alignItems: "center",
+  //     backgroundColor: "",
+  //     width: "100%",
+  //   },
+  // },
+  // {
+  //   icon: PanelTop,
+  //   type: "LogoHeader",
+  //   label: "Logo Header",
+  //   imageUrl: "/logo.svg",
+  //   alt: "logo",
+  //   url: "#",
+  //   style: {
+  //     backgroundColor: "#ffffff",
+  //     padding: "10px",
+  //     height: "40%",
+  //     width: "40%",
+  //   },
+  //   outerStyle: {
+  //     display: "flex",
+  //     justifyContent: "left",
+  //     alignItems: "center",
+  //     backgroundColor: "#fff",
+  //     width: "100%",
+  //   },
+  // },
   {
     icon: SquareSplitVertical,
     type: "Divider",
     label: "Divider",
-    content: "",
     style: {
-      color: "#000000",
       padding: "10px",
       width: "100%",
+    },
+    outerStyle: {
+      color: "#fff",
     },
   },
   {
@@ -349,5 +374,48 @@ export const elementsList = [
       display: "flex",
       gap: 15,
     },
+  },
+];
+
+export const TextAlignOption = [
+  {
+    icon: AlignLeft,
+    value: "left",
+  },
+  {
+    icon: AlignCenter,
+    value: "center",
+  },
+  {
+    icon: AlignRight,
+    value: "right",
+  },
+];
+export const TextTransformOption = [
+  {
+    icon: CaseUpper,
+    value: "uppercase",
+  },
+  {
+    icon: CaseUpper,
+    value: "capitalize",
+  },
+  {
+    icon: CaseLower,
+    value: "lowercase",
+  },
+  {
+    icon: TextSearchIcon,
+    value: "initial",
+  },
+];
+export const FontWeightOption = [
+  {
+    id: 1,
+    value: "normal",
+  },
+  {
+    id: 2,
+    value: "bold",
   },
 ];

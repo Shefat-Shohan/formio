@@ -1,5 +1,4 @@
 import { Input } from "@/components/ui/input";
-import React, { FormEvent, useRef, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -17,8 +16,6 @@ import { db } from "../../../../configs";
 import { userResponses } from "../../../../configs/schema";
 import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
-import { DndContext, useDroppable } from "@dnd-kit/core";
-import DragOverlayWrapper from "./DragOverlayWrapper";
 import { JsonFormType } from "@/data/type";
 const FormUi = ({
   jsonForm,
@@ -58,7 +55,7 @@ const FormUi = ({
         formRef: formId,
       });
       if (result) {
-        router.push(`https://formio-ten.vercel.app/aiform/${formId}/success`);
+        router.push(`/aiform/${formId}/success`);
         reset();
       } else {
         toast("No response recorded, something went wrong");

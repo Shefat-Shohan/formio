@@ -27,8 +27,8 @@ const ElementsSideBar = () => {
   };
   return (
     // layout
-    <div className="p-5 h-full">
-      <ScrollArea className="h-[90vh]">
+    <div className="p-5 h-full w-full min-w-[120px] lg:w-[300px]">
+      <ScrollArea className="h-[100vh]">
         <h2 className="font-bold text-lg">Layouts</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mt-3">
           {elementColumnMoudle.map((layout) => (

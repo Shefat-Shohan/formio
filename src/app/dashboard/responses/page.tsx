@@ -13,7 +13,7 @@ export default function Responses() {
   useEffect(() => {
     user && getActiveUserResponsesList();
   }, [user]);
-
+  
   const getActiveUserResponsesList = async () => {
     const result = await db
       .select()
@@ -29,6 +29,7 @@ export default function Responses() {
     // @ts-ignore
     setFormList(result);
   };
+  
   return (
     <div className="py-10 md:px-10 px-4 w-full">
       <h1 className="font-bold md:text-3xl text-xl">Responses</h1>

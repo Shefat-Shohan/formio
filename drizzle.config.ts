@@ -7,4 +7,7 @@ export default defineConfig({
   dbCredentials: {
     url: "postgresql://formio_owner:8CH6MRtIFTUJ@ep-billowing-band-a59qr6tz.us-east-2.aws.neon.tech/formio?sslmode=require",
   },
+  // dbCredentials: {
+  //   url: "YOUR_DATABSE_KEY",
+  // },
 });

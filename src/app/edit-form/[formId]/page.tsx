@@ -1,4 +1,5 @@
 import CartLoadingSkelaton from "@/app/dashboard/_components/CardtLoadingSkelaton";
+import { Divide } from "lucide-react";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { ErrorBoundary } from "react-error-boundary";
@@ -14,7 +15,9 @@ export default function page({
   return (
     <>
       <ErrorBoundary fallback={<h1>Something went wrong. Please retry.</h1>}>
-        <EditForm formId={formId} />
+        <Suspense fallback={<div>loading..</div>}>
+          <EditForm formId={formId} />
+        </Suspense>
       </ErrorBoundary>
     </>
   );

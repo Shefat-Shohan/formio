@@ -54,7 +54,9 @@ const defaulElements: ElementsListProps = {
   type: "Button",
   content: "Sample Button",
   url: "#",
+
   style: {
+    // @ts-ignore
     textAlign: "center",
     backgroundColor: "#007bff",
     color: "#ffffff",

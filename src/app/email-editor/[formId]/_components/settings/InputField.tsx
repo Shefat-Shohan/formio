@@ -1,18 +1,19 @@
 import { Input } from "@/components/ui/input";
-import React from "react";
+import { Label } from "@/components/ui/label";
 
 type InputFieldProps = {
   label: string;
   value: string;
-  handleInputChange: (e) => void;
+  handleInputChange: (value: string) => void;
 };
 
 const InputField = ({ label, value, handleInputChange }: InputFieldProps) => {
   return (
     <div>
-      <label>{label}</label>
+      <Label>{label}</Label>
       <Input
-        className="placeholder:text-black bg-[#171717] border-white/15 mt-1.5"
+        className="placeholder:text-text-white bg-[#171717] border-white/15 mt-1.5"
+        placeholder="Add text here"
         value={value}
         onChange={(e) => handleInputChange(e.target.value)}
       />

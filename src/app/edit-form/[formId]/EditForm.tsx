@@ -25,6 +25,8 @@ import { Input } from "@/components/ui/input";
 import { QuestionType } from "@/data/type";
 import ThemeController from "../_components/ThemeController";
 import { easeInOut, easeOut, motion } from "framer-motion";
+
+
 export default function EditForm({ formId }: { formId: number }) {
   const { user } = useUser();
   const [jsonForm, setJsonForm] = useState([]);
@@ -162,13 +164,7 @@ export default function EditForm({ formId }: { formId: number }) {
       console.error(error);
     }
   };
-  // page transition
-  const pageTransition = {
-    initial: { opacity: 0, scale: 0.8 },
-    animate: { opacity: 1, scale: 1 },
-    exit: { opacity: 0, scale: 0.8 },
-    transition: { duration: 0.8, ease: easeInOut },
-  };
+
   return (
     <motion.section
       initial={{ opacity: 0, scale: 0.8 }}

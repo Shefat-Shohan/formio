@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 const ImageElement = ({
   style,
   imageUrl,
@@ -12,8 +11,8 @@ const ImageElement = ({
   alt: string;
 }) => {
   return (
-    <div style={outerStyle}>
-      <Image src={imageUrl} alt={alt} style={style} />
+    <div className="w-full" style={outerStyle}>
+      <img src={imageUrl} alt={alt} style={style} />
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import { ElementStyle } from "@/data/type";
 import Image from "next/image";
 import React from "react";
 type Props = {};
@@ -14,7 +15,7 @@ const LogoElement = ({
   alt: string;
 }) => {
   return (
-    <div>
+    <div style={outerStyle} className="w-full">
       <Image src={imageUrl} alt={alt} style={style} />
     </div>
   );

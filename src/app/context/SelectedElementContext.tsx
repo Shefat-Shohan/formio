@@ -1,6 +1,7 @@
-import { ElementLayoutProps } from "@/data/type";
+import {
+  ElementLayoutProps,
+} from "@/data/type";
 import { createContext, useContext, useState } from "react";
-
 type SelectedElementType = {
   selectedElement: ElementLayoutProps[];
   setSelectedElement: React.Dispatch<
