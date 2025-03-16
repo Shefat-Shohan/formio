@@ -12,7 +12,6 @@ import { useUser } from "@clerk/nextjs";
 import { db } from "../../../../configs";
 import {
   aiInsight,
-  aiNewsletter,
   JsonForm,
   userResponses,
 } from "../../../../configs/schema";
