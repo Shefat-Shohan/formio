@@ -143,6 +143,8 @@ export default function SelectFormOption() {
       if (!response || response.length === 0) {
         setGetEmailCampaign([]);
       }
+
+      //@ts-ignore
       setGetEmailCampaign(response);
     } catch (error) {
       console.log("Databse error", error);
