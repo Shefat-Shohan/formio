@@ -9,10 +9,15 @@ const ButtonElement = ({
   url: string;
   outerStyle: {};
 }) => {
+  const handleClick = (event: React.MouseEvent) => {
+    event.preventDefault();
+  };
   return (
     <div className="w-full">
       <a href={url} style={outerStyle}>
-        <button style={style}> {content} </button>
+        <button onClick={handleClick} style={style}>
+          {content}
+        </button>
       </a>
     </div>
   );

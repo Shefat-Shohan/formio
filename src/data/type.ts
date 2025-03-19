@@ -168,14 +168,6 @@ export type SentimentType = {
   sentimentResponse: string;
 };
 
-export type parsedBackSentimentType = {
-  emails: [];
-  formRef: number;
-  overview: string;
-  recommendations: string;
-  sentiment: string;
-};
-
 export type EmailCampaignType = {
   id: number;
   assignedCustomer: [] | null;
@@ -183,5 +175,19 @@ export type EmailCampaignType = {
   createdBy: string;
   emailTemplate: string | null;
   formRef: number;
-  title: string;
+  subject: string;
+};
+
+export type SentimentAnalysis = {};
+
+export type parsedBackSentimentType = {
+  formRef: number;
+  positive: "positive";
+  negative: "negative";
+  neutral: "neutral";
+  overall_sentiment: string;
+  overview: string | null;
+  recommendations: string;
+  score: number;
+  emails: string[];
 };

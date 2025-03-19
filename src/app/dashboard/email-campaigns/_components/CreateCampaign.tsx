@@ -27,8 +27,10 @@ import { useUser } from "@clerk/nextjs";
 const CreateCampaign = ({
   formRef,
   getAllCampaign,
+  sentimentType,
 }: {
   formRef: number | undefined;
+  sentimentType: string;
   getAllCampaign: () => void;
 }) => {
   const [inputValue, setInputValue] = useState<string>("");
@@ -40,10 +42,11 @@ const CreateCampaign = ({
     if (!formRef || !inputValue) return;
     // @ts-ignore
     await db.insert(emailCampaign).values({
-      title: inputValue,
+      subject: inputValue,
       createdAt: new Date().toLocaleString(),
       createdBy: user?.primaryEmailAddress?.emailAddress,
       formRef: formRef,
+      sentimentType: sentimentType,
     });
     getAllCampaign();
     setInputValue("");
@@ -62,7 +65,7 @@ const CreateCampaign = ({
             Create a new campaign
           </DialogTitle>
           <DialogDescription className="text-sm text-white/80">
-            What is the name of your campaign.
+            What is the subject of your campaign.
             <Input
               type="text"
               placeholder="Campaign name"

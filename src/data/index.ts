@@ -128,11 +128,11 @@ export const sidebarMenu = [
     icon: MessageSquare,
     path: "/dashboard/responses",
   },
-  {
-    name: "AI Insights",
-    icon: BrainCircuit,
-    path: "/dashboard/ai-insights",
-  },
+  // {
+  //   name: "AI Insights",
+  //   icon: BrainCircuit,
+  //   path: "/dashboard/ai-insights",
+  // },
   {
     name: "Email Campaigns",
     icon: AudioLines,

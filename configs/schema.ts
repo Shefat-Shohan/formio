@@ -37,13 +37,14 @@ export const aiInsight = pgTable("aiInsight", {
 
 export const emailCampaign = pgTable("emailCampaign", {
   id: serial("id").primaryKey(),
-  title: text("title").notNull(),
+  subject: text("subject").notNull(),
   assignedCustomer: text("assignedCustomer").default("0"),
   emailTemplate: text("emailTemplate").default("[]"),
   htmlEmailFormat: text("htmlEmailFormat").default(""),
   createdAt: varchar("createdAt").notNull(),
   createdBy: varchar("createdBy").notNull(),
   formRef: integer("formRef").references(() => JsonForm.id),
+  sentimentType: text("sentimentType").notNull(),
 });
 
 export const aiSentiment = pgTable("aiSentiment", {

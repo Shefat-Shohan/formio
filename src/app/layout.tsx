@@ -4,8 +4,7 @@ import "./globals.css";
 import cn from "../../utils/cn";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
-import { Header } from "@/sections/Header";
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ["latin"], });
 
 export const metadata: Metadata = {
   title: "Formio",

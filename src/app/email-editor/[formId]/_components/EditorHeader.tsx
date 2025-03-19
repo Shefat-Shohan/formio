@@ -1,7 +1,7 @@
 import LogoIcon from "@/assets/logo.svg";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CodeXml, Monitor, Smartphone } from "lucide-react";
+import { Monitor, Smartphone } from "lucide-react";
 import { useScreenSize } from "@/app/context/screenSizeContext";
 import { useRouter } from "next/navigation";
 import { useEmailContext } from "@/app/context/EmailTemplateContext";
@@ -51,8 +51,10 @@ const EditorHeader = ({ campaignId }: { campaignId: number }) => {
         <Button
           onClick={() => setScreenSize("desktop")}
           variant="outline"
-          className={`bg-transparent border-none hover:bg-[#2F2F2F] ${
-            screenSize == "desktop" && "bg-[#7C34F0] text-black"
+          className={`border-none hover:bg-transparent ${
+            screenSize == "desktop"
+              ? "bg-[#7C34F0] hover:bg-[#7C34F0] text-white"
+              : "bg-transparent text-black"
           }`}
         >
           <span className="text-white flex gap-2 items-center">
@@ -62,8 +64,10 @@ const EditorHeader = ({ campaignId }: { campaignId: number }) => {
         <Button
           onClick={() => setScreenSize("mobile")}
           variant="outline"
-          className={`bg-transparent border-none hover:bg-[#2F2F2F] ${
-            screenSize == "mobile" && "bg-[#7C34F0] text-black"
+          className={`border-none hover:bg-transparent ${
+            screenSize == "mobile"
+              ? "bg-[#7C34F0] hover:bg-[#7C34F0] text-white"
+              : "bg-transparent text-black"
           }`}
         >
           <span className="text-white flex gap-2 items-center">

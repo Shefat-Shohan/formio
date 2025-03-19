@@ -19,6 +19,10 @@ const Canvas = () => {
     e.preventDefault();
     setDragOver(true);
   };
+  const onDragLeave = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setDragOver(false);
+  };
 
   // method runs for onDrop of an element
   const onDraopOverHandler = (e: React.DragEvent<HTMLDivElement>) => {
@@ -47,6 +51,7 @@ const Canvas = () => {
         <div
           ref={dropZoneRef}
           onDragOver={onDragOver}
+          onDragLeave={onDragLeave}
           onDrop={onDraopOverHandler}
           className={`bg-[#212121] p-6 
           ${dragOver ? "bg-[#8A43FC]" : ""}`}

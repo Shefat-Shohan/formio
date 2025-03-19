@@ -1,5 +1,13 @@
 "use client";
 import { useEffect, useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import { and, eq } from "drizzle-orm";
 import SelectForm from "@/app/dashboard/ai-insights/_components/SelecForm";
 import { aiSentiment, emailCampaign } from "../../../../../configs/schema";
@@ -45,6 +53,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+type SentimentKeys = "positive" | "negative" | "neutral";
 export default function SelectFormOption() {
   const [selectedFormId, setSelectedFormId] = useState<number | undefined>();
   const [sentimentResponse, SetSentimentResponse] = useState<SentimentType[]>(
@@ -61,6 +70,8 @@ export default function SelectFormOption() {
   const [selectedCampaign, setSelectedCammpaign] = useState<Number | null>(
     null
   );
+  const [sentimentDropDownValue, setSentimentDropDownValue] =
+    useState("positive");
   // connect db and get the sentiment analysis
   const handleSelectOption = async (formId: number) => {
     const result = await db
@@ -81,7 +92,7 @@ export default function SelectFormOption() {
     if (sentimentResponse.length > 0) {
       try {
         setParsedbackSentiment(
-          JSON.parse(sentimentResponse[0].sentimentResponse)
+          JSON.parse(sentimentResponse[0]?.sentimentResponse)
         );
       } catch (error) {
         console.error("Error parsing sentimentResponse:", error);
@@ -92,7 +103,7 @@ export default function SelectFormOption() {
   // selcet all the email.
 
   const allSelected =
-    selectedEmails.length === parsedBackSentiment?.emails.length;
+    selectedEmails.length === parsedBackSentiment?.emails?.length;
 
   // select all email at once
   const toggleSelectAll = () => {
@@ -123,7 +134,8 @@ export default function SelectFormOption() {
 
   useEffect(() => {
     user && getAllCampaign();
-  }, [selectedFormId]);
+  }, [selectedFormId, sentimentDropDownValue]);
+
   const getAllCampaign = async () => {
     try {
       const response = await db
@@ -137,7 +149,8 @@ export default function SelectFormOption() {
               user?.primaryEmailAddress?.emailAddress
             ),
             //@ts-ignore
-            eq(emailCampaign.formRef, selectedFormId)
+            eq(emailCampaign.formRef, selectedFormId),
+            eq(emailCampaign.sentimentType, sentimentDropDownValue)
           )
         );
       if (!response || response.length === 0) {
@@ -175,7 +188,7 @@ export default function SelectFormOption() {
     try {
       await db
         .update(emailCampaign)
-        .set({ title: editCampaignTitle })
+        .set({ subject: editCampaignTitle })
         .where(eq(emailCampaign.id, campaignID));
       getAllCampaign();
       toast("Campaign updated successfully.");
@@ -193,6 +206,25 @@ export default function SelectFormOption() {
       return id;
     });
   };
+  // get selected sentiment data
+
+  const sentimentSelectValue = (value: string) => {
+    setSentimentDropDownValue(value);
+  };
+
+  const filterSentiment =
+    sentimentDropDownValue &&
+    parsedBackSentiment &&
+    Object.prototype.hasOwnProperty.call(
+      parsedBackSentiment,
+      sentimentDropDownValue
+    )
+      ? parsedBackSentiment[
+          sentimentDropDownValue as keyof typeof parsedBackSentiment
+        ]
+      : [];
+
+  console.log("parsedBackSentiment", parsedBackSentiment);
 
   return (
     <div>
@@ -201,7 +233,24 @@ export default function SelectFormOption() {
           setSelectedFormId={setSelectedFormId}
           handleSelectOption={handleSelectOption}
         />
-        <PreviewSentiment parsedBackSentiment={parsedBackSentiment} />
+        {selectedFormId && (
+          <>
+            <Select
+              value={sentimentDropDownValue}
+              onValueChange={(value) => sentimentSelectValue(value)}
+            >
+              <SelectTrigger className="w-[180px] bg-transparent border-white/15">
+                <SelectValue placeholder="Filter Sentiment" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="positive">Positive</SelectItem>
+                <SelectItem value="negative">Negative</SelectItem>
+                <SelectItem value="neutral">Neutral</SelectItem>
+              </SelectContent>
+            </Select>
+            <PreviewSentiment filterSentiment={filterSentiment} />
+          </>
+        )}
       </div>
       {sentimentResponse.length > 0 ? (
         <div className="mt-6 grid lg:grid-cols-2 grid-cols-1 gap-10">
@@ -220,21 +269,36 @@ export default function SelectFormOption() {
                         />
                       </TableHead>
                       <TableHead className="text-white">Email</TableHead>
+                      <TableHead className="text-white">Sentiment</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {parsedBackSentiment?.emails.map((email, index) => (
-                      <TableRow key={index} className="border-white/15">
-                        <TableCell className="font-medium">
-                          <Checkbox
-                            className="border-white"
-                            checked={selectedEmails.includes(email)}
-                            onCheckedChange={() => toggleCheckbox(email)}
-                          />
-                        </TableCell>
-                        <TableCell>{email}</TableCell>
-                      </TableRow>
-                    ))}
+                    {filterSentiment?.emails?.length > 0 ? (
+                      filterSentiment?.emails?.map(
+                        (email: string, index: number) => (
+                          <TableRow key={index} className="border-white/15">
+                            <TableCell className="font-medium">
+                              <Checkbox
+                                className="border-white"
+                                checked={selectedEmails.includes(email)}
+                                onCheckedChange={() => toggleCheckbox(email)}
+                              />
+                            </TableCell>
+                            <TableCell>{email}</TableCell>
+                            <TableCell>{sentimentDropDownValue}</TableCell>
+                          </TableRow>
+                        )
+                      )
+                    ) : (
+                      <p className="mt-2">
+                        {" "}
+                        No{" "}
+                        <span className="font-bold capitalize">
+                          {sentimentDropDownValue}
+                        </span>{" "}
+                        sentiment found.{" "}
+                      </p>
+                    )}
                   </TableBody>
                 </Table>
               </ScrollArea>
@@ -255,10 +319,11 @@ export default function SelectFormOption() {
               <CreateCampaign
                 formRef={selectedFormId}
                 getAllCampaign={getAllCampaign}
+                sentimentType={sentimentDropDownValue}
               />
             </div>
             <ScrollArea className="h-[50dvh] lg:h-[65dvh]">
-              <div className="group">
+              <div>
                 {getEmailCampaign?.length > 0 ? (
                   getEmailCampaign?.map((item, id) => (
                     <motion.div
@@ -267,7 +332,7 @@ export default function SelectFormOption() {
                       initial={{ opacity: 0, y: -20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.5, delay: id * 0.2 }}
-                      className="my-4"
+                      className="my-4 group"
                     >
                       <div
                         className={`border p-4 ${
@@ -279,21 +344,21 @@ export default function SelectFormOption() {
                         <div className="flex justify-between items-center">
                           <div className="flex gap-2 items-center">
                             <Calendar className="size-5" />
-                            <p className="text-sm">
+                            <p className="text-xs">
                               created <span>{item.createdAt}</span>
                             </p>
                           </div>
                           <div className="flex gap-2 items-center">
                             <Contact2 className="size-5" />
-                            <p className="text-sm">
+                            <p className="text-xs">
                               {item.assignedCustomer}
                               <span> customer added</span>
                             </p>
                           </div>
                         </div>
                         <div className="flex justify-between lg:items-center lg:flex-row flex-col items-start lg:gap-0 gap-3">
-                          <h2 className="font-bold text-lg">
-                            {truncateTitle(item.title, 25)}
+                          <h2 className="font-semibold text-lg">
+                            {truncateTitle(item.subject, 25)}
                           </h2>
                           <div className="flex items-center gap-3">
                             {/* add delete and edit action */}

@@ -10,11 +10,7 @@ import Link from "next/link";
 
 import { useUser } from "@clerk/nextjs";
 import { db } from "../../../../configs";
-import {
-  aiInsight,
-  JsonForm,
-  userResponses,
-} from "../../../../configs/schema";
+import { aiInsight, JsonForm, userResponses } from "../../../../configs/schema";
 import { and, eq } from "drizzle-orm";
 import { toast } from "sonner";
 import { Input } from "@/components/ui/input";
