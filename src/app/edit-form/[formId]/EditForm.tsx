@@ -26,7 +26,6 @@ import { QuestionType } from "@/data/type";
 import ThemeController from "../_components/ThemeController";
 import { easeInOut, easeOut, motion } from "framer-motion";
 
-
 export default function EditForm({ formId }: { formId: number }) {
   const { user } = useUser();
   const [jsonForm, setJsonForm] = useState([]);

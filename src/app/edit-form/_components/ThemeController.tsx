@@ -8,7 +8,6 @@ import {
 import { GradientBG } from "./_theme-data/Gradient";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Span } from "next/dist/trace";
 
 export default function ThemeController({ selectedBackground }: any) {
   const [showmore, setShowMOre] = useState(6);
