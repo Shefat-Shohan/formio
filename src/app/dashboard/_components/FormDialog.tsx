@@ -101,7 +101,7 @@ export default function FormDialog() {
     }
 
     if (!containsFeedbackKeywords(prompt)) {
-      console.error("No valid keywork found");
+      console.error("No valid keyword found");
       return false;
     }
 
@@ -111,7 +111,7 @@ export default function FormDialog() {
     // }
 
     if (hasRepetitiveCharacters(prompt)) {
-      console.error("Prompt contain repetitive characters.");
+      console.error("Prompt contains repetitive characters.");
       return false;
     }
     return true;

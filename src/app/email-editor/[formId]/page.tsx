@@ -4,8 +4,7 @@ import { DragAndDropLayoutProvider } from "@/app/context/DragAndDropLayoutElemen
 import { EmailTemplateContextProvider } from "@/app/context/EmailTemplateContext";
 import { SelectedElementProvide } from "@/app/context/SelectedElementContext";
 import EmailEditor from "./_components/EmailEditor";
-
-import { HTMLTemplateProvider } from "@/app/context/HtmlEmailTemplate";
+import { EmailTemplateProvider } from "@/app/context/HtmlEmailTemplate";
 
 type Props = {
   params: {
@@ -20,9 +19,9 @@ const Editor = ({ params: { formId } }: Props) => {
       <DragAndDropLayoutProvider>
         <EmailTemplateContextProvider>
           <SelectedElementProvide>
-            <HTMLTemplateProvider>
+            <EmailTemplateProvider>
               <EmailEditor campaignId={campaignId} />
-            </HTMLTemplateProvider>
+            </EmailTemplateProvider>
           </SelectedElementProvide>
         </EmailTemplateContextProvider>
       </DragAndDropLayoutProvider>

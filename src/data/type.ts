@@ -176,6 +176,7 @@ export type EmailCampaignType = {
   emailTemplate: string | null;
   formRef: number;
   subject: string;
+  htmlEmailFormat:string
 };
 
 export type SentimentAnalysis = {};
@@ -190,4 +191,12 @@ export type parsedBackSentimentType = {
   recommendations: string;
   score: number;
   emails: string[];
+};
+
+export type FilterSentimentType = {
+  emails: [];
+  overall_sentiment: string;
+  overview: string;
+  recommendations: string;
+  score: number;
 };

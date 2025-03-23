@@ -10,17 +10,22 @@ import { eq } from "drizzle-orm";
 import { emailCampaign } from "../../../../../configs/schema";
 import { toast } from "sonner";
 import GenerateAiEmailTemplate from "./GenerateAiEmailTemplate";
+import { useHtmlContext } from "next/dist/shared/lib/html-context.shared-runtime";
+import { useHTMLEmailTempalte } from "@/app/context/HtmlEmailTemplate";
+import { useSelectedElementContext } from "@/app/context/SelectedElementContext";
 
 const EditorHeader = ({ campaignId }: { campaignId: number }) => {
   const router = useRouter();
   const { screenSize, setScreenSize } = useScreenSize();
   const { emailTemplate } = useEmailContext();
+  const { getHTMLEmailTemplate } = useHTMLEmailTempalte();
   const handleClick = () => {
     router.back();
   };
 
   const saveEmailTemplate = async (campaignId: number) => {
     const stringifyEmailTemplate = JSON.stringify(emailTemplate);
+    const htmlEmailTempalte = getHTMLEmailTemplate();
     const existingEmailTemplate = await db.query.emailCampaign.findFirst({
       where: eq(emailCampaign.id, campaignId),
     });
@@ -29,10 +34,12 @@ const EditorHeader = ({ campaignId }: { campaignId: number }) => {
     }
     await db
       .update(emailCampaign)
-      .set({ emailTemplate: stringifyEmailTemplate })
+      .set({
+        emailTemplate: stringifyEmailTemplate,
+        htmlEmailFormat: htmlEmailTempalte,
+      })
       .where(eq(emailCampaign.id, campaignId));
     toast("Email Template is saved.");
-    console.log("emailTemplate", emailTemplate);
   };
 
   return (
@@ -79,7 +86,7 @@ const EditorHeader = ({ campaignId }: { campaignId: number }) => {
         <GenerateAiEmailTemplate campaignId={campaignId} />
         <Button
           onClick={() => saveEmailTemplate(campaignId)}
-          className="bg-[#8A43FC] hover:bg-[#7C34F0] sm:text-xs"
+          className="bg-[#8A43FC] hover:bg-[#7C34F0]"
         >
           Save Template
         </Button>

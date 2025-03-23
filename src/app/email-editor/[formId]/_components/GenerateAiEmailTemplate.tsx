@@ -17,7 +17,7 @@ import { useState } from "react";
 const GenerateAiEmailTemplate = ({ campaignId }: { campaignId: number }) => {
   const [open, setOpen] = useState(false);
   const [inputValue, setInputValue] = useState<string>();
-  const { emailTemplate, setEmailTemplate } = useEmailContext();
+  const { setEmailTemplate } = useEmailContext();
   const [loading, setLoading] = useState(false);
 
   // generate ai email template
@@ -48,16 +48,16 @@ const GenerateAiEmailTemplate = ({ campaignId }: { campaignId: number }) => {
       </DialogTrigger>
       <DialogContent className="bg-[#2F2F2F] border-white/15">
         <DialogHeader>
-          <DialogTitle className="text-white">
+          <DialogTitle className="text-white text-[20px]">
             Create email template
           </DialogTitle>
-          <DialogDescription className="text-sm text-white/80">
+          <DialogDescription className="text-sm text-[#dedede]">
             Describre about your email template.
             <Textarea
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               placeholder="What this email template all about"
-              className="my-3 text-white font-semibold bg-transparent border-white/15 placeholder:text-white lg:max-h-96 lg:min-h-40"
+              className="mt-5 mb-2 text-white bg-transparent border-white/15 placeholder:text-white tracking-wide lg:max-h-96 lg:min-h-40"
             />
             <Button
               onClick={generateEmailTemplate}

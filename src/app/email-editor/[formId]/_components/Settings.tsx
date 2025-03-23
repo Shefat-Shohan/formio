@@ -238,8 +238,8 @@ const Settings = () => {
                 handleStyleChange={(value) => handleStyleChange("color", value)}
               />
             )}
-          <div>
-            <span className="text-xl font-bold">Outer Style</span>
+          {/* <div>
+            <span className="text-xl font-bold">Advanced Style</span>
             {element?.outerStyle?.backgroundColor !== null &&
               element?.outerStyle?.backgroundColor !== undefined && (
                 <ColorPickerElement
@@ -261,7 +261,7 @@ const Settings = () => {
                   }
                 />
               )}
-          </div>
+          </div> */}
         </div>
       </div>
     </ScrollArea>

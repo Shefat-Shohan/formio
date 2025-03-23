@@ -65,11 +65,25 @@
   }
 }
 @layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
+  .scrollbar-hide::-webkit-scrollbar {
+    width: 8px;
   }
-  .no-scrollbar {
-    -ms-webkit-style: none;
-    scrollbar-width: none;
+
+  .scrollbar-hide::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  .scrollbar-hide {
+    scrollbar-width: thin;
+    scrollbar-color: #888 transparent;
   }
 }

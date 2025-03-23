@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 const ImageElement = ({
   style,
@@ -12,7 +13,12 @@ const ImageElement = ({
 }) => {
   return (
     <div className="w-full" style={outerStyle}>
-      <img src={imageUrl} alt={alt} style={style} />
+      <img
+        src={imageUrl}
+        alt={alt}
+        style={style}
+        className="w-full h-full"
+      />
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import { useDragAndDropLayoutContext } from "@/app/context/DragAndDropLayoutElementContext";
 import { useEmailContext } from "@/app/context/EmailTemplateContext";
 import { ElementLayoutProps, ElementsListProps } from "@/data/type";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ButtonElement from "../ElementComponent/ButtonElement";
 import TextElement from "../ElementComponent/TextElement";
 import ImageElement from "../ElementComponent/ImageElement";
@@ -9,8 +9,7 @@ import LogoElement from "../ElementComponent/LogoElement";
 import DividerElement from "../ElementComponent/DividerElement";
 import { useSelectedElementContext } from "@/app/context/SelectedElementContext";
 import ParagraphElement from "../ElementComponent/ParagraphElement";
-import { AlignJustify, ArrowDown, ArrowUp, TrashIcon, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { AlignJustify, X } from "lucide-react";
 
 type dragOverTypes = {
   index: number;
@@ -32,7 +31,6 @@ const ColumnLayout = ({ layout }: { layout: ElementLayoutProps }) => {
 
   const { dragElementLayout } = useDragAndDropLayoutContext();
   const { selectedElement, setSelectedElement } = useSelectedElementContext();
-
   // on drag of an element to column
   const onDragOverHandle = (
     e: React.DragEvent<HTMLDivElement>,
@@ -179,16 +177,20 @@ const ColumnLayout = ({ layout }: { layout: ElementLayoutProps }) => {
     document.addEventListener("mousemove", handleMouseMove);
     document.addEventListener("mouseup", handleMouseUp);
   };
-
   return (
     <div className="relative" data-layout-id={layout.id}>
       <div
-        className={`grid gap-0 ${
+        className={`${
           // @ts-ignore
           selectedElement?.layout?.id == layout?.id &&
-          "border border-dashed border-blue-500"
+          "border border-dashed border-blue-600"
         }`}
-        style={{ gridTemplateColumns: `repeat(${layout?.numberOfCol}, 1fr)` }}
+        style={{
+          display: "flex",
+          flexWrap: "nowrap",
+          gap: 0,
+          justifyContent: "center"
+        }}
       >
         {Array.from({ length: layout.numberOfCol }).map((_, index) => (
           <div
@@ -204,27 +206,34 @@ const ColumnLayout = ({ layout }: { layout: ElementLayoutProps }) => {
                 : " "
             } ${
               // @ts-ignore
-              !layout?.[index]?.type ? "bg-[#2F2F2F] border border-dashed" : ""
-            } `} // @ts-ignore
+              !layout?.[index]?.type
+                ? "bg-gray-200 border border-dashed border-gray-400"
+                : ""
+            } `} 
+            style={{
+              width: `${100 / layout.numberOfCol}%`, // Set width based on number of columns
+              boxSizing: "border-box", // Ensure padding doesn't affect width
+            }}
+            // @ts-ignore
             onClick={() => setSelectedElement({ layout: layout, index: index })}
           >
             {/* @ts-ignore */}
             {getElementComponent(layout?.[index]) ?? (
-              <span className="text-xs">Add Element</span>
+              <span className="text-xs text-black">Add Element</span>
             )}
           </div>
         ))}
         {/* @ts-ignore */}
         {selectedElement?.layout?.id == layout?.id && (
-          <div className="absolute -right-6 bg-[#7C34F0] rounded-full flex flex-col gap-3 ">
+          <div className="absolute -right-6 bg-[#171717] rounded-full flex flex-col gap-3 ">
             <div className="flex flex-col items-center gap-3">
               <X
-                className="cursor-pointer size-6 p-1 rounded-xl hover:bg-[#7C34F0] hover:scale-105 hover:text-red-500 transition-all"
+                className="cursor-pointer size-6 p-1 rounded-xl hover:bg-[#212121] hover:scale-105 hover:text-red-500 transition-all"
                 onClick={() => deleteLayout(layout?.id)}
               />
               <div className="flex flex-col">
                 <div
-                  className="cursor-move p-1 rounded-xl hover:bg-[#7C34F0] hover:scale-105 hover:text-[#7C34F0] transition-all"
+                  className="cursor-move p-1 rounded-xl hover:bg-[#7C32121214F0] hover:scale-105 transition-all"
                   // @ts-ignore
                   onMouseDown={(e) => handleSortStart(e, layout.id)}
                   title="Drag to reorder"

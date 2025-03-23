@@ -1,36 +1,34 @@
-import React, { createContext, useContext, useState } from "react";
+import { createContext, useContext, useRef } from "react";
 
-type HTMLEmailTemplateContextType = {
-  htmlEmailTemplate: string;
-  setHtmlEmailTemplate: React.Dispatch<React.SetStateAction<string>>;
-};
+const EmailTemplateContext = createContext<{
+  getHTMLEmailTemplate: () => string | undefined;
+  dropZoneRef: React.RefObject<HTMLDivElement>;
+} | null>(null);
 
-const HTMLEmailTemplateContext = createContext<
-  HTMLEmailTemplateContextType | undefined
->(undefined);
-
-export const useHTMLEmailTemplate = () => {
-  const context = useContext(HTMLEmailTemplateContext);
+export const useHTMLEmailTempalte = () => {
+  const context = useContext(EmailTemplateContext);
   if (!context) {
     throw new Error(
-      "useHtmltemplate must be used within an HTMLTemplateProvider"
+      "useHTMLEmailTempalte must be used within an EmailTemplateProvider"
     );
   }
   return context;
 };
 
-export const HTMLTemplateProvider = ({
+export const EmailTemplateProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const [htmlEmailTemplate, setHtmlEmailTemplate] = useState<string>("");
-
+  const dropZoneRef = useRef<HTMLDivElement>(null);
+  const getHTMLEmailTemplate = () => {
+    return dropZoneRef.current?.innerHTML;
+  };
   return (
-    <HTMLEmailTemplateContext.Provider
-      value={{ htmlEmailTemplate, setHtmlEmailTemplate }}
+    <EmailTemplateContext.Provider
+      value={{ getHTMLEmailTemplate, dropZoneRef }}
     >
       {children}
-    </HTMLEmailTemplateContext.Provider>
+    </EmailTemplateContext.Provider>
   );
 };

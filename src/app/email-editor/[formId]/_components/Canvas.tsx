@@ -6,14 +6,14 @@ import { ElementLayoutProps } from "@/data/type";
 import { useRef, useState } from "react";
 import ColumnLayout from "./DraggableLayoutElements/ColumnLayout";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useHTMLEmailTempalte } from "@/app/context/HtmlEmailTemplate";
 
 const Canvas = () => {
   const { screenSize } = useScreenSize();
   const { dragElementLayout } = useDragAndDropLayoutContext();
   const { emailTemplate, setEmailTemplate } = useEmailContext();
-  const dropZoneRef = useRef<HTMLDivElement>(null);
   const [dragOver, setDragOver] = useState(false);
-
+  const { dropZoneRef, getHTMLEmailTemplate } = useHTMLEmailTempalte();
   // method runs for onDrag over of an element
   const onDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -43,8 +43,8 @@ const Canvas = () => {
 
   return (
     <div className="flex justify-center items-center my-14">
-      <ScrollArea
-        className={`h-[80dvh] w-full no-scrollbar ${
+      <div
+        className={`h-[80dvh] w-full overflow-x-hidden overflow-y-auto hide_scrollbar ${
           screenSize == "desktop" ? "max-w-2xl" : "max-w-lg"
         }`}
       >
@@ -53,20 +53,20 @@ const Canvas = () => {
           onDragOver={onDragOver}
           onDragLeave={onDragLeave}
           onDrop={onDraopOverHandler}
-          className={`bg-[#212121] p-6 
-          ${dragOver ? "bg-[#8A43FC]" : ""}`}
+          className={`bg-white p-6 max-w-2xl
+          ${dragOver ? "bg-red-500" : ""}`}
         >
           {emailTemplate.length > 0 ? (
             emailTemplate.map((layout, index) => (
               <div key={index}>{getLayoutComponent(layout)}</div>
             ))
           ) : (
-            <h2 className="p-4 text-center border bg-[#2F2F2F] border-dashed border-white/15">
+            <h2 className="p-4 text-center border border-dashed bg-gray-200 border-white/15 text-black">
               Add layout
             </h2>
           )}
         </div>
-      </ScrollArea>
+      </div>
     </div>
   );
 };

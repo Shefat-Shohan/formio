@@ -226,7 +226,7 @@ export const elementsList = [
     content: "Sample Text",
     style: {
       backgroundColor: "",
-      color: "#fff",
+      color: "#000000",
       padding: "8px",
       textAlign: "center",
       fontSize: "18px",
@@ -245,7 +245,7 @@ export const elementsList = [
     textarea: "Add a paragraph",
     style: {
       backgroundColor: "",
-      color: "#fff",
+      color: "#000000",
       padding: "8px",
       textAlign: "center",
       fontSize: "16px",
