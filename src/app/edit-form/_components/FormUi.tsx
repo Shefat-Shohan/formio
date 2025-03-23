@@ -67,7 +67,7 @@ const FormUi = ({
   };
 
   return (
-    <div className="p-10 rounded-lg bg-[#171717] border border-white/15">
+    <div className="lg:p-10 p-6 rounded-lg bg-[#171717] border border-white/15">
       <form onSubmit={handleSubmit(formSubmit)} className="w-full">
         <div>
           <h1 className="font-bold md:text-3xl text-2xl text-white mb-1">
@@ -75,7 +75,7 @@ const FormUi = ({
             {jsonForm.name}
           </h1>
           {/*@ts-ignore */}
-          <p className="text-sm text-gray-400">{jsonForm.description}</p>
+          <p className="text-sm text-white/50 leading-[30px]">{jsonForm.description}</p>
         </div>
         {loading ? (
           <div className="mt-10">Loading...</div>

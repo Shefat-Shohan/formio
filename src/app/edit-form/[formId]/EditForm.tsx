@@ -15,7 +15,13 @@ import { db } from "../../../../configs";
 import { JsonForm } from "../../../../configs/schema";
 import { useUser } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
-import { ArrowLeft, Share, SquareArrowOutUpRight } from "lucide-react";
+import {
+  ArrowLeft,
+  SendHorizonal,
+  Share,
+  SlidersHorizontal,
+  SquareArrowOutUpRight,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import FormUi from "../_components/FormUi";
 import { toast } from "sonner";
@@ -25,6 +31,15 @@ import { Input } from "@/components/ui/input";
 import { QuestionType } from "@/data/type";
 import ThemeController from "../_components/ThemeController";
 import { easeInOut, easeOut, motion } from "framer-motion";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function EditForm({ formId }: { formId: number }) {
   const { user } = useUser();
@@ -173,7 +188,7 @@ export default function EditForm({ formId }: { formId: number }) {
       className="py-10"
     >
       <div>
-        <div className="md:px-20 px-6 flex md:flex-row flex-col md:items-center justify-between">
+        <div className="md:px-20 px-4 flex md:flex-row flex-col md:items-center justify-between">
           <h2
             onClick={() => router.push("/dashboard")}
             className="inline-flex items-center gap-2 my-5 cursor-pointer text-white/70 hover:text-white transition-colors"
@@ -239,19 +254,21 @@ export default function EditForm({ formId }: { formId: number }) {
           )}
         </div>
         <div>
-          <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-8 gap-0 md:px-20 px-0">
+          <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-8 gap-0 md:px-20 px-4 relative">
             <div className="col-span-1">
-              <div className="border p-6 border-white/15 rounded-md mt-20">
-                <ThemeController
-                  selectedBackground={(value: any) => {
-                    updateThemeController(value, "background");
-                    setSelectedBackground(value);
-                  }}
+              <div className="relative md:top-20 top-10">
+                <Textarea
+                  disabled
+                  placeholder="Ask formio to edit your form"
+                  className="bg-transparent border-white/25 placeholder:text-white/70 h-48 resize-none scrollbar-hide"
                 />
+                <Button disabled>
+                  <SendHorizonal className="cursor-pointer text-[#171717] absolute bottom-14 right-4 bg-white rounded-full p-2 h-10 w-10" />
+                </Button>
               </div>
             </div>
             <div
-              className="col-span-2 mt-20 p-20 border border-white/15 rounded-lg"
+              className="col-span-2 mt-20 p-4 lg:p-20 md:p-10 border border-white/15 rounded-lg"
               style={{
                 backgroundImage: selectedBackground,
               }}
@@ -263,10 +280,26 @@ export default function EditForm({ formId }: { formId: number }) {
                 deleteField={(index: number) => deleteField(index)}
               />
             </div>
-            {/* form builder */}
-            {/* <div className="col-span-1 mt-20 ">
-              <FormBuilder />
-            </div> */}
+            <div className="absolute lg:right-0 md:right-2 right-0 md:top-20 top-10">
+              <Sheet>
+                <SheetTrigger className="bg-[#8A43FC] p-2 rounded">
+                  {" "}
+                  <SlidersHorizontal />{" "}
+                </SheetTrigger>
+                <SheetContent className="bg-[#212121] border-l border-white/15">
+                  <SheetHeader>
+                    <SheetDescription>
+                      <ThemeController
+                        selectedBackground={(value: any) => {
+                          updateThemeController(value, "background");
+                          setSelectedBackground(value);
+                        }}
+                      />
+                    </SheetDescription>
+                  </SheetHeader>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </div>

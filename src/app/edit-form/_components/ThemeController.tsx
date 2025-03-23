@@ -14,21 +14,12 @@ export default function ThemeController({ selectedBackground }: any) {
   return (
     <div>
       <div className="flex md:flex-row flex-col gap-4 items-start md:items-center">
-        <h2 className="mb-4 md:mb-0 whitespace-nowrap">Select theme</h2>
-
-        <Select disabled>
-          <SelectTrigger className="w-full bg-transparent border-white/15">
-            <SelectValue placeholder="Theme" />
-          </SelectTrigger>
-          <SelectContent className="bg-slate-800 border-white/15 text-white">
-            <SelectItem value="light">Light</SelectItem>
-            <SelectItem value="dark">Dark</SelectItem>
-            <SelectItem value="system">System</SelectItem>
-          </SelectContent>
-        </Select>
+        <h2 className="mb-4 md:mb-0 whitespace-nowrap text-lg font-semibold text-white mt-10">
+          Select theme
+        </h2>
       </div>
       <div>
-        <div className="mt-10 grid grid-cols-3  gap-6">
+        <div className="mt-6 grid grid-cols-3  gap-6">
           {GradientBG.map(
             (bg, index) =>
               index < showmore && (
@@ -39,7 +30,7 @@ export default function ThemeController({ selectedBackground }: any) {
                   style={{ background: bg.gradient }}
                 >
                   {index == 0 && (
-                    <span className="border border-white/15 w-full h-full rounded-lg inline-flex items-center justify-center">
+                    <span className="border border-white/15 w-full h-full rounded-lg inline-flex items-center justify-center text-white">
                       None
                     </span>
                   )}
@@ -51,7 +42,7 @@ export default function ThemeController({ selectedBackground }: any) {
       <Button
         onClick={() => setShowMOre(showmore > 6 ? 6 : GradientBG.length)}
         variant="ghost"
-        className="w-full mt-6 bg-[#424242] hover:bg-[#2F2F2F] hover:text-white"
+        className="w-full mt-6 bg-[#424242] hover:bg-[#171717] hover:text-white text-white"
       >
         {showmore == 6 ? "Show more" : "Show less"}
       </Button>
