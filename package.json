@@ -1,6 +1,7 @@
 {
   "name": "formio",
   "version": "0.1.0",
+  "author": "Shefat-Shohan",
   "private": true,
   "scripts": {
     "dev": "next dev",

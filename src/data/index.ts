@@ -152,6 +152,7 @@ export const sidebarMenu = [
 
 export const prompt =
   "Generate a valid json object based on the description, with fields: name (string) for the form max character of 25-30, description (string) of the form max character of 100-120, and a questions array where every element has maximum fields of 6: label, placeholder, and the fieldType. The fieldType can be one of these options: RadioGroup, Select, Input, Textarea, or Switch. For Input fields, also include an inputType (e.g., text, email, number). For RadioGroup and Select types, return a fieldOptions array with text and value fields. For example, for RadioGroup and Select types, the field options array should look like [{text: 'Yes', value: 'yes'}, {text: 'No', value: 'no'}]. For Input, Textarea, and Switch types, the fieldOptions array should be empty (e.g., []). Ensure that the response is returned in valid JSON format and don't return any date picker and should always have an email field. Return a single JSON object that strictly adheres to the specified structure and constraints. Make sure to add a email field no matter the form type is. Remove any backtick and json lable at the beginning or end.";
+  
 
 export const feedbackPrompt =
   "Please analyze all feedback and provide: A sentiment score, Key themes or issues. Suggestions to address concerns........";
@@ -334,47 +335,47 @@ export const elementsList = [
       color: "#fff",
     },
   },
-  {
-    type: "SocialIcons",
-    icon: Twitter,
-    label: "Social Icons",
-    socialIcons: [
-      {
-        icon: "https://cdn-icons-png.flaticon.com/128/2111/2111463.png",
-        url: "",
-      },
-      {
-        icon: "https://cdn-icons-png.flaticon.com/128/5968/5968852.png",
-        url: "",
-      },
-      {
-        icon: "https://cdn-icons-png.flaticon.com/128/5968/5968756.png",
-        url: "",
-      },
-    ],
-    options: [
-      {
-        icon: "https://cdn-icons-png.flaticon.com/128/2111/2111463.png",
-        url: "",
-      },
-      {
-        icon: "https://cdn-icons-png.flaticon.com/128/5968/5968852.png",
-        url: "",
-      },
-      {
-        icon: "https://cdn-icons-png.flaticon.com/128/5968/5968756.png",
-        url: "",
-      },
-    ],
-    style: {
-      width: 40,
-      height: 40,
-    },
-    outerStyle: {
-      display: "flex",
-      gap: 15,
-    },
-  },
+  // {
+  //   type: "SocialIcons",
+  //   icon: Twitter,
+  //   label: "Social Icons",
+  //   socialIcons: [
+  //     {
+  //       icon: "https://cdn-icons-png.flaticon.com/128/2111/2111463.png",
+  //       url: "",
+  //     },
+  //     {
+  //       icon: "https://cdn-icons-png.flaticon.com/128/5968/5968852.png",
+  //       url: "",
+  //     },
+  //     {
+  //       icon: "https://cdn-icons-png.flaticon.com/128/5968/5968756.png",
+  //       url: "",
+  //     },
+  //   ],
+  //   options: [
+  //     {
+  //       icon: "https://cdn-icons-png.flaticon.com/128/2111/2111463.png",
+  //       url: "",
+  //     },
+  //     {
+  //       icon: "https://cdn-icons-png.flaticon.com/128/5968/5968852.png",
+  //       url: "",
+  //     },
+  //     {
+  //       icon: "https://cdn-icons-png.flaticon.com/128/5968/5968756.png",
+  //       url: "",
+  //     },
+  //   ],
+  //   style: {
+  //     width: 40,
+  //     height: 40,
+  //   },
+  //   outerStyle: {
+  //     display: "flex",
+  //     gap: 15,
+  //   },
+  // },
 ];
 
 export const TextAlignOption = [

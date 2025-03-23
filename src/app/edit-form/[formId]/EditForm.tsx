@@ -40,6 +40,8 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Textarea } from "@/components/ui/textarea";
+import updateFormFieldPrompts from "@/data/updateFormFieldPrompts";
+import { aiContentGeneration } from "@/app/actions/geminiAiModel";
 
 export default function EditForm({ formId }: { formId: number }) {
   const { user } = useUser();
@@ -55,42 +57,42 @@ export default function EditForm({ formId }: { formId: number }) {
     style: "",
   });
   const [selectedBackground, setSelectedBackground] = useState<any>();
+  const [updateFormInput, setUpdateFormInput] = useState<string>("");
   const router = useRouter();
 
   // fetch json form
   useEffect(() => {
-    if (user) {
-      const fetchFormData = async () => {
-        setLoading(true);
-        try {
-          const result = await db
-            .select()
-            .from(JsonForm)
-            .where(
-              and(
-                eq(JsonForm.id, formId),
-                // @ts-ignore
-                eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress)
-              )
-            );
-
-          if (result.length == 0) {
-            return router.push("/not-found");
-          } else {
-            setRecord(result[0]);
-            setJsonForm(JSON.parse(result[0].jsonForm));
-            setSelectedBackground(result[0].background);
-          }
-        } catch (error) {
-          console.error("Error fetching form data", error);
-        } finally {
-          setLoading(false);
-        }
-      };
-      fetchFormData();
-    }
+    user && fetchFormData();
   }, [user, formId]);
 
+  // fetch all form data
+  const fetchFormData = async () => {
+    setLoading(true);
+    try {
+      const result = await db
+        .select()
+        .from(JsonForm)
+        .where(
+          and(
+            eq(JsonForm.id, formId),
+            // @ts-ignore
+            eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress)
+          )
+        );
+
+      if (result.length == 0) {
+        return router.push("/not-found");
+      } else {
+        setRecord(result[0]);
+        setJsonForm(JSON.parse(result[0].jsonForm));
+        setSelectedBackground(result[0].background);
+      }
+    } catch (error) {
+      console.error("Error fetching form data", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   // update field to database
   useEffect(() => {
     if (upadeTrigger) {
@@ -144,6 +146,7 @@ export default function EditForm({ formId }: { formId: number }) {
     jsonForm.questions = result;
     setUpdateTrigger(Date.now());
   };
+
   // share form
   const copyUrl = (formId: Number) => {
     const formLink = `https://formio-ten.vercel.app/aiform/${formId}`;
@@ -178,7 +181,46 @@ export default function EditForm({ formId }: { formId: number }) {
       console.error(error);
     }
   };
+  // update form info using ai
+  const updateFormDataHandler = async () => {
+    if (!updateFormInput) {
+      toast("Please describe what you want to update.");
+      return;
+    }
 
+    try {
+      setLoading(true);
+      // create the prompt to send to LLM
+      const postData =
+        updateFormFieldPrompts.UPDATE_FORM_PROMPT +
+        updateFormInput +
+        JSON.stringify(jsonForm);
+      if (postData) {
+        const response = await aiContentGeneration(postData);
+        //updated data to database
+        const result = await db
+          .update(JsonForm)
+          .set({
+            jsonForm: response,
+          })
+          .where(
+            and(
+              eq(JsonForm.id, record.id),
+              // @ts-ignore
+              eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress)
+            )
+          );
+      }
+      setUpdateFormInput("");
+      fetchFormData();
+      toast("Form updated successfully");
+      setLoading(false);
+    } catch (error) {
+      toast("Couldn't update the form");
+      setLoading(false);
+      console.log(error);
+    }
+  };
   return (
     <motion.section
       initial={{ opacity: 0, scale: 0.8 }}
@@ -258,13 +300,15 @@ export default function EditForm({ formId }: { formId: number }) {
             <div className="col-span-1">
               <div className="relative md:top-20 top-10">
                 <Textarea
-                  disabled
+                  disabled={loading}
+                  value={updateFormInput}
+                  onChange={(e) => setUpdateFormInput(e.target.value)}
                   placeholder="Ask formio to edit your form"
                   className="bg-transparent border-white/25 placeholder:text-white/70 h-48 resize-none scrollbar-hide"
                 />
-                <Button disabled>
-                  <SendHorizonal className="cursor-pointer text-[#171717] absolute bottom-14 right-4 bg-white rounded-full p-2 h-10 w-10" />
-                </Button>
+                <button disabled={loading} onClick={updateFormDataHandler}>
+                  <SendHorizonal className="cursor-pointer text-[#171717] absolute bottom-10 right-4 bg-white rounded-full p-2 h-9 w-9" />
+                </button>
               </div>
             </div>
             <div
