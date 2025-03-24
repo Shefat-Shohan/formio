@@ -10,23 +10,23 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 export default function ThemeController({ selectedBackground }: any) {
-  const [showmore, setShowMOre] = useState(6);
+  const [showmore, setShowMOre] = useState(8);
   return (
     <div>
       <div className="flex md:flex-row flex-col gap-4 items-start md:items-center">
-        <h2 className="mb-4 md:mb-0 whitespace-nowrap text-lg font-semibold text-white mt-10">
-          Select theme
+        <h2 className="mb-4 md:mb-0 whitespace-nowrap text-xl font-semibold text-white md:mt-10">
+          Select Background
         </h2>
       </div>
       <div>
-        <div className="mt-6 grid grid-cols-3  gap-6">
+        <div className="mt-6 grid grid-cols-4  gap-6">
           {GradientBG.map(
             (bg, index) =>
               index < showmore && (
                 <div
                   onClick={() => selectedBackground(bg.gradient)}
                   key={index}
-                  className="w-full h-[70px] rounded-lg hover:scale-105 hover:transition-all hover:duration-300 flex items-center justify-center cursor-pointer"
+                  className="w-full h-[50px] rounded-lg hover:scale-105 hover:transition-all hover:duration-300 flex items-center justify-center cursor-pointer"
                   style={{ background: bg.gradient }}
                 >
                   {index == 0 && (
@@ -40,11 +40,11 @@ export default function ThemeController({ selectedBackground }: any) {
         </div>
       </div>
       <Button
-        onClick={() => setShowMOre(showmore > 6 ? 6 : GradientBG.length)}
+        onClick={() => setShowMOre(showmore > 8 ? 8 : GradientBG.length)}
         variant="ghost"
         className="w-full mt-6 bg-[#424242] hover:bg-[#171717] hover:text-white text-white"
       >
-        {showmore == 6 ? "Show more" : "Show less"}
+        {showmore == 8 ? "Show more" : "Show less"}
       </Button>
     </div>
   );

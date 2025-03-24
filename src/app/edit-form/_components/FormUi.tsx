@@ -123,7 +123,7 @@ const FormUi = ({
                       name={field.label}
                       control={control}
                       render={({ field: { onChange, value } }) => (
-                        <div className=" flex flex-col gap-3 md:flex-row md:gap-6">
+                        <div className=" flex flex-col gap-3 lg:flex-row md:gap-6">
                           {field?.fieldOptions.map(
                             (option: any, index: number) => (
                               <div
