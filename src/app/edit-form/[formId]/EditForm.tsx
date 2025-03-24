@@ -297,22 +297,26 @@ export default function EditForm({ formId }: { formId: number }) {
         </div>
         <div>
           <div className="grid grid-cols-1 lg:grid-cols-3 lg:gap-8 gap-0 md:px-20 px-4 relative">
-            <div className="col-span-1">
-              <div className="relative md:top-20 top-10">
+            <div className="col-span-1 lg:mt-20 mt-10 lg:h-[75dvh] lg:place-content-end ">
+              <div className="relative flex flex-col h-48">
                 <Textarea
                   disabled={loading}
                   value={updateFormInput}
                   onChange={(e) => setUpdateFormInput(e.target.value)}
-                  placeholder="Ask formio to edit your form"
-                  className="bg-transparent border-white/25 placeholder:text-white/70 h-48 resize-none scrollbar-hide"
+                  placeholder="What you want to edit"
+                  className="bg-transparent border-white/25 placeholder:text-white/70 h-full resize-none scrollbar-hide"
                 />
-                <button disabled={loading} onClick={updateFormDataHandler}>
-                  <SendHorizonal className="cursor-pointer text-[#171717] absolute bottom-10 right-4 bg-white rounded-full p-2 h-9 w-9" />
+                <button
+                  disabled={loading}
+                  onClick={updateFormDataHandler}
+                  className="absolute bottom-4 right-4 bg-white rounded-full p-2 h-9 w-9 shadow-md"
+                >
+                  <SendHorizonal className="cursor-pointer text-[#171717]" />
                 </button>
               </div>
             </div>
             <div
-              className="col-span-2 mt-20 p-4 lg:p-20 md:p-10 border border-white/15 rounded-lg"
+              className="col-span-2 lg:mt-20  mt-10 p-4 lg:p-20 md:p-10 border border-white/15 rounded-lg h-[75dvh] overflow-y-scroll scrollbar-hide relative"
               style={{
                 backgroundImage: selectedBackground,
               }}
@@ -324,7 +328,7 @@ export default function EditForm({ formId }: { formId: number }) {
                 deleteField={(index: number) => deleteField(index)}
               />
             </div>
-            <div className="absolute lg:right-0 md:right-2 right-0 md:top-20 top-10">
+            <div className="absolute lg:right-0 md:right-2 right-0 md:top-20 top-50">
               <Sheet>
                 <SheetTrigger className="bg-[#8A43FC] p-2 rounded">
                   {" "}
