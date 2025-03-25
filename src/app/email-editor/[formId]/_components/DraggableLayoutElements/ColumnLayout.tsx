@@ -181,6 +181,7 @@ const ColumnLayout = ({ layout }: { layout: ElementLayoutProps }) => {
     <div className="relative" data-layout-id={layout.id}>
       <table
         className={`${
+          // @ts-ignore
           selectedElement?.layout?.id == layout?.id &&
           "border border-dashed border-blue-600"
         }`}
@@ -197,11 +198,14 @@ const ColumnLayout = ({ layout }: { layout: ElementLayoutProps }) => {
               onDragOver={(e) => onDragOverHandle(e, index)}
               onDrop={onDropHandler}
               className={`p-2 cursor-pointer ${
+                // @ts-ignore
                 selectedElement?.layout?.id == layout?.id &&
+                // @ts-ignore
                 selectedElement?.index == index
                   ? "border border-dashed border-blue-400"
                   : ""
               } ${
+                // @ts-ignore
                 !layout?.[index]?.type
                   ? "bg-gray-200 border border-dashed border-gray-400"
                   : ""
@@ -211,9 +215,11 @@ const ColumnLayout = ({ layout }: { layout: ElementLayoutProps }) => {
                 boxSizing: "border-box",
               }}
               onClick={() =>
+                // @ts-ignore
                 setSelectedElement({ layout: layout, index: index })
               }
             >
+              {/* @ts-ignore */}
               {getElementComponent(layout?.[index]) ?? (
                 <span className="text-xs text-black">Add Element</span>
               )}
