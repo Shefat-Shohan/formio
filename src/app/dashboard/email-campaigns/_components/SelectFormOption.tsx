@@ -228,6 +228,7 @@ export default function SelectFormOption() {
         setSelectedEmails([]); // rest email list on double click
         return null;
       }
+      console.log("campaignID", id);
       return id;
     });
   };
@@ -250,6 +251,9 @@ export default function SelectFormOption() {
     }
 
     try {
+      const campaignResult = getEmailCampaign.filter((item) => {
+        return item.id == selectedCampaign;
+      });
       setIsSending(true);
       const response = await fetch("/api/emails", {
         method: "POST",
@@ -258,9 +262,9 @@ export default function SelectFormOption() {
         },
         body: JSON.stringify({
           emailList: selectedEmails,
-          subject: getEmailCampaign[0]?.subject || "No Subject",
+          subject: campaignResult[0]?.subject || "No Subject",
           emailTemplate:
-            getEmailCampaign[0]?.htmlEmailFormat || "<p>No Template</p>",
+            campaignResult[0]?.htmlEmailFormat || "<p>No Template</p>",
         }),
       });
 
@@ -281,7 +285,6 @@ export default function SelectFormOption() {
       toast("Error sending emails. Check console for details.");
     }
   };
-  console.log("selectedEmails", getEmailCampaign[0]?.subject);
   return (
     <div>
       <div className="flex md:justify-start flex-col md:flex-row gap-4 md:gap-4 items-start">
@@ -380,18 +383,18 @@ export default function SelectFormOption() {
             <ScrollArea className="h-[50dvh] lg:h-[65dvh] scrollbar-hide">
               <div>
                 {getEmailCampaign?.length > 0 ? (
-                  getEmailCampaign?.map((item, id) => (
+                  getEmailCampaign?.map((item, index) => (
                     <motion.div
-                      onClick={() => handleSelectedCampaign(id)}
-                      key={id}
+                      onClick={() => handleSelectedCampaign(item.id)}
+                      key={index}
                       initial={{ opacity: 0, y: -20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: id * 0.2 }}
+                      transition={{ duration: 0.5, delay: index * 0.2 }}
                       className="my-4 group"
                     >
                       <div
                         className={`border p-4 ${
-                          selectedCampaign == id
+                          selectedCampaign == item.id
                             ? "border-[#c098ff]/50"
                             : "border-white/15"
                         }  rounded-lg flex flex-col gap-4 cursor-pointer`}
@@ -417,7 +420,6 @@ export default function SelectFormOption() {
                           </h2>
                           <div className="flex items-center gap-3">
                             {/* add delete and edit action */}
-
                             <Popover>
                               <PopoverTrigger className="lg:opacity-0 group-hover:opacity-100 group-hover:trnsition-durtion-400">
                                 <EllipsisVertical className="size-4 text-white " />
@@ -515,11 +517,10 @@ export default function SelectFormOption() {
                               onClick={sendEmail}
                               className="bg-[#424242] hover:bg-[#3b3b3b]"
                             >
-                              {isSending ? (
+                              {selectedCampaign == item.id && isSending ? (
                                 <p className="flex items-center gap-2">
-                                  {" "}
-                                  <LoaderCircle className="animate-spin" />{" "}
-                                  Sending{" "}
+                                  <LoaderCircle className="animate-spin" />
+                                  Sending
                                 </p>
                               ) : (
                                 "Send"

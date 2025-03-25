@@ -1,10 +1,12 @@
-import React from "react";
-
 const TextElement = ({ style, content }: { style: {}; content: string }) => {
   return (
-    <div className="w-full" style={style}>
-      <h2> {content} </h2>
-    </div>
+    <table className="w-full" style={style}>
+      <tr>
+        <td>
+          <h2> {content} </h2>
+        </td>
+      </tr>
+    </table>
   );
 };
 

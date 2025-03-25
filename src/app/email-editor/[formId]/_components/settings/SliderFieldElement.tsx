@@ -23,7 +23,7 @@ const SliderFieldElement = ({
         {label} ({value})
       </Label>
       <Slider
-        className="mt-1.5"
+        className="mt-3"
         defaultValue={[formatValue(value)]}
         max={100}
         step={1}

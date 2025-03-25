@@ -30,6 +30,7 @@ export default function FormList() {
         )
       )
       .orderBy(desc(JsonForm.id));
+    console.log("Fetched forms:", result);
     // Ensure the result is always an array and handle cases where it's undefined or null
     // const formList = Array.isArray(result) ? result : [];
     return result;
@@ -37,15 +38,18 @@ export default function FormList() {
 
   const { data: formList, isLoading } = useQuery({
     queryKey: ["formList"],
-    queryFn: getActiveUserFormList,
-    staleTime: 10 * 60 * 1000,
+    queryFn: async () => {
+      return getActiveUserFormList();
+    },
+    staleTime: 0,
+    refetchOnWindowFocus: false,
   });
-  const isFirstLoading = isLoading && !formList;
+
   const FormCard = dynamic(() => import("./FormCard"));
   return (
     <div className="">
       <hr className="border-white/15 mb-10" />
-      {isFirstLoading ? (
+      {isLoading ? (
         <CardLoadingSkelaton />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-6 md:gap-4">

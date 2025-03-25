@@ -12,14 +12,18 @@ const ImageElement = ({
   alt: string;
 }) => {
   return (
-    <div className="w-full" style={outerStyle}>
-      <img
-        src={imageUrl}
-        alt={alt}
-        style={style}
-        className="w-full h-full"
-      />
-    </div>
+    <table className="w-full" style={outerStyle}>
+      <tr>
+        <td>
+          <img
+            src={imageUrl}
+            alt={alt}
+            style={style}
+            className="w-full h-full"
+          />
+        </td>
+      </tr>
+    </table>
   );
 };
 

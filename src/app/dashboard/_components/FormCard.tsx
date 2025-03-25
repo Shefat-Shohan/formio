@@ -31,6 +31,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useQueryClient } from "@tanstack/react-query";
 
 const FormCard: React.FC<jsonFormProps> = ({
   jsonForm,
@@ -38,6 +39,7 @@ const FormCard: React.FC<jsonFormProps> = ({
   refreshData,
 }) => {
   const { user } = useUser();
+  const queryClient = useQueryClient();
   // delete form
   const handleDelete = async (formId: number) => {
     try {
@@ -52,7 +54,11 @@ const FormCard: React.FC<jsonFormProps> = ({
             eq(JsonForm.id, formId)
           )
         );
-      refreshData();
+      console.log("Database updated. Now invalidating query...");
+
+      await queryClient.invalidateQueries({ queryKey: ["formList"] });
+
+      console.log("Query invalidated. It should now refetch...");
       toast("Form deleted successfully.");
     } catch (error) {
       toast("Couldn't delete the form and related data.");
@@ -83,7 +89,7 @@ const FormCard: React.FC<jsonFormProps> = ({
             <h2 className="text-sm md:text-lg font-semibold text-white/90">
               {jsonForm?.name}
             </h2>
-            <p className="mt-2 text-sm font-normal text-white/80 ">
+            <p className="mt-2 text-sm font-normal text-white/50 ">
               {paragraph}...
             </p>
           </div>

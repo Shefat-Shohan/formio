@@ -36,7 +36,7 @@ const AiEmailTemplatePrompt = {
       "icon": {},
       "type": "Image",
       "label": "Image",
-      "imageUrl": "https://www.shutterstock.com/search/high-quality-service",
+      "imageUrl": "/imagePlaceholder.png" [This should be default keep it like this],
       "alt": "[Descriptive alt text for the image]",
       "url": "#",
       "style": {

@@ -17,6 +17,7 @@ import { userResponses } from "../../../../configs/schema";
 import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
 import { JsonFormType } from "@/data/type";
+import FormSkeleton from "@/app/email-editor/[formId]/_components/FormSkeleton";
 const FormUi = ({
   jsonForm,
   loading,
@@ -78,7 +79,9 @@ const FormUi = ({
           <p className="text-sm text-white/50 leading-[28px]">{jsonForm.description}</p>
         </div>
         {loading ? (
-          <div className="mt-10">Loading...</div>
+          <div className="mt-10">
+            <FormSkeleton />
+          </div>
         ) : (
           <div className="mt-8">
             {

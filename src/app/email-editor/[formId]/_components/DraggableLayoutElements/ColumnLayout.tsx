@@ -179,50 +179,47 @@ const ColumnLayout = ({ layout }: { layout: ElementLayoutProps }) => {
   };
   return (
     <div className="relative" data-layout-id={layout.id}>
-      <div
+      <table
         className={`${
-          // @ts-ignore
           selectedElement?.layout?.id == layout?.id &&
           "border border-dashed border-blue-600"
         }`}
         style={{
-          display: "flex",
-          flexWrap: "nowrap",
-          gap: 0,
-          justifyContent: "center"
+          width: "100%",
+          borderCollapse: "collapse",
+          textAlign: "center",
         }}
       >
-        {Array.from({ length: layout.numberOfCol }).map((_, index) => (
-          <div
-            onDragOver={(e) => onDragOverHandle(e, index)}
-            onDrop={onDropHandler}
-            key={index}
-            className={`p-2 flex items-center justify-center cursor-pointer ${
-              // @ts-ignore
-              selectedElement?.layout?.id == layout?.id &&
-              // @ts-ignore
-              selectedElement?.index == index
-                ? "border border-dashed border-blue-400"
-                : " "
-            } ${
-              // @ts-ignore
-              !layout?.[index]?.type
-                ? "bg-gray-200 border border-dashed border-gray-400"
-                : ""
-            } `} 
-            style={{
-              width: `${100 / layout.numberOfCol}%`, // Set width based on number of columns
-              boxSizing: "border-box", // Ensure padding doesn't affect width
-            }}
-            // @ts-ignore
-            onClick={() => setSelectedElement({ layout: layout, index: index })}
-          >
-            {/* @ts-ignore */}
-            {getElementComponent(layout?.[index]) ?? (
-              <span className="text-xs text-black">Add Element</span>
-            )}
-          </div>
-        ))}
+        <tr>
+          {Array.from({ length: layout.numberOfCol }).map((_, index) => (
+            <td
+              key={index}
+              onDragOver={(e) => onDragOverHandle(e, index)}
+              onDrop={onDropHandler}
+              className={`p-2 cursor-pointer ${
+                selectedElement?.layout?.id == layout?.id &&
+                selectedElement?.index == index
+                  ? "border border-dashed border-blue-400"
+                  : ""
+              } ${
+                !layout?.[index]?.type
+                  ? "bg-gray-200 border border-dashed border-gray-400"
+                  : ""
+              } `}
+              style={{
+                width: `${100 / layout.numberOfCol}%`, // Dynamic column width
+                boxSizing: "border-box",
+              }}
+              onClick={() =>
+                setSelectedElement({ layout: layout, index: index })
+              }
+            >
+              {getElementComponent(layout?.[index]) ?? (
+                <span className="text-xs text-black">Add Element</span>
+              )}
+            </td>
+          ))}
+        </tr>
         {/* @ts-ignore */}
         {selectedElement?.layout?.id == layout?.id && (
           <div className="absolute -right-6 bg-[#171717] rounded-full flex flex-col gap-3 ">
@@ -244,7 +241,7 @@ const ColumnLayout = ({ layout }: { layout: ElementLayoutProps }) => {
             </div>
           </div>
         )}
-      </div>
+      </table>
     </div>
   );
 };

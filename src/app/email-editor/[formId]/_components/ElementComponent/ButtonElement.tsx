@@ -13,13 +13,17 @@ const ButtonElement = ({
     event.preventDefault();
   };
   return (
-    <div className="w-full">
-      <a href={url} style={outerStyle}>
-        <button onClick={handleClick} style={style}>
-          {content}
-        </button>
-      </a>
-    </div>
+    <table className="w-full">
+      <tr>
+        <td>
+          <a href={url} style={outerStyle}>
+            <button onClick={handleClick} style={style}>
+              {content}
+            </button>
+          </a>
+        </td>
+      </tr>
+    </table>
   );
 };
 
