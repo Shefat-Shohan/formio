@@ -21,10 +21,9 @@ export const JsonForm = pgTable("jsonForms", {
 export const userResponses = pgTable("userResponses", {
   id: serial("id").primaryKey(),
   jsonResponse: text("jsonResponse").notNull(),
-  isProcessed: boolean("isProcessed").notNull().default(false),
-  isProcessing: boolean("isProcessing").notNull().default(false),
   createBy: varchar("createBy").default("anonymous"),
   createAt: varchar("createAt").notNull(),
+  status: integer("status").default(0).notNull(),
   formRef: integer("formRef").references(() => JsonForm.id),
 });
 
@@ -51,5 +50,5 @@ export const aiSentiment = pgTable("aiSentiment", {
   id: serial("id").primaryKey(),
   sentimentResponse: text("sentimentResponse").notNull(),
   formRef: integer("formRef"),
-  isProcessing: boolean("isProcessing").notNull().default(false),
+  status: integer("status").default(0).notNull(),
 });

@@ -18,6 +18,7 @@ import { toast } from "sonner";
 import { usePathname, useRouter } from "next/navigation";
 import { JsonFormType } from "@/data/type";
 import FormSkeleton from "@/app/email-editor/[formId]/_components/FormSkeleton";
+import { log } from "console";
 const FormUi = ({
   jsonForm,
   loading,
@@ -48,12 +49,15 @@ const FormUi = ({
 
   // submit the  form to database
   const formSubmit = async (data: any) => {
+    console.log("jsonResponse",data);
+    
     try {
       // @ts-ignore
       const result = await db.insert(userResponses).values({
         jsonResponse: data,
         createAt: moment().format("DD/MM/YYYY"),
         formRef: formId,
+        status: 0,
       });
       if (result) {
         router.push(`/aiform/${formId}/success`);
@@ -75,8 +79,10 @@ const FormUi = ({
             {/*@ts-ignore */}
             {jsonForm.name}
           </h1>
-          {/*@ts-ignore */}
-          <p className="text-sm text-white/50 leading-[28px]">{jsonForm.description}</p>
+          <p className="text-sm text-white/50 leading-[28px]">
+            {/*@ts-ignore */}
+            {jsonForm.description}
+          </p>
         </div>
         {loading ? (
           <div className="mt-10">
@@ -106,7 +112,11 @@ const FormUi = ({
                       render={({ field: { onChange, value } }) => (
                         <Select onValueChange={onChange} value={value} required>
                           <SelectTrigger className="placeholder:text-white/50  placeholder:text-sm text-white/70 bg-transparent border-white/15 mt-2">
-                            <SelectValue placeholder={field.placeholder || "Select a option"} />
+                            <SelectValue
+                              placeholder={
+                                field.placeholder || "Select a option"
+                              }
+                            />
                           </SelectTrigger>
                           <SelectContent className="placeholder:text-white/50 placeholder:text-sm text-white/70 bg-[#212121] border-white/15">
                             {field?.fieldOptions.map(
