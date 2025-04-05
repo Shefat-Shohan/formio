@@ -49,8 +49,6 @@ const FormUi = ({
 
   // submit the  form to database
   const formSubmit = async (data: any) => {
-    console.log("jsonResponse",data);
-    
     try {
       // @ts-ignore
       const result = await db.insert(userResponses).values({
