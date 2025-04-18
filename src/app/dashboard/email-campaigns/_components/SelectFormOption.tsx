@@ -312,7 +312,7 @@ export default function SelectFormOption() {
           </>
         )}
       </div>
-      {sentimentResponse.length > 0 ? (
+      {selectedFormId ? (
         <div className="mt-6 grid lg:grid-cols-2 grid-cols-1 gap-10">
           {/* show all the emails and the overall sentiment analysis */}
           <div className="lg:h-[75dvh] h-[40dvh] overflow-y-auto overflow-x-auto scrollbar-hide">
@@ -356,7 +356,7 @@ export default function SelectFormOption() {
                     <span className="font-bold capitalize">
                       {sentimentDropDownValue}
                     </span>{" "}
-                    sentiment found.{" "}
+                    sentiment data available.{" "}
                   </p>
                 )}
               </TableBody>
@@ -539,7 +539,7 @@ export default function SelectFormOption() {
           </div>
         </div>
       ) : (
-        <h2 className="pt-6">No data to show.</h2>
+        <h2 className="pt-6">Please select a form</h2>
       )}
     </div>
   );
