@@ -539,7 +539,7 @@ export default function SelectFormOption() {
           </div>
         </div>
       ) : (
-        <h2 className="pt-6">Please select a form</h2>
+        <h2 className="pt-6">Please select a form.</h2>
       )}
     </div>
   );
