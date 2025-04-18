@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { db } from "../../../../../configs";
 import { and, eq } from "drizzle-orm";
 import { JsonForm } from "../../../../../configs/schema";
+import { log } from "node:console";
 
 export default function SelectForm({
   setSelectedFormId,
@@ -20,10 +21,11 @@ export default function SelectForm({
   handleSelectOption: (id: any) => void;
 }) {
   const [formList, setFormList] = useState<any>([]);
+  const [selectedValue, setSelectedValue] = useState<string | undefined>();
   const { user } = useUser();
 
   useEffect(() => {
-    user && getActiveUserResponsesList();
+    if (user) getActiveUserResponsesList();
   }, [user]);
 
   const getActiveUserResponsesList = async () => {
@@ -41,18 +43,33 @@ export default function SelectForm({
     setFormList(result);
   };
 
-  const formdata = formList.map((form: any) => {
-    return { id: form.id, jsonForm: JSON.parse(form?.jsonForm) };
-  });
+  const formdata = formList.map((form: any) => ({
+    id: form.id,
+    jsonForm: JSON.parse(form?.jsonForm),
+  }));
+
+  // select the first option when formdata is populated
+  useEffect(() => {
+    if (formdata.length > 0 && !selectedValue) {
+      const firstItem = formdata[0];
+      setSelectedFormId(firstItem.id);
+      handleSelectOption(firstItem.id);
+      setSelectedValue(firstItem.jsonForm.name);
+    }
+  }, [formdata]);
+  
+console.log("formdata",formdata);
 
   return (
     <Select
+      value={selectedValue}
       onValueChange={(value) => {
-        const selectedValue = formdata.find(
+        const selectedItem = formdata.find(
           (item: any) => item.jsonForm.name === value
         );
-        setSelectedFormId(selectedValue?.id);
-        handleSelectOption(selectedValue?.id);
+        setSelectedFormId(selectedItem?.id);
+        handleSelectOption(selectedItem?.id);
+        setSelectedValue(value);
       }}
     >
       <SelectTrigger className="bg-transparent border-white/15 max-w-[280px]">

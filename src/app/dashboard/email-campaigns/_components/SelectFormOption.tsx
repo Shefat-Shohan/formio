@@ -393,10 +393,10 @@ export default function SelectFormOption() {
                       className="my-4 group"
                     >
                       <div
-                        className={`border p-4 ${
+                        className={`border p-4 bg-[#303030] ${
                           selectedCampaign == item.id
-                            ? "border-[#c098ff]/50"
-                            : "border-white/15"
+                            ? "border-white"
+                            : "border-[#303030]"
                         }  rounded-lg flex flex-col gap-4 cursor-pointer`}
                       >
                         <div className="flex lg:flex-row lg:gap-0 gap-3 flex-col items-start lg:justify-between lg:items-center">
@@ -509,7 +509,7 @@ export default function SelectFormOption() {
                               </PopoverContent>
                             </Popover>
                             <Link href={`/email-editor/${item.id}`}>
-                              <Button className="bg-[#8A43FC] hover:bg-[#a167ff]">
+                              <Button className="bg-white text-black hover:bg-[#f0f0f0]">
                                 Edit Email
                               </Button>
                             </Link>
@@ -518,12 +518,12 @@ export default function SelectFormOption() {
                               className="bg-[#424242] hover:bg-[#3b3b3b]"
                             >
                               {selectedCampaign == item.id && isSending ? (
-                                <p className="flex items-center gap-2">
+                                <span className="flex items-center gap-2">
                                   <LoaderCircle className="animate-spin" />
                                   Sending
-                                </p>
+                                </span>
                               ) : (
-                                "Send"
+                                <span>Send</span>
                               )}
                             </Button>
                           </div>
@@ -532,7 +532,9 @@ export default function SelectFormOption() {
                     </motion.div>
                   ))
                 ) : (
-                  <p className="mt-4">create a new campaign.</p>
+                  <p className="mt-4">
+                    create campaign for {sentimentDropDownValue} sentiment.
+                  </p>
                 )}
               </div>
             </ScrollArea>

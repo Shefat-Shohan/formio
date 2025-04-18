@@ -14,6 +14,7 @@ import { DataTable } from "./data-table";
 import { Button } from "@/components/ui/button";
 import * as XLSX from "xlsx";
 import { formListType, responseType } from "@/data/type";
+import SelectForm from "../../ai-insights/_components/SelecForm";
 
 export default function UserResponses({
   formList,
@@ -21,16 +22,16 @@ export default function UserResponses({
   formList: formListType;
 }) {
   const [response, setResponse] = useState<responseType>([]);
-  const [getCurrentFormId, setGetCurrentFormId] = useState<Number>();
+  const [selectedFormId, setSelectedFormId] = useState<number | undefined>();
   const formdata = formList.map((form: any) => {
     return { id: form.id, jsonForm: JSON.parse(form?.jsonForm) };
   });
   // get the selected form
-  const handleResponse = async (formId: number) => {
+  const handleResponse = async (selectedFormId: number) => {
     const result = await db
       .select()
       .from(userResponses)
-      .where(eq(userResponses.formRef, formId));
+      .where(eq(userResponses.formRef, selectedFormId));
     setResponse(result);
   };
 
@@ -65,36 +66,15 @@ export default function UserResponses({
   };
 
   // get all the active user formList
-  
+
   return (
     <section>
       <div>
         <div className="flex justify-start flex-col gap-4 md:flex-row md:gap-4">
-          <Select
-            onValueChange={(value) => {
-              // get selected id
-              const selectedValue = formdata.find(
-                (item) => item.jsonForm.name === value
-              );
-              // setGetCurrentFormId(selectedValue?.id);
-              handleResponse(selectedValue?.id);
-            }}
-          >
-            <SelectTrigger className="max-w-[280px] bg-transparent border-white/15 w-full">
-              <SelectValue placeholder="Select form" />
-            </SelectTrigger>
-            <SelectContent className="text-white bg-[#2F2F2F] border border-white/15 pb-1.5">
-              {formdata.map((item, index: number) => (
-                <SelectItem
-                  onClick={() => handleResponse(item.id)}
-                  key={index}
-                  value={item.jsonForm.name}
-                >
-                  {item.jsonForm.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <SelectForm
+            setSelectedFormId={setSelectedFormId}
+            handleSelectOption={handleResponse}
+          />
           <div className="">
             <Button
               onClick={exportData}

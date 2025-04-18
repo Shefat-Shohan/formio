@@ -69,7 +69,7 @@ const CreateCampaign = ({
             <Input
               type="text"
               placeholder="Campaign name"
-              className="my-3 text-gray-800 font-semibold"
+              className="mt-5 mb-3 text-gray-800 font-semibold"
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
             />
