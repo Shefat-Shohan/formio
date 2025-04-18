@@ -539,7 +539,7 @@ export default function SelectFormOption() {
           </div>
         </div>
       ) : (
-        <h2 className="pt-6">No data show.</h2>
+        <h2 className="pt-6">No data to show.</h2>
       )}
     </div>
   );
