@@ -14,10 +14,46 @@ import LogoIcon from "@/assets/logo.svg";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { motion } from "framer-motion";
 import { sidebarMenu } from "@/data";
+import { Progress } from "@/components/ui/progress";
+import { db } from "../../../../configs";
+import { JsonForm } from "../../../../configs/schema";
+import { and, desc, eq } from "drizzle-orm";
+import { formListType } from "@/data/type";
+import { log } from "console";
+
 export default function SideNav() {
   const path = usePathname();
+  const [formList, setFormList] = useState([]);
+  const [progressValue, setProgressValue] = useState(0);
   useEffect(() => {}, [path]);
   const [expanded, setExpanded] = useState(true);
+
+  const { user } = useUser();
+  console.log("formList", formList);
+
+  useEffect(() => {
+    user && getActiveUserFormList();
+  }, [user]);
+
+  const getActiveUserFormList = async () => {
+    const result = await db
+      .select()
+      .from(JsonForm)
+      .where(
+        and(
+          // @ts-ignore
+          eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress),
+          eq(JsonForm.isDeleted, false)
+        )
+      )
+      .orderBy(desc(JsonForm.id));
+    //@ts-ignore
+    setFormList(result);
+    const percent = (result.length / 3) * 100;
+    setProgressValue(percent);
+    // Ensure the result is always an array and handle cases where it's undefined or null
+    // const formList = Array.isArray(result) ? result : [];
+  };
 
   // resize the sidebar
   useEffect(() => {
@@ -101,25 +137,47 @@ export default function SideNav() {
               </Link>
             ))}
           </div>
-          {/* footer */}
-          <div
-            className={`border-t flex items-center justify-between py-3 border-white/15`}
-          >
+
+          {/* form count*/}
+          <div>
             {expanded ? (
-              <motion.div
-                initial={{ opacity: expanded ? 1 : 0 }}
-                animate={{ opacity: expanded ? 1 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="flex gap-4 items-center"
-              >
-                <span className="text-white text-sm whitespace-nowrap">
-                  Manage Account
-                </span>
-                <UserButton />
-              </motion.div>
+              <div>
+                <Progress
+                  value={progressValue}
+                  className="h-4 w-full bg-gray-200 dark:bg-gray-800 rounded-full"
+                />
+
+                <p className="mt-3 text-sm">
+                  <span className="font-bold"> {formList.length} </span> out of{" "}
+                  <span className="font-bold">3</span> created
+                </p>
+                <p className="mt-4 text-sm">
+                  Updgare your plan to create more AI forms
+                </p>
+              </div>
             ) : (
-              <UserButton />
+              <span>{formList.length}/3</span>
             )}
+            {/* footer */}
+            <div
+              className={`border-t flex items-center justify-between py-3 border-white/15 mt-12`}
+            >
+              {expanded ? (
+                <motion.div
+                  initial={{ opacity: expanded ? 1 : 0 }}
+                  animate={{ opacity: expanded ? 1 : 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex gap-4 items-center"
+                >
+                  <span className="text-white text-sm whitespace-nowrap">
+                    Manage Account
+                  </span>
+                  <UserButton />
+                </motion.div>
+              ) : (
+                <UserButton />
+              )}
+            </div>
           </div>
         </motion.div>
       </nav>

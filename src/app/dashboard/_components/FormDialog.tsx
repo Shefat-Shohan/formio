@@ -17,12 +17,15 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
+import { and, desc, eq } from "drizzle-orm";
+import { log } from "console";
 
 export default function FormDialog() {
   const [open, setOpen] = useState(false);
   const [userInput, setUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [indexOfPrompt, setIndexOfPrompt] = useState(0);
+  const [formList, setFormList] = useState([]);
   const { user } = useUser();
   const router = useRouter();
   let moment = require("moment");
@@ -155,10 +158,37 @@ export default function FormDialog() {
       setLoading(false);
     }
   };
+  // get all form created by user
+
+  useEffect(() => {
+    user && getActiveUserFormList();
+  }, [user]);
+
+  const getActiveUserFormList = async () => {
+    const result = await db
+      .select()
+      .from(JsonForm)
+      .where(
+        and(
+          // @ts-ignore
+          eq(JsonForm.createBy, user?.primaryEmailAddress?.emailAddress),
+          eq(JsonForm.isDeleted, false)
+        )
+      )
+      .orderBy(desc(JsonForm.id));
+    //@ts-ignore
+    setFormList(result);
+
+    // Ensure the result is always an array and handle cases where it's undefined or null
+    // const formList = Array.isArray(result) ? result : [];
+  };
+
+  console.log("formList", formList);
 
   return (
     <div>
       <Button
+        disabled={formList.length === 3}
         className="bg-[#8A43FC] hover:bg-[#7c34f0] px-3 py-2 rounded-full transition-all sm:text-xs md:text-sm md:px-6 md:py-2"
         onClick={() => setOpen(true)}
       >

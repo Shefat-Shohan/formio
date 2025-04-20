@@ -30,7 +30,6 @@ export default function FormList() {
         )
       )
       .orderBy(desc(JsonForm.id));
-    console.log("Fetched forms:", result);
     // Ensure the result is always an array and handle cases where it's undefined or null
     // const formList = Array.isArray(result) ? result : [];
     return result;
