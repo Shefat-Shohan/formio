@@ -29,7 +29,7 @@ export default function FormDialog() {
   const { user } = useUser();
   const router = useRouter();
   let moment = require("moment");
-
+  const isSubscribed = true;
   useEffect(() => {
     const interval = setTimeout(() => {
       setIndexOfPrompt((prevIndex) => (prevIndex + 1) % promtSuggestion.length);
@@ -188,7 +188,7 @@ export default function FormDialog() {
   return (
     <div>
       <Button
-        disabled={formList.length === 3}
+        disabled={formList.length === 3 && !isSubscribed}
         className="bg-[#8A43FC] hover:bg-[#7c34f0] px-3 py-2 rounded-full transition-all sm:text-xs md:text-sm md:px-6 md:py-2"
         onClick={() => setOpen(true)}
       >

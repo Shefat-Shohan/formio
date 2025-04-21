@@ -52,3 +52,11 @@ export const aiSentiment = pgTable("aiSentiment", {
   formRef: integer("formRef"),
   status: integer("status").default(0).notNull(),
 });
+
+export const subscription = pgTable("subscription", {
+  id: serial("id").primaryKey(),
+  userId: varchar("userId").notNull(),
+  isSubscribed: boolean("isSubscribed").notNull().default(false),
+  createAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow()
+});

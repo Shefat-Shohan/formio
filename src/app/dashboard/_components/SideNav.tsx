@@ -30,6 +30,7 @@ export default function SideNav() {
 
   const { user } = useUser();
   console.log("formList", formList);
+  const isSubscribed = true;
 
   useEffect(() => {
     user && getActiveUserFormList();
@@ -140,24 +141,31 @@ export default function SideNav() {
 
           {/* form count*/}
           <div>
-            {expanded ? (
-              <div>
-                <Progress
-                  value={progressValue}
-                  className="h-4 w-full bg-gray-200 dark:bg-gray-800 rounded-full"
-                />
+            <div>
+              {!isSubscribed && (
+                <div>
+                  {expanded ? (
+                    <div>
+                      <Progress
+                        value={progressValue}
+                        className="h-4 w-full bg-gray-200 dark:bg-gray-800 rounded-full"
+                      />
 
-                <p className="mt-3 text-sm">
-                  <span className="font-bold"> {formList.length} </span> out of{" "}
-                  <span className="font-bold">3</span> created
-                </p>
-                <p className="mt-4 text-sm">
-                  Updgare your plan to create more AI forms
-                </p>
-              </div>
-            ) : (
-              <span>{formList.length}/3</span>
-            )}
+                      <p className="mt-3 text-sm">
+                        <span className="font-bold"> {formList.length} </span>{" "}
+                        out of <span className="font-bold">3</span> created
+                      </p>
+                      <p className="mt-4 text-sm">
+                        Updgare your plan to create more AI forms
+                      </p>
+                    </div>
+                  ) : (
+                    <span>{formList.length}/3</span>
+                  )}
+                </div>
+              )}
+            </div>
+
             {/* footer */}
             <div
               className={`border-t flex items-center justify-between py-3 border-white/15 mt-12`}
